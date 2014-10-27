@@ -1,0 +1,33 @@
+# -------------
+# C-sharp stuff
+# -------------
+
+[Dd]ebug/
+[Rr]elease/
+build/
+[Bb]in/
+[Oo]bj/
+*.suo
+*.sln.cache
+*.[Rr]e[Ss]harper*
+*_[Rr]e[Ss]harper*
+*.user
+StyleCop.Cache
+*.dotCover
+*.sln.cache
+*.crunchsolution.*
+*.crunchproject.*
+*.ncrunchsolution
+*.ncrunchproject
+Settings.StyleCop
+
+# -----
+# Other
+# -----
+~*.*
+[Tt]ask[Ff]iles/
+[Uu]ploaded[Dd]ocuments/
+Thumbs.db
+*.mdf
+*.ldf
+errors.log
