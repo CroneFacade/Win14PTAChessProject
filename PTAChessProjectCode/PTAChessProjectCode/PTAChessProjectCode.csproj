@@ -45,6 +45,7 @@
     <Compile Include="ChessPiece.cs" />
     <Compile Include="EmptyPosition.cs" />
     <Compile Include="GameBoard.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="GameRules.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="King.cs" />

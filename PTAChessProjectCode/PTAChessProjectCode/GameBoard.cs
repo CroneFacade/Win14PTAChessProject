@@ -8,39 +8,44 @@ namespace PTAChessProjectCode
 {
     class GameBoard
     {
-        
 
-        ChessPiece[,] ChessBoard = new ChessPiece[8,8];
+        private IGame GameInterface;
 
-        
 
-        public ChessPiece[,] Board
-        { 
-            get; 
-            
-            private set; 
+        public GameBoard()
+        {
+
+            GameInterface = new IGame();
+            Board = new string[8, 8];
+        }
+
+        public string[,] Board
+        {
+            get;
+
+            private set;
         }
 
         internal void GenerateBoard(ChessPiece WPawn, ChessPiece WKing, ChessPiece BPawn, ChessPiece BKing, ChessPiece Empty)
         {
-            Board[0, 4] = WKing;
-            Board[7, 3] = BKing;
+            Board[0, 4] = WKing.king;
+            Board[7, 3] = BKing.king;
 
             for (int i = 0; i < 8; i++)
             {
-                Board[1, i] = WPawn;
+                Board[1, i] = WPawn.pawn;
             }
 
             for (int i = 0; i < 8; i++)
             {
-                Board[6, i] = BPawn;
+                Board[6, i] = BPawn.pawn;
             }
 
             for (int i = 2; i < 6; i++)
             {
                 for (int x = 0; x < 8; x++)
                 {
-                    Board[i, x] = Empty;
+                    Board[i, x] = Empty.empty;
                 }
             }
 
@@ -48,23 +53,32 @@ namespace PTAChessProjectCode
             //Temporary
             for (int i = 0; i < 4; i++)
             {
-                Board[0, i] = Empty;
+                Board[0, i] = Empty.empty;
             }
             //Temporary
             for (int i = 5; i < 8; i++)
             {
-                Board[0, i] = Empty;
+                Board[0, i] = Empty.empty;
             }
             //Temporary
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Board[7, i] = Empty;
+                Board[7, i] = Empty.empty;
             }
             //Temporary
             for (int i = 4; i < 8; i++)
             {
-                Board[7, i] = Empty;
+                Board[7, i] = Empty.empty;
             }
+        }
+
+
+        internal void InitPrint()
+        {
+            var currentBoard = Board;
+
+            GameInterface.Print(currentBoard);
+
         }
     }
 }

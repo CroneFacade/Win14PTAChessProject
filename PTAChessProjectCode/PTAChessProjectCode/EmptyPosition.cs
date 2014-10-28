@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class EmptyPosition
+    class EmptyPosition : ChessPiece
     {
+        private string team;
+
+
+        public EmptyPosition(string team)
+        {
+
+            this.team = team;
+        }
     }
 }

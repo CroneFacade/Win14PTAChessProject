@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class King
+    class King : ChessPiece
     {
+        private string team;
+
+        public string Name { get; private set; }
+
+
+        public King(string team)
+        {
+            Name = "K";
+            this.team = team;
+
+        }
     }
 }

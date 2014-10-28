@@ -11,43 +11,19 @@ namespace PTAChessProjectCode                   //Andreas Push: https://ekwall@g
     {
         static void Main(string[] args)
         {
+            GameEngine Engine = new GameEngine();
 
-            GameBoard gameBoard = new GameBoard();
-            ChessPiece Pieces = new ChessPiece();
-            //Chess Game Starts here
-            ChessPiece Empty = new ChessPiece(Pieces.TeamNeutral, Pieces.empty);
+            Engine.InitiateGame();
 
-            ChessPiece WKing = new ChessPiece(Pieces.TeamWhite, Pieces.king);
 
-            ChessPiece WPawn = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
 
-            /*
-            ChessPiece WPawn2 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn3 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn4 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn5 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn6 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn7 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
-            ChessPiece WPawn8 = new ChessPiece(Pieces.TeamWhite, Pieces.pawn);
 
-             */ 
-             
-            ChessPiece BKing = new ChessPiece(Pieces.TeamBlack, Pieces.king);
 
-            ChessPiece BPawn = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
 
-            /*
-            ChessPiece BPawn2 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn3 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn4 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn5 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn6 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn7 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
-            ChessPiece BPawn8 = new ChessPiece(Pieces.TeamBlack, Pieces.pawn);
+            
 
-             */ 
-             
-            gameBoard.GenerateBoard(WPawn, WKing, BPawn, BKing, Empty);
+
+
         }
     }
 }
