@@ -12,6 +12,10 @@ namespace PTAChessProjectCode
         public int PositionY { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }
+
+        public bool CanMove { get; set; }
+
+
         
         public virtual string Describe()
         {

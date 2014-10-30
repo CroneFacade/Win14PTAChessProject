@@ -12,6 +12,7 @@ namespace PTAChessProjectCode
         internal void PrintGameBoard()
         {
             Console.Clear();
+            
             Console.BackgroundColor = ConsoleColor.DarkGray;
             for (int y = 7; y >= 0; y--)
             {
@@ -30,17 +31,19 @@ namespace PTAChessProjectCode
 
             foreach (var piece in whitePieces)
             {
+                System.Threading.Thread.Sleep(70);
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.Write(piece.Name);
             }
-            Console.ForegroundColor = ConsoleColor.Black;
+           Console.ForegroundColor = ConsoleColor.Black;
 
             foreach (var piece in blackPieces)
             {
+                System.Threading.Thread.Sleep(40);
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.Write(piece.Name);
             }
-            Console.ForegroundColor = ConsoleColor.White;
+          //  Console.ForegroundColor = ConsoleColor.White;
             
         }
     }
