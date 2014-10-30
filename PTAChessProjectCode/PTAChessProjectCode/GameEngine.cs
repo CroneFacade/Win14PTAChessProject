@@ -8,61 +8,51 @@ namespace PTAChessProjectCode
 {
     class GameEngine
     {
-        private GameBoard gameBoard;
-        private ChessPiece Pieces;
-        
-
-        public GameEngine()
-        {
-            gameBoard = new GameBoard();
-            Pieces = new ChessPiece();
-            
-        }
 
         internal void InitiateGame()
         {
-            //Chess Game Starts here
-
-            AI AIWhite = new AI();
-            AI AIBlack = new AI();
-
-            EmptyPosition Empty = new EmptyPosition(Pieces.TeamNeutral);
-
-            Empty.name = Empty.empty;
-
-            King WKing = new King(Pieces.TeamWhite);
-
-            WKing.name = WKing.king;
-
-            Pawn WPawn = new Pawn(Pieces.TeamWhite);
-
-            WPawn.name = WPawn.pawn;
-
-            King BKing = new King(Pieces.TeamBlack);
-
-            BKing.name = BKing.king;
-
-            Pawn BPawn = new Pawn(Pieces.TeamBlack);
-
-            BPawn.name = BPawn.pawn;
-
-            gameBoard.GenerateBoard(WPawn, WKing, BPawn, BKing, Empty);
-
-            gameBoard.InitPrint();
-
-            gameBoard.MovePiece(1, 4, 2, 4);
-
-            gameBoard.InitPrint();
-
-            //AIWhite.CollectBoardInfo(gameBoard.Board);
-
+            IGame GameInterface = new IGame();               
+            List<ChessPiece> whitePieces = new List<ChessPiece>();
             
+            List<ChessPiece> blackPieces = new List<ChessPiece>();
+            for (int i = 3; i < 11; i++)
+            {
+                Pawn P = new Pawn();
+                P.ID = i;
+                P.PositionX = i;
+                P.PositionY = 6;
+                P.Name = "P";
+                whitePieces.Add(P);
+            }
+            for (int i = 3; i < 11; i++)
+            {
+                Pawn P = new Pawn();
+                P.ID = i;
+                P.PositionX = i;
+                P.PositionY = 1;
+                P.Name = "P";
+                blackPieces.Add(P);
+            }
+
+            Console.WriteLine(whitePieces[0].Describe());
+            Console.WriteLine(whitePieces[1].Describe());
+            Console.WriteLine(whitePieces[2].Describe());
+            GameInterface.PrintGameBoard();
+            GameInterface.PrintPieces(whitePieces, blackPieces);
+
+            Console.ReadLine();
 
 
-            
+            /*Pawn P2 = new Pawn();
+            P.PositionX = 4;
+            P.PositionY = 1;
+            P2.PositionX = 6;
+            P2.PositionY = 8;
+           
+            blackPieces.Add(P2);
+            P.PositionX = 5;*/
 
-
-
+            //GameInterface.Print(whitePieces, blackPieces);
         }
     }
 }

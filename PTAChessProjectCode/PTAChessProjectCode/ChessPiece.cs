@@ -6,38 +6,16 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class ChessPiece
+    public abstract class ChessPiece
     {
-        public string TeamWhite = "White";
-        public string TeamBlack = "Black";
-        public string TeamNeutral = "Neutral";
-
-
-        public string name = "";
-        public string king = "K";
-        public string pawn = "P";
-        public string queen = "Q";
-        public string rook = "R";
-        public string knight = "k";
-        public string bishop = "B";
-        public string empty = " ";
-
-        public ChessPiece(string p1, string p2)
-        {
-            Team = p1;
-            PieceType = p2;
-        }
-
-        public ChessPiece()
-        {
-            // TODO: Complete member initialization
-        }
-
-        public string Team { get; set; }        
-        public string PieceType { get; private set; }
-
-        public string Coordinate { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
         
-
+        public virtual string Describe()
+        {
+            return " "+PositionX + PositionY;
+        }
     }
 }

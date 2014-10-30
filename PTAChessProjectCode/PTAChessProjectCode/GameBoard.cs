@@ -9,7 +9,7 @@ namespace PTAChessProjectCode
     class GameBoard
     {
 
-        private IGame GameInterface;
+        /*private IGame GameInterface;
 
 
         public GameBoard()
@@ -90,6 +90,6 @@ namespace PTAChessProjectCode
 
         }
 
-        public ChessPiece[,] currentBoard { get; set; }
+        public ChessPiece[,] currentBoard { get; set; }*/
     }
 }

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class Pawn : ChessPiece
+    public class Pawn : ChessPiece
     {
-        private string team;
-
-
-        public Pawn(string team)
+        
+        public override string Describe()
         {
-
-            this.team = team;
-
+            return "Pawn "+ PositionX+PositionY;
+        }
+        public void MoveOptions()
+        {
+            //ToDo: enter logic for moving Pawn
         }
     }
 }

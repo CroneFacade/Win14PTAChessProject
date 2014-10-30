@@ -9,21 +9,39 @@ namespace PTAChessProjectCode
     class IGame
     {
 
-        internal void Print(ChessPiece[,] currentBoard)
+        internal void PrintGameBoard()
         {
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.DarkGray;
             for (int y = 7; y >= 0; y--)
             {
-                Console.Write(y+1 +" ║");
-                for (int x = 0; x < 8; x++)
-                {
-                    Console.Write(currentBoard[y,x].name);
-                }
+                Console.Write(y + 1 + " ║        ");
+                
                 Console.WriteLine();
             }
             Console.WriteLine(@"  ╚════════
 —— abcdefgh");
             Console.ReadLine();
+        }
+
+        internal void PrintPieces(List<ChessPiece> whitePieces, List<ChessPiece> blackPieces)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+
+            foreach (var piece in whitePieces)
+            {
+                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
+                Console.Write(piece.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            foreach (var piece in blackPieces)
+            {
+                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
+                Console.Write(piece.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            
         }
     }
 }
