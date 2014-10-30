@@ -16,36 +16,39 @@ namespace PTAChessProjectCode
         {
 
             GameInterface = new IGame();
-            Board = new string[8, 8];
+            Board = new ChessPiece[8, 8];
         }
 
-        public string[,] Board
+        public ChessPiece[,] Board
         {
             get;
 
             private set;
         }
 
+        public ChessPiece Empty { get; set; }
+
         internal void GenerateBoard(ChessPiece WPawn, ChessPiece WKing, ChessPiece BPawn, ChessPiece BKing, ChessPiece Empty)
         {
-            Board[0, 4] = WKing.king;
-            Board[7, 3] = BKing.king;
+            this.Empty = Empty;
+            Board[0, 4] = WKing;
+            Board[7, 3] = BKing;
 
             for (int i = 0; i < 8; i++)
             {
-                Board[1, i] = WPawn.pawn;
+                Board[1, i] = WPawn;
             }
 
             for (int i = 0; i < 8; i++)
             {
-                Board[6, i] = BPawn.pawn;
+                Board[6, i] = BPawn;
             }
 
             for (int i = 2; i < 6; i++)
             {
                 for (int x = 0; x < 8; x++)
                 {
-                    Board[i, x] = Empty.empty;
+                    Board[i, x] = Empty;
                 }
             }
 
@@ -53,32 +56,40 @@ namespace PTAChessProjectCode
             //Temporary
             for (int i = 0; i < 4; i++)
             {
-                Board[0, i] = Empty.empty;
+                Board[0, i] = Empty;
             }
             //Temporary
             for (int i = 5; i < 8; i++)
             {
-                Board[0, i] = Empty.empty;
+                Board[0, i] = Empty;
             }
             //Temporary
             for (int i = 0; i < 3; i++)
             {
-                Board[7, i] = Empty.empty;
+                Board[7, i] = Empty;
             }
             //Temporary
             for (int i = 4; i < 8; i++)
             {
-                Board[7, i] = Empty.empty;
+                Board[7, i] = Empty;
             }
         }
 
+        public void MovePiece(int oldPosX, int oldPosY, int newPosX, int newPosY)
+        {
+            currentBoard[newPosX, newPosY] = currentBoard[oldPosX, oldPosY];
+
+            currentBoard[oldPosX, oldPosY] = Empty; 
+        }
 
         internal void InitPrint()
         {
-            var currentBoard = Board;
+            currentBoard = Board;
 
             GameInterface.Print(currentBoard);
 
         }
+
+        public ChessPiece[,] currentBoard { get; set; }
     }
 }

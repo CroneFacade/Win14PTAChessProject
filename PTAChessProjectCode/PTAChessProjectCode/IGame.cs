@@ -9,16 +9,20 @@ namespace PTAChessProjectCode
     class IGame
     {
 
-        internal void Print(string[,] currentBoard)
+        internal void Print(ChessPiece[,] currentBoard)
         {
+            Console.Clear();
             for (int y = 7; y >= 0; y--)
             {
+                Console.Write(y+1 +" ║");
                 for (int x = 0; x < 8; x++)
                 {
-                    Console.Write(currentBoard[y,x]);
+                    Console.Write(currentBoard[y,x].name);
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine(@"  ╚════════
+—— abcdefgh");
             Console.ReadLine();
         }
     }

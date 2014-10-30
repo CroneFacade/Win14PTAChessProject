@@ -12,13 +12,15 @@ namespace PTAChessProjectCode
         public string TeamBlack = "Black";
         public string TeamNeutral = "Neutral";
 
+
+        public string name = "";
         public string king = "K";
         public string pawn = "P";
         public string queen = "Q";
         public string rook = "R";
         public string knight = "k";
         public string bishop = "B";
-        public string empty = "0";
+        public string empty = " ";
 
         public ChessPiece(string p1, string p2)
         {

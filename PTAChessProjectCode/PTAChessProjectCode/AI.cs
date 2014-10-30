@@ -8,5 +8,10 @@ namespace PTAChessProjectCode
 {
     class AI
     {
+
+        internal void CollectBoardInfo(ChessPiece[,] p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
