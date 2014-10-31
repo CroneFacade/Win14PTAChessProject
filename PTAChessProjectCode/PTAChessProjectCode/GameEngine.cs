@@ -84,7 +84,7 @@ namespace PTAChessProjectCode
                 }
                 whiteHasMoved = true;
 
-                MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
+                
 
 
 
