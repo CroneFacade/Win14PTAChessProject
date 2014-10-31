@@ -19,6 +19,40 @@ namespace PTAChessProjectCode
         }
         internal void StartGame()
         {
+            //#########################################################################
+            //Something like this is how we want it to be in the future
+            /*
+                        bool whiteLost = false;
+                        bool blackLost = false;
+
+                        AI WhiteCleverComputer = new AI(whitePieces, blackPieces);
+                        AI BlackCleverComputer = new AI(blackPieces, whitePieces);
+
+                        while (!whiteLost && !blackLost)
+                        {
+                            WhiteCleverComputer.InitTurn(-1); //This int we send in tells the AI which direction is forwards
+
+                            whitePieces = WhiteCleverComputer.GetMyPieces();
+
+                            blackPieces = WhiteCleverComputer.GetEnemyPieces();
+
+                            blackLost = WhiteCleverComputer.DidEnemyTeamLose();
+
+                            if (!blackLost)
+                            {
+                                BlackCleverComputer.InitTurn(+1); //This int we send in tells the AI which direction is forwards
+
+                                blackPieces = BlackCleverComputer.GetMyPieces();
+
+                                whitePieces = BlackCleverComputer.GetEnemyPieces();
+
+                                whiteLost = BlackCleverComputer.DidEnemyTeamLose();
+                            }
+                        }
+            */
+            //##########################################################################
+            //Everything below this line in StartGame() is just here temporarily
+            //This will all be in AI later
             Random rnd = new Random();
             while (true)
             {
@@ -84,7 +118,7 @@ namespace PTAChessProjectCode
                 }
                 whiteHasMoved = true;
 
-                
+
 
 
 
