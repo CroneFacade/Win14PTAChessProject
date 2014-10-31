@@ -21,7 +21,7 @@ namespace PTAChessProjectCode
         {
             //#########################################################################
             //Something like this is how we want it to be in the future
-            /*
+            
                         bool whiteLost = false;
                         bool blackLost = false;
 
@@ -30,6 +30,8 @@ namespace PTAChessProjectCode
 
                         while (!whiteLost && !blackLost)
                         {
+                            WhiteCleverComputer.UpdatePieces(whitePieces, blackPieces);
+
                             WhiteCleverComputer.InitTurn(-1); //This int we send in tells the AI which direction is forwards
 
                             whitePieces = WhiteCleverComputer.GetMyPieces();
@@ -40,6 +42,8 @@ namespace PTAChessProjectCode
 
                             if (!blackLost)
                             {
+                                BlackCleverComputer.UpdatePieces(blackPieces, whitePieces);
+
                                 BlackCleverComputer.InitTurn(+1); //This int we send in tells the AI which direction is forwards
 
                                 blackPieces = BlackCleverComputer.GetMyPieces();
@@ -49,7 +53,7 @@ namespace PTAChessProjectCode
                                 whiteLost = BlackCleverComputer.DidEnemyTeamLose();
                             }
                         }
-            */
+            
             //##########################################################################
             //Everything below this line in StartGame() is just here temporarily
             //This will all be in AI later

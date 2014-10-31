@@ -38,5 +38,11 @@ namespace PTAChessProjectCode
         {
             return enemyTeamLost;
         }
+
+        internal void UpdatePieces(List<ChessPiece> MyTeamPieces, List<ChessPiece> EnemyTeamPieces)
+        {
+            this.MyTeamPieces = MyTeamPieces;
+            this.EnemyTeamPieces = EnemyTeamPieces;
+        }
     }
 }
