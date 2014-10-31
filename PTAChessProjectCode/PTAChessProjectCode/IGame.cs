@@ -31,7 +31,7 @@ namespace PTAChessProjectCode
 
             foreach (var piece in whitePieces)
             {
-                System.Threading.Thread.Sleep(70);
+                System.Threading.Thread.Sleep(25);
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.Write(piece.Name);
             }
@@ -39,7 +39,7 @@ namespace PTAChessProjectCode
 
             foreach (var piece in blackPieces)
             {
-                System.Threading.Thread.Sleep(40);
+                
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.Write(piece.Name);
             }

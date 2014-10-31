@@ -26,7 +26,7 @@ namespace PTAChessProjectCode
                 int min = 0;
 
                 int randomNumber = rnd.Next(min, max);
-                bool hasMoved = false;
+                bool whiteHasMoved = false;
 
 
                 foreach (var piece in blackPieces)
@@ -35,27 +35,54 @@ namespace PTAChessProjectCode
                     {
                         RemovePiece(blackPieces, whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
                         MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
-                        hasMoved = true;
+                        whiteHasMoved = true;
                         break;
                     }
                     if (piece.PositionX == whitePieces[randomNumber].PositionX + 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
                     {
                         RemovePiece(blackPieces, whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
                         MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
-                        hasMoved = true;
+                        whiteHasMoved = true;
                         break;
                     }
                 }
 
-                if (hasMoved == false)
+                if (whiteHasMoved == false)
                 {
                     MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX, whitePieces[randomNumber].PositionY - 1);
                 }
-                hasMoved = true;
+                whiteHasMoved = true;
                 max = blackPieces.Count;
                 min = 0;
 
                 randomNumber = rnd.Next(min, max);
+
+                bool blackHasMoved = false;
+
+
+                foreach (var piece in whitePieces)
+                {
+                    if (piece.PositionX == blackPieces[randomNumber].PositionX - 1 && piece.PositionY == blackPieces[randomNumber].PositionY + 1)
+                    {
+                        RemovePiece(whitePieces, blackPieces[randomNumber].PositionX - 1, blackPieces[randomNumber].PositionY + 1);
+                        MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX - 1, blackPieces[randomNumber].PositionY + 1);
+                        blackHasMoved = true;
+                        break;
+                    }
+                    if (piece.PositionX == blackPieces[randomNumber].PositionX + 1 && piece.PositionY == blackPieces[randomNumber].PositionY + 1)
+                    {
+                        RemovePiece(whitePieces, blackPieces[randomNumber].PositionX + 1, blackPieces[randomNumber].PositionY + 1);
+                        MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX + 1, blackPieces[randomNumber].PositionY + 1);
+                        blackHasMoved = true;
+                        break;
+                    }
+                }
+
+                if (blackHasMoved == false)
+                {
+                    MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
+                }
+                whiteHasMoved = true;
 
                 MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
 
