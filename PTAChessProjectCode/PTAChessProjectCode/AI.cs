@@ -21,7 +21,7 @@ namespace PTAChessProjectCode
         internal void InitTurn(int p)
         {
             //Heres the brains of the AI which alters MyTeamPieces and EnemyTeamPieces
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         internal List<ChessPiece> GetMyPieces()

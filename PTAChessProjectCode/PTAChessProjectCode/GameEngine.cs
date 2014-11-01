@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// GameEngine conatains logic about how the game calculates things.
+    /// </summary>
     class GameEngine
     {
 
@@ -13,10 +16,28 @@ namespace PTAChessProjectCode
         public List<ChessPiece> blackPieces { get; set; }
         IGame GameInterface;
 
+        Random rnd;
+        private int randomNumber;
+
+        // Construct that declare the instance GameInterface of class IGame. 
+        // Note that the instance is not initialized yet, only declared that we will use it later on.
         public GameEngine()
         {
             GameInterface = new IGame();
         }
+
+        // Bröt ut slumpfunktionen ur jättemetoden StartGame() och gjorde en egen metod av den. 
+        // Mest för att visa hur man kan bryta ut beräkningar och på så vis få små smidiga metoder
+        // vilka i slutändan har 1 syfte.
+        public void GenerateRandomNumber(int minValue, List<ChessPiece> pieces)
+        {
+            int max = pieces.Count;
+            int min = minValue;
+
+            int rndNum = rnd.Next(min, max);
+            randomNumber = rndNum;
+        }
+
         internal void StartGame()
         {
             //#########################################################################
@@ -57,13 +78,12 @@ namespace PTAChessProjectCode
             //##########################################################################
             //Everything below this line in StartGame() is just here temporarily
             //This will all be in AI later
-            Random rnd = new Random();
+           // Random rnd = new Random();
             while (true)
             {
-                int max = whitePieces.Count;
-                int min = 0;
+                // Generate a random number depending on a min and max value. Maxvalue is the list.Count
+                GenerateRandomNumber(0, whitePieces);
 
-                int randomNumber = rnd.Next(min, max);
                 bool whiteHasMoved = false;
 
 
@@ -90,11 +110,10 @@ namespace PTAChessProjectCode
                     MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX, whitePieces[randomNumber].PositionY - 1);
                 }
                 whiteHasMoved = true;
-                max = blackPieces.Count;
-                min = 0;
 
-                randomNumber = rnd.Next(min, max);
-
+                // Generate a random number depending on a min and max value. Maxvalue is the list.Count
+                GenerateRandomNumber(0, blackPieces);
+                
                 bool blackHasMoved = false;
 
 
@@ -121,62 +140,9 @@ namespace PTAChessProjectCode
                     MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
                 }
                 whiteHasMoved = true;
-
-
-
-
-
             }
+        } /* ***  internal void StartGame() end *** */
 
-
-            /*
-            MovePiece(whitePieces[4], 7, 5);
-            
-            MovePiece(blackPieces[3], 6, 2);
-            
-            MovePiece(whitePieces[4], 7, 4);
-            
-            MovePiece(blackPieces[3], 6, 3);
-            
-            RemovePiece(blackPieces, 6, 3);
-            
-            MovePiece(whitePieces[4], 6, 3);
-            
-            MovePiece(blackPieces[4], 8, 3);
-            
-            MovePiece(whitePieces[4], 6, 2);
-
-            RemovePiece(whitePieces, 6, 2);
-
-            MovePiece(blackPieces[3], 6, 2);
-
-            MovePiece(whitePieces[4], 8, 5);
-
-            MovePiece(blackPieces[3], 6, 3);
-
-            MovePiece(whitePieces[4], 8, 4);
-
-            MovePiece(blackPieces[3], 6, 4);
-
-            MovePiece(whitePieces[2], 5, 5);
-
-            RemovePiece(whitePieces, 5, 5);
-
-            MovePiece(blackPieces[3], 5, 5);
-
-            RemovePiece(blackPieces, 5, 5);
-
-            MovePiece(whitePieces[1], 5, 5);
-
-            MovePiece(blackPieces[5], blackPieces[5].PositionX, blackPieces[5].PositionY +1);
-
-            MovePiece(whitePieces[2], 6, 6);
-
-            MovePiece(blackPieces[5], blackPieces[5].PositionX, blackPieces[5].PositionY + 1);
-
-             
-             */
-        }
         internal void InitiateGame()
         {
             whitePieces = new List<ChessPiece>();
@@ -238,6 +204,7 @@ namespace PTAChessProjectCode
             GameInterface.PrintPieces(whitePieces, blackPieces);
             //Console.SetCursorPosition(piece.PositionX, piece.PositionY);
             //Console.Write(piece.Name);
-        }
+
+        } /* *** internal void InitiateGame() End *** */
     }
 }
