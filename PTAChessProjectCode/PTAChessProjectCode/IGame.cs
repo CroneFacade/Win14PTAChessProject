@@ -22,7 +22,7 @@ namespace PTAChessProjectCode
             }
             Console.WriteLine(@"  ╚════════
 —— abcdefgh");
-            Console.ReadLine();
+            
         }
 
         internal void PrintPieces(List<ChessPiece> whitePieces, List<ChessPiece> blackPieces)

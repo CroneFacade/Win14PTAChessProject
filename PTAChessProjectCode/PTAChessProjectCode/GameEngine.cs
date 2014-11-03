@@ -16,27 +16,22 @@ namespace PTAChessProjectCode
         public List<ChessPiece> blackPieces { get; set; }
         IGame GameInterface;
 
-        Random rnd;
-        private int randomNumber;
+
+        
 
         // Construct that declare the instance GameInterface of class IGame. 
         // Note that the instance is not initialized yet, only declared that we will use it later on.
         public GameEngine()
         {
             GameInterface = new IGame();
+
         }
 
         // Bröt ut slumpfunktionen ur jättemetoden StartGame() och gjorde en egen metod av den. 
         // Mest för att visa hur man kan bryta ut beräkningar och på så vis få små smidiga metoder
         // vilka i slutändan har 1 syfte.
-        public void GenerateRandomNumber(int minValue, List<ChessPiece> pieces)
-        {
-            int max = pieces.Count;
-            int min = minValue;
 
-            int rndNum = rnd.Next(min, max);
-            randomNumber = rndNum;
-        }
+
 
         internal void StartGame()
         {
@@ -61,6 +56,9 @@ namespace PTAChessProjectCode
 
                             blackLost = WhiteCleverComputer.DidEnemyTeamLose();
 
+                            GameInterface.PrintGameBoard();
+                            GameInterface.PrintPieces(whitePieces, blackPieces);
+
                             if (!blackLost)
                             {
                                 BlackCleverComputer.UpdatePieces(blackPieces, whitePieces);
@@ -72,48 +70,59 @@ namespace PTAChessProjectCode
                                 whitePieces = BlackCleverComputer.GetEnemyPieces();
 
                                 whiteLost = BlackCleverComputer.DidEnemyTeamLose();
+
+                                GameInterface.PrintGameBoard();
+                                GameInterface.PrintPieces(whitePieces, blackPieces);
                             }
                         }
             
             //##########################################################################
             //Everything below this line in StartGame() is just here temporarily
             //This will all be in AI later
-           // Random rnd = new Random();
-            while (true)
+            // Random rnd = new Random();
+           
+            
+            
+           /* 
+           while (true)
             {
                 // Generate a random number depending on a min and max value. Maxvalue is the list.Count
-                GenerateRandomNumber(0, whitePieces);
 
                 bool whiteHasMoved = false;
-
-
-                foreach (var piece in blackPieces)
+                while (!whiteHasMoved)
                 {
-                    if (piece.PositionX == whitePieces[randomNumber].PositionX - 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
-                    {
-                        RemovePiece(blackPieces, whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
-                        MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
-                        whiteHasMoved = true;
-                        break;
-                    }
-                    if (piece.PositionX == whitePieces[randomNumber].PositionX + 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
-                    {
-                        RemovePiece(blackPieces, whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
-                        MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
-                        whiteHasMoved = true;
-                        break;
-                    }
-                }
 
-                if (whiteHasMoved == false)
-                {
-                    MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX, whitePieces[randomNumber].PositionY - 1);
+                    GenerateRandomNumber(0, whitePieces);
+
+                    foreach (var piece in blackPieces)
+                    {
+                        if (piece.PositionX == whitePieces[randomNumber].PositionX - 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
+                        {
+                            RemovePiece(blackPieces, whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
+                            MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
+                            whiteHasMoved = true;
+                            break;
+                        }
+                        if (piece.PositionX == whitePieces[randomNumber].PositionX + 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
+                        {
+                            RemovePiece(blackPieces, whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
+                            MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
+                            whiteHasMoved = true;
+                            break;
+                        }
+                    }
+
+                    if (whiteHasMoved == false && whitePieces[randomNumber].PositionY > 0)
+                    {
+                        MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX, whitePieces[randomNumber].PositionY - 1);
+                        whiteHasMoved = true;
+                    }
+                    
                 }
-                whiteHasMoved = true;
 
                 // Generate a random number depending on a min and max value. Maxvalue is the list.Count
                 GenerateRandomNumber(0, blackPieces);
-                
+
                 bool blackHasMoved = false;
 
 
@@ -139,9 +148,9 @@ namespace PTAChessProjectCode
                 {
                     MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
                 }
-                whiteHasMoved = true;
+                whiteHasMoved = true;*/
             }
-        } /* ***  internal void StartGame() end *** */
+         /* ***  internal void StartGame() end *** */
 
         internal void InitiateGame()
         {

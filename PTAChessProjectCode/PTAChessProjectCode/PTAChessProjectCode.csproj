@@ -50,6 +50,7 @@
     <Compile Include="IGame.cs" />
     <Compile Include="King.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MovementOptions.cs" />
     <Compile Include="Pawn.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

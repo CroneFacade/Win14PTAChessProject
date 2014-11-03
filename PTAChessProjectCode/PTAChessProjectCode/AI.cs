@@ -18,10 +18,48 @@ namespace PTAChessProjectCode
             this.EnemyTeamPieces = EnemyTeamPieces;
         }
 
-        internal void InitTurn(int p)
+        internal void InitTurn(int teamDirection)
         {
-            //Heres the brains of the AI which alters MyTeamPieces and EnemyTeamPieces
-            //throw new NotImplementedException();
+            List<List<MovementOptions>> AllAnalyzedMoves = new List<List<MovementOptions>>();
+            AllAnalyzedMoves = AnalyzeMyPieces(teamDirection);
+            FindEnemies(AllAnalyzedMoves);
+            
+        }
+
+        public int funnyCounter;
+
+        private List<MovementOptions> FindEnemies(List<List<MovementOptions>> AllAnalyzedMoves)
+        {
+            List<MovementOptions> EnemiesWeCanTarget = new List<MovementOptions>();
+            funnyCounter = 0;
+            foreach (var ListOfMovesFromPiece in AllAnalyzedMoves)
+            {
+                foreach (var movementOption in ListOfMovesFromPiece)
+                {
+                    foreach (var piece in EnemyTeamPieces)
+                    {
+                        if (movementOption.PositionX == piece.PositionX && movementOption.PositionY == piece.PositionY)
+                        {
+                            movementOption.PositionValue = piece.Value;
+                            movementOption.IDOfMyPiece = piece.ID;
+                            EnemiesWeCanTarget.Add(movementOption);
+                        }
+                        funnyCounter++;
+                    }
+                }
+            }
+            return EnemiesWeCanTarget;
+        }
+
+        private List<List<MovementOptions>> AnalyzeMyPieces(int teamDirection)
+        {
+            List<List<MovementOptions>> AnalyzedMoves = new List<List<MovementOptions>>();
+            foreach (var piece in MyTeamPieces)
+            {
+                piece.MoveOption(teamDirection);
+                AnalyzedMoves.Add(piece.MoveOpt);
+            }
+            return AnalyzedMoves;
         }
 
         internal List<ChessPiece> GetMyPieces()
@@ -43,6 +81,17 @@ namespace PTAChessProjectCode
         {
             this.MyTeamPieces = MyTeamPieces;
             this.EnemyTeamPieces = EnemyTeamPieces;
+        }
+
+        private int randomNumber;
+        public void GenerateRandomNumber(List<ChessPiece> pieces)
+        {
+            Random rnd = new Random();
+            int max = pieces.Count;
+            int min = 0;
+
+            int rndNum = rnd.Next(min, max);
+            randomNumber = rndNum;
         }
     }
 }

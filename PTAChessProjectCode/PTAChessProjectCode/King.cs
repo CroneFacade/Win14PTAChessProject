@@ -10,7 +10,7 @@ namespace PTAChessProjectCode
     {
         private string team;
 
-        public string Name { get; private set; }
+        
 
 
         public King(string team)
