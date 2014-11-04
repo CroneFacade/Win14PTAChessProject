@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace PTAChessProjectCode
 {
     /// <summary>
-    /// GameEngine conatains logic about how the game calculates things.
+    /// GameEngine contains logic about how the game calculates things.
     /// </summary>
     class GameEngine
     {
 
         public List<ChessPiece> whitePieces { get; set; }
         public List<ChessPiece> blackPieces { get; set; }
-        IGame GameInterface;
+        Print PrintGame;
 
 
         
@@ -23,7 +23,7 @@ namespace PTAChessProjectCode
         // Note that the instance is not initialized yet, only declared that we will use it later on.
         public GameEngine()
         {
-            GameInterface = new IGame();
+            PrintGame = new Print();
 
         }
 
@@ -56,8 +56,8 @@ namespace PTAChessProjectCode
 
                             blackLost = WhiteCleverComputer.DidEnemyTeamLose();
 
-                            GameInterface.PrintGameBoard();
-                            GameInterface.PrintPieces(whitePieces, blackPieces);
+                            PrintGame.PrintGameBoard();
+                            PrintGame.PrintPieces(whitePieces, blackPieces);
 
                             if (!blackLost)
                             {
@@ -71,8 +71,8 @@ namespace PTAChessProjectCode
 
                                 whiteLost = BlackCleverComputer.DidEnemyTeamLose();
 
-                                GameInterface.PrintGameBoard();
-                                GameInterface.PrintPieces(whitePieces, blackPieces);
+                                PrintGame.PrintGameBoard();
+                                PrintGame.PrintPieces(whitePieces, blackPieces);
                             }
                         }
             
@@ -175,8 +175,8 @@ namespace PTAChessProjectCode
                 P.Name = "P";
                 blackPieces.Add(P);
             }
-            GameInterface.PrintGameBoard();
-            GameInterface.PrintPieces(whitePieces, blackPieces);
+            PrintGame.PrintGameBoard();
+            PrintGame.PrintPieces(whitePieces, blackPieces);
 
             StartGame();
             //whitePieces = RemovePiece(whitePieces, 2, 2);
@@ -210,7 +210,7 @@ namespace PTAChessProjectCode
             Console.Write(" ");
             piece.PositionX = x;
             piece.PositionY = y;
-            GameInterface.PrintPieces(whitePieces, blackPieces);
+            PrintGame.PrintPieces(whitePieces, blackPieces);
             //Console.SetCursorPosition(piece.PositionX, piece.PositionY);
             //Console.Write(piece.Name);
 
