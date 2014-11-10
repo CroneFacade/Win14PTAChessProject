@@ -22,16 +22,9 @@ namespace PTAChessProjectCode
 
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
 
-            //Diagonally Right
-            MovementOptions Move1 = new MovementOptions(PositionX + 1, PositionY + teamDirection);
-            //Diagonally Left
-            MovementOptions Move2 = new MovementOptions(PositionX - 1, PositionY + teamDirection);
-            //Straight Ahead
-            MovementOptions Move3 = new MovementOptions(PositionX, PositionY + teamDirection);
-
-            possibleMoves.Add(Move1);
-            possibleMoves.Add(Move2);
-            possibleMoves.Add(Move3);
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + teamDirection, 1));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + teamDirection, 1));
+            possibleMoves.Add(new MovementOptions(PositionX, PositionY + teamDirection, 1));
 
             MoveOpt = possibleMoves;
         }

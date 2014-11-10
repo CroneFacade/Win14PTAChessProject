@@ -8,16 +8,26 @@ namespace PTAChessProjectCode
 {
     class King : ChessPiece
     {
-        private string team;
-
-        
-
-
-        public King(string team)
+         
+        public King()
         {
-            Name = "K";
-            this.team = team;
+            
+            Value = 10;
+        }
+        public override void MoveOption(int teamDirection) // <-- In order to know how the pawn can move we need to know its team. team white = -1, team black = 1
+        {
 
+            List<MovementOptions> possibleMoves = new List<MovementOptions>();
+
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY, 1));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY, 1));
+            possibleMoves.Add(new MovementOptions(PositionX, PositionY + 1, 1));
+            possibleMoves.Add(new MovementOptions(PositionX, PositionY - 1, 1));
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + 1, 1));
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY - 1, 1));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY - 1, 1));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + 1, 1));
+            MoveOpt = possibleMoves;
         }
     }
 }

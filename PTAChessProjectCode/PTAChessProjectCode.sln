@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTAChessProjectCode", "PTAChessProjectCode\PTAChessProjectCode.csproj", "{02715E50-B927-4883-A5A0-22F018383590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessGUI", "ChessGUI\ChessGUI.csproj", "{A44BB425-976C-4591-AD20-29C2272106A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02715E50-B927-4883-A5A0-22F018383590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02715E50-B927-4883-A5A0-22F018383590}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02715E50-B927-4883-A5A0-22F018383590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44BB425-976C-4591-AD20-29C2272106A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44BB425-976C-4591-AD20-29C2272106A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44BB425-976C-4591-AD20-29C2272106A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44BB425-976C-4591-AD20-29C2272106A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
