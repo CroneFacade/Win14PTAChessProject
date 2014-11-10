@@ -19,7 +19,7 @@ namespace PTAChessProjectCode
 
         
 
-        // Construct that declare the instance GameInterface of class IGame. 
+        // Construct that declare the instance PrintGame of class Print. 
         // Note that the instance is not initialized yet, only declared that we will use it later on.
         public GameEngine()
         {
