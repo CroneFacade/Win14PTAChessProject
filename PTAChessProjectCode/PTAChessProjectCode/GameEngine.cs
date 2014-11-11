@@ -102,9 +102,11 @@ namespace PTAChessProjectCode
                  FillTempListWithPieces(EmptyTempList, EnemyPieceList);
                   
                  CheckPieceThatCanMove();
+                 
                  CheckPieceThatCanStrike();
                  
                  PickPieceForAction();
+                 
                  ExecutePieceAction();
                  
                  CheckGameOver();
