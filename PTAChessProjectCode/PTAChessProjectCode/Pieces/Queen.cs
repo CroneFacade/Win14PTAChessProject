@@ -10,6 +10,7 @@ namespace PTAChessProjectCode
     {
         public Queen()
         {
+            Name = "Q";
             Value = 9;
         }
         public override void MoveOption(int teamDirection)

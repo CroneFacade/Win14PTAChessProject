@@ -11,6 +11,7 @@ namespace PTAChessProjectCode
 
         public Pawn()
         {
+            Name = "P";
             Value = 1;
         }
         public override void MoveOption(int teamDirection) // <-- In order to know how the pawn can move we need to know its team. team white = -1, team black = 1

@@ -10,6 +10,7 @@ namespace PTAChessProjectCode
     {
         public Bishop()
         {
+            Name = "B";
             Value = 3;
         }
         public override void MoveOption(int teamDirection)
