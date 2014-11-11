@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class GameEngine
+    public class GameEngine
     {
 
-        //GUI gui;
+        Print Printer;
         public int countMoves = 1;
         public AI AIWhiteComp;
         public AI AIBlackComp;
@@ -18,6 +18,7 @@ namespace PTAChessProjectCode
 
         public GameEngine()
         {
+            Printer = new Print();
             //AIWhiteComp = new AI();
             //gui = new GUI();
 
@@ -32,9 +33,10 @@ namespace PTAChessProjectCode
         public void InitiateGame()
         {
             CreateAIs();
-            PrintBoard();
-            PrintPieceOnBoard(AIWhiteComp.PieceList);
-            PrintPieceOnBoard(AIBlackComp.PieceList);
+            Printer.PrintBoard();
+            
+            Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
+            Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
             SetAITurn();
             var playerToBegin = FetchAIToBegin();
             var playerNotMovin = FetchAINotMoving();
@@ -141,36 +143,7 @@ namespace PTAChessProjectCode
 
         /* ********** INITIATE GAME BELOW ********************** */
 
-        public void PrintBoard()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Console.WriteLine("        " + '\u2502' + i);
-
-            }
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2518');
-            Console.WriteLine();
-            Console.WriteLine("01234567");
-        }
-
-        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
-        {
-
-            foreach (var piece in PieceList)
-            {
-                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-                Console.Write(piece.Name);
-            }
-            Console.SetCursorPosition(10, 10);
-        }
+        
 
 
         /* ################### INITATE GAME END ########################## */

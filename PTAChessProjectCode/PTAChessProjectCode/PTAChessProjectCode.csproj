@@ -65,6 +65,12 @@
     <None Include="App.config" />
     <None Include="ClassDiagramChessProject.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChessGUI\ChessGUI.csproj">
+      <Project>{a44bb425-976c-4591-ad20-29c2272106a8}</Project>
+      <Name>ChessGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
