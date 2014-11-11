@@ -20,13 +20,13 @@ namespace PTAChessProjectCode
 
             if (IsWhite)
             {
-                AddWhitePiece("0,-1.1");
+                AddPieces(-1);
             }
             else
             {
-                AddBlackPiece("0,1.1");
+                AddPieces(1);
             }
-            
+
         }
         // Försök till att i en metod skapa nya pjäser.
         //public void CreateChessPiece(int x, int y, ChessPiece piece)
@@ -39,139 +39,70 @@ namespace PTAChessProjectCode
         {
 
         }
-        public void AddPieceToList(ChessPiece PiecetoAdd)
+        public void AddPieces(int teamdirection)
         {
-            PieceList.Add(PiecetoAdd);
-        }
-        public void AddWhitePiece(string movement)
-        {
-            Pawn pawn = new Pawn();
-            pawn.id = 1;
-            PieceList.Add(pawn);
-
-            Pawn pawn2 = new Pawn();
-            pawn.id = 2;
-            PieceList.Add(pawn2);
-
-            Pawn pawn3 = new Pawn();
-            pawn.id = 3;
-            PieceList.Add(pawn3);
-
-            Pawn pawn4 = new Pawn();
-            pawn.id = 4;
-            PieceList.Add(pawn4);
-
-            Pawn pawn5 = new Pawn();
-            pawn.id = 5;
-            PieceList.Add(pawn5);
-
-            Pawn pawn6 = new Pawn();
-            pawn.id = 6;
-            PieceList.Add(pawn6);
-
-            Pawn pawn7 = new Pawn();
-            pawn.id = 7;
-            PieceList.Add(pawn7);
-
-            Pawn pawn8 = new Pawn();
-            pawn.id = 8;
-            PieceList.Add(pawn8);
+            int gameBoardWidth = 8;
 
             Rook rook = new Rook();
-            rook.id = 1;
-            PieceList.Add(rook);
-
-            Rook rook2 = new Rook();
-            rook.id = 2;
-            PieceList.Add(rook2);
 
             Knight knight = new Knight();
-            knight.id = 1;
-            PieceList.Add(knight);
-
-            Knight knight2 = new Knight();
-            knight.id = 2;
-            PieceList.Add(knight2);
 
             Bishop bishop = new Bishop();
-            bishop.id = 1;
-            PieceList.Add(bishop);
-
-            Bishop bishop1 = new Bishop();
-            bishop1.id = 2;
-            PieceList.Add(bishop1);
 
             King king = new King();
-            PieceList.Add(king);
 
             Queen queen = new Queen();
-            PieceList.Add(queen);
 
-        }
+            Bishop bishop2 = new Bishop();
 
-        public void AddBlackPiece(string movement)
-        {
-            Pawn pawn = new Pawn();
-            pawn.id = 1;
-            PieceList.Add(pawn);
-
-            Pawn pawn2 = new Pawn();
-            pawn.id = 2;
-            PieceList.Add(pawn2);
-
-            Pawn pawn3 = new Pawn();
-            pawn.id = 3;
-            PieceList.Add(pawn3);
-
-            Pawn pawn4 = new Pawn();
-            pawn.id = 4;
-            PieceList.Add(pawn4);
-
-            Pawn pawn5 = new Pawn();
-            pawn.id = 5;
-            PieceList.Add(pawn5);
-
-            Pawn pawn6 = new Pawn();
-            pawn.id = 6;
-            PieceList.Add(pawn6);
-
-            Pawn pawn7 = new Pawn();
-            pawn.id = 7;
-            PieceList.Add(pawn7);
-
-            Pawn pawn8 = new Pawn();
-            pawn.id = 8;
-            PieceList.Add(pawn8);
-
-            Rook rook = new Rook();
-            rook.id = 1;
-            PieceList.Add(rook);
+            Knight knight2 = new Knight();
 
             Rook rook2 = new Rook();
-            rook.id = 2;
+
+            PieceList.Add(rook);
+            PieceList.Add(knight);
+            PieceList.Add(bishop);
+            if (teamdirection == 1)
+                PieceList.Add(king);
+            PieceList.Add(queen);
+            if (teamdirection == -1)
+                PieceList.Add(king);
+            PieceList.Add(bishop2);
+            PieceList.Add(knight2);
             PieceList.Add(rook2);
 
-            Knight knight = new Knight();
-            knight.id = 1;
-            PieceList.Add(knight);
+            for (int i = 0; i < gameBoardWidth; i++)
+            {
+                Pawn pawn = new Pawn();
+                PieceList.Add(pawn);
+            }
 
-            Knight knight2 = new Knight();
-            knight.id = 2;
-            PieceList.Add(knight2);
+            int x = 0;
+            int y = 0;
+            int ID = 0;
 
-            Bishop bishop = new Bishop();
-            bishop.id = 1;
-            PieceList.Add(bishop);
+            if (teamdirection == -1)
+            {
+                x = 0;
+                y = 7;
+            }
 
-            Bishop bishop1 = new Bishop();
-            bishop1.id = 2;
-            PieceList.Add(bishop1);
+            foreach (var piece in PieceList)
+            {
+                piece.PositionX = x;
+                piece.PositionY = y;
+                piece.id = ID;
+                piece.teamDirection = teamdirection;
+                x++;
+                ID++;
+                if (x == gameBoardWidth)
+                {
+                    x = 0;
+                    y = y + teamdirection;
+                }
+            }
 
-            King king = new King();
-            PieceList.Add(king);
 
-            Queen queen = new Queen();
-            PieceList.Add(queen);
 
         }
     }

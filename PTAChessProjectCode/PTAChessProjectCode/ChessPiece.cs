@@ -12,6 +12,7 @@ namespace PTAChessProjectCode
         public int PositionY { get; set; }
         public string Name { get; set; }
         public int Value { get; set; }
+        public int teamDirection { get; set; }
         public List<ChessPiece> PiecesICanKill { get; set; }
 
         public List<MovementOptions> MoveOpt = new List<MovementOptions>();
