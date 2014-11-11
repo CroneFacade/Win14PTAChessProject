@@ -18,7 +18,7 @@ namespace PTAChessProjectCode
         public List<ChessPiece> PiecesICanKill { get; set; }
 
         public List<MovementOptions> MoveOpt = new List<MovementOptions>();
-        public virtual void MoveOption(int teamDirection, bool canMove, bool canStrike)
+        public virtual void MoveOption(int teamDirection)
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
             MoveOpt = possibleMoves;

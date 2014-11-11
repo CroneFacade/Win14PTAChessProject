@@ -10,8 +10,8 @@ namespace PTAChessProjectCode
     {
         public Rook()
         {
+            Name = "R";
             Value = 5;
-            
         }
         public override void MoveOption(int teamDirection)
         {
