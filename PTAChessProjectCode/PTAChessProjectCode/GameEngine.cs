@@ -92,6 +92,26 @@ namespace PTAChessProjectCode
         {
             while (true)
             {
+                /* ****************
+                 Future architecture for game turns
+                 
+                 ClearTempList(tempList);
+                 GetPlayerToMakeMove();
+                 
+                 FillTempListWithPieces(EmptyTempList, FriendlyPieceList);
+                 FillTempListWithPieces(EmptyTempList, EnemyPieceList);
+                  
+                 CheckPieceThatCanMove();
+                 CheckPieceThatCanStrike();
+                 
+                 PickPieceForAction();
+                 ExecutePieceAction();
+                 
+                 CheckGameOver();
+                 
+                 SwitchPlayerTurn();
+                 
+                 ******************** */
                 var playerToMakeMove = CheckAITurn();
                 moveData.MakeMove(playerToMakeMove);
                 countMoves++;
