@@ -16,10 +16,10 @@ namespace PTAChessProjectCode
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>(); 
             
-            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY - 1, 7));
-            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + 1, 7));
-            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + 1, 7));
-            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY - 1, 7));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY - 1, 7, true, true));
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + 1, 7, true, true));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + 1, 7, true, true));
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY - 1, 7, true, true));
             MoveOpt = possibleMoves;
         }
     }
