@@ -12,7 +12,7 @@ namespace PTAChessProjectCode
         {
             Value = 5;
         }
-        public override void MoveOption()
+        public override void MoveOption(int teamDirection)
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
 

@@ -13,10 +13,6 @@ namespace PTAChessProjectCode
         {
             Value = 1;
         }
-        public override string Describe()
-        {
-            return "Pawn " + PositionX + PositionY;
-        }
         public override void MoveOption(int teamDirection) // <-- In order to know how the pawn can move we need to know its team. team white = -1, team black = 1
         {
 

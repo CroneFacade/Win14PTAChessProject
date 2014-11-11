@@ -4,216 +4,191 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PTAChessProjectCode
 {
-    /// <summary>
-    /// GameEngine contains logic about how the game calculates things.
-    /// </summary>
     class GameEngine
     {
 
-        public List<ChessPiece> whitePieces { get; set; }
-        public List<ChessPiece> blackPieces { get; set; }
-        Print PrintGame;
+        //GUI gui;
+        public int countMoves = 1;
+        public AI AIWhiteComp;
+        public AI AIBlackComp;
+        public MoveData moveData;
 
-
-        
-
-        // Construct that declare the instance PrintGame of class Print. 
-        // Note that the instance is not initialized yet, only declared that we will use it later on.
         public GameEngine()
         {
-            PrintGame = new Print();
+            //AIWhiteComp = new AI();
+            //gui = new GUI();
 
         }
-
-        // Bröt ut slumpfunktionen ur jättemetoden StartGame() och gjorde en egen metod av den. 
-        // Mest för att visa hur man kan bryta ut beräkningar och på så vis få små smidiga metoder
-        // vilka i slutändan har 1 syfte.
-
-
-
-        internal void StartGame()
+        public void Start()
         {
-            //#########################################################################
-            //Something like this is how we want it to be in the future
-            
-                        bool whiteLost = false;
-                        bool blackLost = false;
-
-                        AI WhiteCleverComputer = new AI(whitePieces, blackPieces);
-                        AI BlackCleverComputer = new AI(blackPieces, whitePieces);
-
-                        while (!whiteLost && !blackLost)
-                        {
-                            WhiteCleverComputer.UpdatePieces(whitePieces, blackPieces);
-
-                            WhiteCleverComputer.InitTurn(-1); //This int we send in tells the AI which direction is forwards
-
-                            whitePieces = WhiteCleverComputer.GetMyPieces();
-
-                            blackPieces = WhiteCleverComputer.GetEnemyPieces();
-
-                            blackLost = WhiteCleverComputer.DidEnemyTeamLose();
-
-                            PrintGame.PrintGameBoard();
-                            PrintGame.PrintPieces(whitePieces, blackPieces);
-
-                            if (!blackLost)
-                            {
-                                BlackCleverComputer.UpdatePieces(blackPieces, whitePieces);
-
-                                BlackCleverComputer.InitTurn(+1); //This int we send in tells the AI which direction is forwards
-
-                                blackPieces = BlackCleverComputer.GetMyPieces();
-
-                                whitePieces = BlackCleverComputer.GetEnemyPieces();
-
-                                whiteLost = BlackCleverComputer.DidEnemyTeamLose();
-
-                                PrintGame.PrintGameBoard();
-                                PrintGame.PrintPieces(whitePieces, blackPieces);
-                            }
-                        }
-            
-            //##########################################################################
-            //Everything below this line in StartGame() is just here temporarily
-            //This will all be in AI later
-            // Random rnd = new Random();
-           
-            
-            
-           /* 
-           while (true)
-            {
-                // Generate a random number depending on a min and max value. Maxvalue is the list.Count
-
-                bool whiteHasMoved = false;
-                while (!whiteHasMoved)
-                {
-
-                    GenerateRandomNumber(0, whitePieces);
-
-                    foreach (var piece in blackPieces)
-                    {
-                        if (piece.PositionX == whitePieces[randomNumber].PositionX - 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
-                        {
-                            RemovePiece(blackPieces, whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
-                            MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX - 1, whitePieces[randomNumber].PositionY - 1);
-                            whiteHasMoved = true;
-                            break;
-                        }
-                        if (piece.PositionX == whitePieces[randomNumber].PositionX + 1 && piece.PositionY == whitePieces[randomNumber].PositionY - 1)
-                        {
-                            RemovePiece(blackPieces, whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
-                            MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX + 1, whitePieces[randomNumber].PositionY - 1);
-                            whiteHasMoved = true;
-                            break;
-                        }
-                    }
-
-                    if (whiteHasMoved == false && whitePieces[randomNumber].PositionY > 0)
-                    {
-                        MovePiece(whitePieces[randomNumber], whitePieces[randomNumber].PositionX, whitePieces[randomNumber].PositionY - 1);
-                        whiteHasMoved = true;
-                    }
-                    
-                }
-
-                // Generate a random number depending on a min and max value. Maxvalue is the list.Count
-                GenerateRandomNumber(0, blackPieces);
-
-                bool blackHasMoved = false;
-
-
-                foreach (var piece in whitePieces)
-                {
-                    if (piece.PositionX == blackPieces[randomNumber].PositionX - 1 && piece.PositionY == blackPieces[randomNumber].PositionY + 1)
-                    {
-                        RemovePiece(whitePieces, blackPieces[randomNumber].PositionX - 1, blackPieces[randomNumber].PositionY + 1);
-                        MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX - 1, blackPieces[randomNumber].PositionY + 1);
-                        blackHasMoved = true;
-                        break;
-                    }
-                    if (piece.PositionX == blackPieces[randomNumber].PositionX + 1 && piece.PositionY == blackPieces[randomNumber].PositionY + 1)
-                    {
-                        RemovePiece(whitePieces, blackPieces[randomNumber].PositionX + 1, blackPieces[randomNumber].PositionY + 1);
-                        MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX + 1, blackPieces[randomNumber].PositionY + 1);
-                        blackHasMoved = true;
-                        break;
-                    }
-                }
-
-                if (blackHasMoved == false)
-                {
-                    MovePiece(blackPieces[randomNumber], blackPieces[randomNumber].PositionX, blackPieces[randomNumber].PositionY + 1);
-                }
-                whiteHasMoved = true;*/
-            }
-         /* ***  internal void StartGame() end *** */
-
-        internal void InitiateGame()
-        {
-            whitePieces = new List<ChessPiece>();
-            blackPieces = new List<ChessPiece>();
-
-            for (int i = 3; i < 11; i++)
-            {
-                Pawn P = new Pawn();
-                P.ID = i;
-                P.PositionX = i;
-                P.PositionY = 6;
-                P.Name = "P";
-                whitePieces.Add(P);
-            }
-            for (int i = 3; i < 11; i++)
-            {
-                Pawn P = new Pawn();
-                P.ID = i;
-                P.PositionX = i;
-                P.PositionY = 1;
-                P.Name = "P";
-                blackPieces.Add(P);
-            }
-            PrintGame.PrintGameBoard();
-            PrintGame.PrintPieces(whitePieces, blackPieces);
-
+            InitiateGame();
             StartGame();
-            //whitePieces = RemovePiece(whitePieces, 2, 2);
-
-            //MovePiece(whitePieces[0], whitePieces[0].PositionX + 1, whitePieces[0].PositionY);
-            /*
-            
-            
-            //blackPieces = RemovePiece(blackPieces, 3, 6);
-            Console.ReadKey();
-            */
-            // GameInterface.PrintPieces(whitePieces, blackPieces);
         }
-        public List<ChessPiece> RemovePiece(List<ChessPiece> pieceList, int x, int y)
+
+        // This method controls the initiatiation of the game
+        public void InitiateGame()
         {
-            foreach (var piece in pieceList)
+            CreateAIs();
+            PrintBoard();
+            PrintPieceOnBoard(AIWhiteComp.PieceList);
+            PrintPieceOnBoard(AIBlackComp.PieceList);
+            SetAITurn();
+            var playerToBegin = FetchAIToBegin();
+            var playerNotMovin = FetchAINotMoving();
+            CreateMoveLogic(playerToBegin, playerNotMovin);
+
+        }
+
+        public void CreateMoveLogic(AI playerToBegin, AI playerNotMovin)
+        {
+            moveData = new MoveData(playerToBegin, playerNotMovin);
+
+        }
+
+        public AI FetchAIToBegin()
+        {
+            if (AIWhiteComp.MyTurn == true)
             {
-                if (piece.PositionX == x && piece.PositionY == y)
-                {
-                    pieceList.Remove(piece);
-                    break;
-                }
+                return AIWhiteComp;
             }
-            return pieceList;
+            else
+            {
+                return AIBlackComp;
+            }
         }
-        public void MovePiece(ChessPiece piece, int x, int y)
+
+        public AI FetchAINotMoving()
         {
-            //MovePiece(whitePieces[0], whitePieces[0].PositionX, whitePieces[0].PositionY + 1);
+            if (AIWhiteComp.MyTurn == false)
+            {
+                return AIWhiteComp;
+            }
+            else
+            {
+                return AIBlackComp;
+            }
+        }
 
-            Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-            Console.Write(" ");
-            piece.PositionX = x;
-            piece.PositionY = y;
-            PrintGame.PrintPieces(whitePieces, blackPieces);
-            //Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-            //Console.Write(piece.Name);
+        public void CreateAIs()
+        {
+            bool playerWhite = true;
+            bool playerBlack = false;
+            bool myTurn = false;
 
-        } /* *** internal void InitiateGame() End *** */
+            AIWhiteComp = new AI(playerWhite, myTurn);
+            AIBlackComp = new AI(playerBlack, myTurn);
+
+        }
+
+        public void SetAITurn()
+        {
+            AIWhiteComp.MyTurn = true;
+        }
+
+        public void StartGame()
+        {
+            while (true)
+            {
+                var playerToMakeMove = CheckAITurn();
+                moveData.MakeMove(playerToMakeMove);
+                countMoves++;
+                SwitchAITurn(playerToMakeMove);
+            }
+        }
+
+        public AI CheckAITurn()
+        {
+            if (AIWhiteComp.MyTurn == true)
+            {
+                return AIWhiteComp;
+            }
+            else
+            {
+                return AIBlackComp;
+            }
+        }
+
+        public void SwitchAITurn(AI playerMadeMove)
+        {
+            if (countMoves % 2 == 1)
+            {
+                AIWhiteComp.MyTurn = true;
+                AIBlackComp.MyTurn = false;
+            }
+            else
+            {
+                AIBlackComp.MyTurn = true;
+                AIWhiteComp.MyTurn = false;
+            }
+
+            /*if (AIWhiteComp.MyTurn == true)
+            {
+                AIWhiteComp.MyTurn = false;
+                AIBlackComp.MyTurn = true;
+                
+            }
+            else if (AIWhiteComp.MyTurn == false)
+            {
+                AIBlackComp.MyTurn = false;
+                AIBlackComp.MyTurn = true;
+                
+            }*/
+        }
+
+
+        /* ********** INITIATE GAME BELOW ********************** */
+
+        public void PrintBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+
+                }
+                Console.WriteLine("        " + '\u2502' + i);
+
+            }
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2518');
+            Console.WriteLine();
+            Console.WriteLine("01234567");
+        }
+
+        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
+        {
+
+            foreach (var piece in PieceList)
+            {
+                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
+                Console.Write(piece.Name);
+            }
+            Console.SetCursorPosition(10, 10);
+        }
+
+
+        /* ################### INITATE GAME END ########################## */
+
+        /* ********************** START GAME BELOW ************************** */
+
+
+        private bool MatchCoordinate(int x, int y, int newX, int newY)
+        {
+            if (x == newX && y == newY)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
