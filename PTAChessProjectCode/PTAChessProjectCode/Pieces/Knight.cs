@@ -10,6 +10,7 @@ namespace PTAChessProjectCode
     {
         public Knight()
         {
+            Name = "k";
             Value=3;
         }
         public override void MoveOption(int teamDirection)
