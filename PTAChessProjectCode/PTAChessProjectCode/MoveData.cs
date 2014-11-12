@@ -14,24 +14,25 @@ namespace PTAChessProjectCode
         public List<ChessPiece> PieceThatCanMove { get; set; }
         public List<ChessPiece> PieceThatCanKill { get; set; }
 
-        public List<ChessPiece> EnemyPiecePosition { get; set; }
+        public List<ChessPiece> EnemyPiecePositions { get; set; }
         public List<string> AllMoves { get; set; }
 
         public MoveData(AI playerToMove, AI playerNotToMove)
         {
             this.AIToMove = playerToMove;
             this.AINotToMove = playerNotToMove;
-            this.EnemyPiecePosition = playerNotToMove.PieceList;
+            this.EnemyPiecePositions = playerNotToMove.PieceList;
             AllMoves = new List<string>();
             PieceThatCanMove = new List<ChessPiece>();
             PieceThatCanKill = new List<ChessPiece>();
         }
 
-        public void MakeMove(AI playerToMove)
+        public List<ChessPiece> MakeMove(AI playerToMove)
         {
             SetNewAIToMakeMove(playerToMove);
 
-            AIMakeMove(AIToMove);
+            List<ChessPiece> AfterMoveList = AIMakeMove(AIToMove);
+            return AfterMoveList;
         }
 
         private void SetNewAIToMakeMove(AI playerToMove)
@@ -39,14 +40,59 @@ namespace PTAChessProjectCode
             this.AIToMove = playerToMove;
         }
 
-        public void AIMakeMove(AI AIToMove)
+        public List<ChessPiece> AIMakeMove(AI AIToMove)
         {
-            ClearTempLists(PieceThatCanMove);
-            ClearTempLists(PieceThatCanKill);
-            CalculatePieceMovement(AIToMove.PieceList);
-            ChessPiece pieceToMove = PickPiece(PieceThatCanMove);
-            string Coordinates = GetCoordinates(pieceToMove);
-            MovePiece(pieceToMove, Coordinates);
+            //ClearTempLists(PieceThatCanMove);
+            //ClearTempLists(PieceThatCanKill);
+
+            List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
+
+
+
+            
+            MovementOptions pieceToMove = PickPiece(AIToMove.PieceList);
+            //string Coordinates = GetCoordinates(pieceToMove);
+            List<ChessPiece> NewList = MovePiece(pieceToMove, AIToMove.PieceList, EnemyPiecePositions);
+            return NewList;
+        }
+
+        private List<ChessPiece> MovePiece(MovementOptions pieceToMove, List<ChessPiece> list, List<ChessPiece> EnemyPiecePositions)
+        {
+            foreach (var MyPiece in list)
+            {
+                if (pieceToMove.IDOfMyPiece == MyPiece.id)
+                {
+                    MyPiece.PositionX = pieceToMove.PositionX;
+                        MyPiece.PositionY = pieceToMove.PositionY;
+                        //this.EnemyPiecePositions = RemoveEnemyPiece(EnemyPiecePositions, MyPiece.PositionX, MyPiece.PositionY);
+                        return list;
+                }
+            }
+            return list;
+        }
+
+        private List<ChessPiece> RemoveEnemyPiece(List<ChessPiece> EnemyPiecePositions, int x, int y)
+        {
+            foreach (var piece in EnemyPiecePositions)
+            {
+                if (piece.PositionX == x && piece.PositionY == y)
+                {
+                    EnemyPiecePositions.Remove(piece);
+                    return EnemyPiecePositions;
+                }
+            }
+            return EnemyPiecePositions;
+        }
+
+        private List<List<MovementOptions>> AnalyzeMyPieces(List<ChessPiece> list)
+        {
+            var AllMoves = new List<List<MovementOptions>>();
+            foreach (var Piece in list)
+            {
+                Piece.MoveOption(Piece.teamDirection);
+                AllMoves.Add(Piece.AllMoveOptionsForThisPiece);
+            }
+            return AllMoves;
         }
 
         //De pjäser som inte kan rör sig tas bort ur listan PieceThatCanMove, har testkört och sett att det fungerar. 
@@ -56,151 +102,169 @@ namespace PTAChessProjectCode
             PieceThatCanMove.Clear();
         }
 
-        private void CalculatePieceMovement(List<ChessPiece> PieceList)
-        {
-            foreach (var piece in AIToMove.PieceList)
-            {
-               // piece.TurnAvailableMoves = new List<List<string>>();
-                piece.TurnAvailableMoves = new List<MovementOptions>();
+        //private void CalculatePieceMovement(List<ChessPiece> PieceList)
+        //{
+        //    foreach (var piece in PieceList)
+        //    {
+        //       // piece.TurnAvailableMoves = new List<List<string>>();
+        //        //piece.TurnAvailableMoves = new List<MovementOptions>();
 
+                
 
-                List<string> coordinates = new List<string>();
-
-
-
-                foreach (var directions in piece.MoveOpt)
-                {
-                    /*movestried++;
-                    Console.SetCursorPosition(20, 14);
-                    Console.WriteLine("Calculated {0} move options", movestried);*/
-
-                    var currentX = piece.PositionX;
-                    var currentY = piece.PositionY;
-
-                    //string[] getDirectionX = directions.Split(',');
-                    //string[] getDirectionYAndLength = getDirectionX[1].Split('.');
-
-                    //var addX = int.Parse(getDirectionX[0]);
-                    //var addY = int.Parse(getDirectionYAndLength[0]);
-                    //var pieceMovementLength = int.Parse(getDirectionYAndLength[1]);
-
-                    var addX = directions.PositionX;
-                    var addY = directions.PositionY;
-                    var pieceMovementLength = directions.WalkingLength;
+        //        //List<string> coordinates = new List<string>();
 
 
 
+        //        foreach (var directions in piece.AllMoveOptionsForThisPiece)
+        //        {
+        //            /*movestried++;
+        //            Console.SetCursorPosition(20, 14);
+        //            Console.WriteLine("Calculated {0} move options", movestried);*/
 
-                    var outOfBounds = false;
-                    var friendlyAhead = false;
-                    var enemyAhead = false;
+        //            var currentX = piece.PositionX;
+        //            var currentY = piece.PositionY;
 
-                    for (int i = 0; i < pieceMovementLength; i++)
-                    {
-                        outOfBounds = CheckIfOutOfBounds(currentX, currentY, addX, addY);
-                        friendlyAhead = CheckIfFriendlyAhead(currentX, currentY, addX, addY, PieceList);
+        //            //string[] getDirectionX = directions.Split(',');
+        //            //string[] getDirectionYAndLength = getDirectionX[1].Split('.');
 
-                        // Om inte pjäsen går out of bounds, OCH det inte finns en friendly pjäs framför...
-                        //Lägg till steget till Listan av möjliga rörelser. 
-                        if (!outOfBounds && !friendlyAhead)
-                        {
+        //            //var addX = int.Parse(getDirectionX[0]);
+        //            //var addY = int.Parse(getDirectionYAndLength[0]);
+        //            //var pieceMovementLength = int.Parse(getDirectionYAndLength[1]);
 
-                            if (enemyAhead)
-                            {
-
-                                PieceThatCanKill.Add(piece);
+        //            var addX = directions.PositionX;
+        //            var addY = directions.PositionY;
+        //            var pieceMovementLength = directions.WalkingLength;
 
 
-                            }
 
-                            currentX = currentX + addX;
-                            currentY = currentY + addY;
+
+        //            var outOfBounds = false;
+        //            var friendlyAhead = false;
+        //            var enemyAhead = false;
+
+        //            for (int i = 0; i < pieceMovementLength; i++)
+        //            {
+        //                outOfBounds = CheckIfOutOfBounds(currentX, currentY, addX, addY);
+        //                friendlyAhead = CheckIfFriendlyAhead(currentX, currentY, addX, addY, PieceList);
+
+        //                // Om inte pjäsen går out of bounds, OCH det inte finns en friendly pjäs framför...
+        //                //Lägg till steget till Listan av möjliga rörelser. 
+        //                if (!outOfBounds && !friendlyAhead)
+        //                {
+
+        //                    if (enemyAhead)
+        //                    {
+
+        //                        PieceThatCanKill.Add(piece);
+
+
+        //                    }
+
+        //                    currentX = currentX + addX;
+        //                    currentY = currentY + addY;
                             
-                            //var addCoordinate = currentX + "," + currentY;
+        //                    //var addCoordinate = currentX + "," + currentY;
 
-                            new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
+        //                    new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
 
-                            coordinates.Add(addCoordinate);
-                            AllMoves.Add(addCoordinate);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
+        //                    coordinates.Add(addCoordinate);
+        //                    AllMoves.Add(addCoordinate);
+        //                }
+        //                else
+        //                {
+        //                    break;
+        //                }
+        //            }
+        //        }
 
-                // Check if there is a coordinate to add. If there is, add the piece movements to list TurnAvailableMoves
-                // This statement prevents the app to crash if a piece cannot move but is choosen to try to move.
-                // As the piece that cannot move do not contain a "TurnAvailableMoves" list, another piece is picked.
-                if (coordinates.Count >= 1)
-                {
-                    //piece.TurnAvailableMoves.Add(coordinates);
-                    piece.TurnAvailableMoves.Add()
-                    PieceThatCanMove.Add(piece);
-                }
+        //        // Check if there is a coordinate to add. If there is, add the piece movements to list TurnAvailableMoves
+        //        // This statement prevents the app to crash if a piece cannot move but is choosen to try to move.
+        //        // As the piece that cannot move do not contain a "TurnAvailableMoves" list, another piece is picked.
+        //        if (coordinates.Count >= 1)
+        //        {
+        //            //piece.TurnAvailableMoves.Add(coordinates);
+        //            piece.TurnAvailableMoves.Add()
+        //            PieceThatCanMove.Add(piece);
+        //        }
 
-                //TODO: ska en ny lista som innehåller alla pjäser som kan gå åt ett håll.
-                // om ingen riktning sparas, lägg till i ny lista:
-            }
+        //        //TODO: ska en ny lista som innehåller alla pjäser som kan gå åt ett håll.
+        //        // om ingen riktning sparas, lägg till i ny lista:
+        //    }
 
-        }
+        //}
 
-        public bool CheckIfOutOfBounds(int currentX, int currentY, int newX, int newY)
-        {
-            if (currentX + newX > -1 && currentX + newX < 8 && currentY + newY > -1 && currentY + newY < 8)
-            {
-                return false;
-            }
-            /*OOBCounter++;
-            Console.SetCursorPosition(20, 18);
-            Console.WriteLine("Out Of Bounds tries {0}", OOBCounter);*/
-            return true;
-        }
+        //public bool CheckIfOutOfBounds(int currentX, int currentY, int newX, int newY)
+        //{
+        //    if (currentX + newX > -1 && currentX + newX < 8 && currentY + newY > -1 && currentY + newY < 8)
+        //    {
+        //        return false;
+        //    }
+        //    /*OOBCounter++;
+        //    Console.SetCursorPosition(20, 18);
+        //    Console.WriteLine("Out Of Bounds tries {0}", OOBCounter);*/
+        //    return true;
+        //}
 
-        public bool CheckIfFriendlyAhead(int currentX, int currentY, int addX, int addY, List<ChessPiece> friendyPieces)
-        {
-            int toMoveX = currentX + addX;
-            int toMoveY = currentY + addY;
+        //public bool CheckIfFriendlyAhead(int currentX, int currentY, int addX, int addY, List<ChessPiece> friendyPieces)
+        //{
+        //    int toMoveX = currentX + addX;
+        //    int toMoveY = currentY + addY;
 
-            int friendlyX;
-            int friendlyY;
-            foreach (var piece in friendyPieces)
-            {
-                friendlyX = piece.PositionX;
-                friendlyY = piece.PositionY;
+        //    int friendlyX;
+        //    int friendlyY;
+        //    foreach (var piece in friendyPieces)
+        //    {
+        //        friendlyX = piece.PositionX;
+        //        friendlyY = piece.PositionY;
 
-                if (friendlyX == toMoveX && friendlyY == toMoveY)
-                {
-                    /*count++;
-                    Console.SetCursorPosition(20, 16);
-                    Console.WriteLine("Friendly piece in the way {0} times", count);
-                    System.Threading.Thread.Sleep(100);*/
-                    return true;
-                }
-            }
-            return false;
-        }
+        //        if (friendlyX == toMoveX && friendlyY == toMoveY)
+        //        {
+        //            /*count++;
+        //            Console.SetCursorPosition(20, 16);
+        //            Console.WriteLine("Friendly piece in the way {0} times", count);
+        //            System.Threading.Thread.Sleep(100);*/
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
-        public ChessPiece PickPiece(List<ChessPiece> pieces)
+        public MovementOptions PickPiece(List<ChessPiece> pieces)
         {
             int randomNumber = 0;
             bool nullNumber = true;
-
-            while (nullNumber)
+            bool NotBlocked = false;
+MovementOptions ChosenMovementOption = null;
+            while (!NotBlocked)
             {
-                randomNumber = GetRandomNumber(pieces);
 
-                if (pieces[randomNumber].TurnAvailableMoves.Count == 0)
+                    randomNumber = GetRandomNumber(pieces);
+
+
+                List<MovementOptions> CurrentPieceMoveOptions = pieces[randomNumber].AllMoveOptionsForThisPiece;
+                
+
+                foreach (var MoveOption in CurrentPieceMoveOptions)
                 {
-                    nullNumber = true;
-                }
-                if (pieces[randomNumber].TurnAvailableMoves.Count > 0)
-                {
-                    nullNumber = false;
+                    foreach (var Piece in pieces)
+                    {
+                        if ((MoveOption.PositionY > -1 && MoveOption.PositionY < 8) && (MoveOption.PositionX > -1 && MoveOption.PositionX < 8))
+                        {
+                            if ((pieces[randomNumber].PositionX + MoveOption.PositionX == Piece.PositionX) && (pieces[randomNumber].PositionY + MoveOption.PositionY == Piece.PositionY))
+                            {
+                                NotBlocked = false;
+                            }
+                            else
+                            {
+                                NotBlocked = true;
+                                ChosenMovementOption = MoveOption;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
-            return pieces[randomNumber];
+            return ChosenMovementOption;
         }
 
         public int GetRandomNumber(List<string> coords)
@@ -222,16 +286,16 @@ namespace PTAChessProjectCode
             return randomNumber - 1;
         }
 
-        public string GetCoordinates(ChessPiece pieceToMove)
-        {
-            string Coords;
+        //public string GetCoordinates(ChessPiece pieceToMove)
+        //{
+        //    string Coords;
 
 
-                int randNumber = GetRandomNumber(pieceToMove.TurnAvailableMoves[0]);
-                Coords = pieceToMove.TurnAvailableMoves[0][randNumber];
+        //        int randNumber = GetRandomNumber(pieceToMove.TurnAvailableMoves[0]);
+        //        Coords = pieceToMove.TurnAvailableMoves[0][randNumber];
 
-            return Coords;
-        }
+        //    return Coords;
+        //}
 
         public void MovePiece(ChessPiece pieceToMove, string coordinates)
         {

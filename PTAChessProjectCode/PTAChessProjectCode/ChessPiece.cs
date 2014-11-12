@@ -17,11 +17,11 @@ namespace PTAChessProjectCode
         public bool canStrike = true;
         public List<ChessPiece> PiecesICanKill { get; set; }
 
-        public List<MovementOptions> MoveOpt = new List<MovementOptions>();
+        public List<MovementOptions> AllMoveOptionsForThisPiece = new List<MovementOptions>();
         public virtual void MoveOption(int teamDirection)
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
-            MoveOpt = possibleMoves;
+            AllMoveOptionsForThisPiece = possibleMoves;
         }
 
         public int id { get; set; }

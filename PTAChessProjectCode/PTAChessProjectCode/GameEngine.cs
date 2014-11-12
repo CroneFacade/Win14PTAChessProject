@@ -116,10 +116,18 @@ namespace PTAChessProjectCode
                  SwitchPlayerTurn();
                  
                  ******************** */
-                var playerToMakeMove = CheckAITurn();
-                moveData.MakeMove(playerToMakeMove);
+                //var playerToMakeMove = CheckAITurn();
+                AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp);
                 countMoves++;
-                SwitchAITurn(playerToMakeMove);
+                Printer.PrintBoard();
+                Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
+                Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
+                AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp);
+                countMoves++;
+                Printer.PrintBoard();
+                Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
+                Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
+                //SwitchAITurn(playerToMakeMove);
             }
         }
 

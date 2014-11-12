@@ -16,10 +16,14 @@ namespace PTAChessProjectCode
        public bool CanStrike { get; set; }
 
        
-       public MovementOptions(int x, int y, int length, bool canMove, bool canStrike)
+       public MovementOptions(int x, int y, int length, bool canMove, bool canStrike, int ID)
        {
            PositionX = x;
            PositionY = y;
+           IDOfMyPiece = ID;
+           this.WalkingLength = length;
+           this.CanMove = canMove;
+           this.CanStrike = canStrike;
        }
     }
 }

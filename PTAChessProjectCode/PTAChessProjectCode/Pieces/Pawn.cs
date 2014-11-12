@@ -19,11 +19,11 @@ namespace PTAChessProjectCode
 
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
 
-            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + teamDirection, 1, false, true ));
-            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + teamDirection, 1, false, true));
-            possibleMoves.Add(new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
+            possibleMoves.Add(new MovementOptions(PositionX + 1, PositionY + teamDirection, 1, false, true, id));
+            possibleMoves.Add(new MovementOptions(PositionX - 1, PositionY + teamDirection, 1, false, true, id));
+            possibleMoves.Add(new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false, id));
 
-            MoveOpt = possibleMoves;
+            AllMoveOptionsForThisPiece = possibleMoves;
         }
     }
 }
