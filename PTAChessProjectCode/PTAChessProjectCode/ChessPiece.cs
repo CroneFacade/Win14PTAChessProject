@@ -37,6 +37,11 @@ AllMoveOptionsForThisPiece = possibleMoves;
         public List<MovementOptions> TurnAvailableMoves { get; set; }
 
 
+
+        internal void ClearMovementoptions()
+        {
+            AllMoveOptionsForThisPiece.Clear();
+        }
     }
 }
 

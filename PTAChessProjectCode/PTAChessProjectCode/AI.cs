@@ -46,13 +46,13 @@ namespace PTAChessProjectCode
 
             Bishop bishop = new Bishop();
 
-            King king = new King();
+           King king = new King();
 
             Queen queen = new Queen();
 
             Bishop bishop2 = new Bishop();
 
-            Knight knight2 = new Knight();
+           Knight knight2 = new Knight();
 
             Rook rook2 = new Rook();
 
