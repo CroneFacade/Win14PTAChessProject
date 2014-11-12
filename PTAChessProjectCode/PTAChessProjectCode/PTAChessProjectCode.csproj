@@ -51,6 +51,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MoveData.cs" />
     <Compile Include="MovementOptions.cs" />
+    <Compile Include="MoveTempData.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Print.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Turn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

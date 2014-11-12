@@ -14,6 +14,7 @@ namespace PTAChessProjectCode
        public int IDOfMyPiece = -1;
        public bool CanMove { get; set; }
        public bool CanStrike { get; set; }
+       public ChessPiece PieceICanKillThisOption{ get; set; }
 
        
        public MovementOptions(int x, int y, int length, bool canMove, bool canStrike)

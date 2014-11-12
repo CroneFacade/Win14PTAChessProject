@@ -68,7 +68,7 @@ namespace PTAChessProjectCode
 
 
 
-                foreach (var directions in piece.MoveOpt)
+                foreach (var directions in piece.MoveOptions)
                 {
                     /*movestried++;
                     Console.SetCursorPosition(20, 14);
@@ -118,7 +118,9 @@ namespace PTAChessProjectCode
                             
                             //var addCoordinate = currentX + "," + currentY;
 
-                            new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
+                            //new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
+
+
 
                             coordinates.Add(addCoordinate);
                             AllMoves.Add(addCoordinate);
