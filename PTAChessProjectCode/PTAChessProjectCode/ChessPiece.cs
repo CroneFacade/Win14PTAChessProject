@@ -15,25 +15,13 @@ namespace PTAChessProjectCode
         public int teamDirection { get; set; }
         public bool canMove = true;
         public bool canStrike = true;
-
-      
-
         public List<ChessPiece> PiecesICanKill { get; set; }
 
-<<<<<<< HEAD
         public List<MovementOptions> AllMoveOptionsForThisPiece = new List<MovementOptions>();
         public virtual void MoveOption(int teamDirection)
         {
-            List<MovementOptions> possibleMoves = new List<MovementOptions>();
-            AllMoveOptionsForThisPiece = possibleMoves;
-=======
-        public List<MovementOptions> MoveOptions = new List<MovementOptions>();
-
-        public virtual void MoveOption(int teamDirection)
-        {
-            List<MovementOptions> possibleMoves = new List<MovementOptions>();
-            MoveOptions = possibleMoves;
->>>>>>> 4dc84174ad728db3f9f63c95351a6d5a65af8b23
+          List<MovementOptions> possibleMoves = new List<MovementOptions>();
+AllMoveOptionsForThisPiece = possibleMoves;
         }
 
         public int id { get; set; }

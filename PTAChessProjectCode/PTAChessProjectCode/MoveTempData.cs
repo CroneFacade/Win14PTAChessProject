@@ -10,7 +10,7 @@ namespace PTAChessProjectCode
     {
         List<ChessPiece> FriendlyTempPieceList { get; set; }
         List<ChessPiece> EnemyTempPieceList { get; set; }
-        List <ChessPieceCanTakeAction> CanTakeActionList { get; set; }
+        //List <ChessPieceCanTakeAction> CanTakeActionList { get; set; }
 
 
 

@@ -75,19 +75,7 @@ namespace PTAChessProjectCode
         {
             foreach (var piece in EnemyPiecePositions)
             {
-<<<<<<< HEAD
                 if (piece.PositionX == x && piece.PositionY == y)
-=======
-               // piece.TurnAvailableMoves = new List<List<string>>();
-                piece.TurnAvailableMoves = new List<MovementOptions>();
-
-
-                List<string> coordinates = new List<string>();
-
-
-
-                foreach (var directions in piece.MoveOptions)
->>>>>>> 4dc84174ad728db3f9f63c95351a6d5a65af8b23
                 {
                     EnemyPiecePositions.Remove(piece);
                     return EnemyPiecePositions;
@@ -113,7 +101,7 @@ namespace PTAChessProjectCode
         {
             PieceThatCanMove.Clear();
         }
-
+        //test
         //private void CalculatePieceMovement(List<ChessPiece> PieceList)
         //{
         //    foreach (var piece in PieceList)
@@ -148,12 +136,6 @@ namespace PTAChessProjectCode
         //            var pieceMovementLength = directions.WalkingLength;
 
 
-<<<<<<< HEAD
-=======
-                            //new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
-
-
->>>>>>> 4dc84174ad728db3f9f63c95351a6d5a65af8b23
 
 
         //            var outOfBounds = false;
