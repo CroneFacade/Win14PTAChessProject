@@ -11,8 +11,13 @@ namespace PTAChessProjectCode                   //Andreas Push: https://ekwall@g
     {
         static void Main(string[] args)
         {
+            
             GameEngine Engine = new GameEngine();
             Engine.Start();
+<<<<<<< HEAD
+=======
+           // Engine.InitiateGame();
+>>>>>>> 8eef1cab9534b95652a53f9593f837a179872005
         }
     }
 }

@@ -33,7 +33,8 @@ namespace PTAChessProjectCode
         // Temporär lista vilken sparar samtliga coordinater en pjäs tillåts att flytta till.
         // Varje pjäs får en unik lista med detta innehåll.
 
-        public List<List<string>> TurnAvailableMoves { get; set; }
+        //public List<List<string>> TurnAvailableMoves { get; set; }
+        public List<MovementOptions> TurnAvailableMoves { get; set; }
 
 
     }
