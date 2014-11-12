@@ -60,12 +60,15 @@ namespace PTAChessProjectCode
         {
             foreach (var piece in AIToMove.PieceList)
             {
-                piece.TurnAvailableMoves = new List<List<string>>();
+               // piece.TurnAvailableMoves = new List<List<string>>();
+                piece.TurnAvailableMoves = new List<MovementOptions>();
+
+
                 List<string> coordinates = new List<string>();
 
 
 
-                foreach (var directions in piece.Coordinates)
+                foreach (var directions in piece.MoveOpt)
                 {
                     /*movestried++;
                     Console.SetCursorPosition(20, 14);
@@ -74,12 +77,19 @@ namespace PTAChessProjectCode
                     var currentX = piece.PositionX;
                     var currentY = piece.PositionY;
 
-                    string[] getDirectionX = directions.Split(',');
-                    string[] getDirectionYAndLength = getDirectionX[1].Split('.');
+                    //string[] getDirectionX = directions.Split(',');
+                    //string[] getDirectionYAndLength = getDirectionX[1].Split('.');
 
-                    var addX = int.Parse(getDirectionX[0]);
-                    var addY = int.Parse(getDirectionYAndLength[0]);
-                    var pieceMovementLength = int.Parse(getDirectionYAndLength[1]);
+                    //var addX = int.Parse(getDirectionX[0]);
+                    //var addY = int.Parse(getDirectionYAndLength[0]);
+                    //var pieceMovementLength = int.Parse(getDirectionYAndLength[1]);
+
+                    var addX = directions.PositionX;
+                    var addY = directions.PositionY;
+                    var pieceMovementLength = directions.WalkingLength;
+
+
+
 
                     var outOfBounds = false;
                     var friendlyAhead = false;
@@ -105,7 +115,11 @@ namespace PTAChessProjectCode
 
                             currentX = currentX + addX;
                             currentY = currentY + addY;
-                            var addCoordinate = currentX + "," + currentY;
+                            
+                            //var addCoordinate = currentX + "," + currentY;
+
+                            new MovementOptions(PositionX, PositionY + teamDirection, 1, true, false));
+
                             coordinates.Add(addCoordinate);
                             AllMoves.Add(addCoordinate);
                         }
@@ -121,7 +135,8 @@ namespace PTAChessProjectCode
                 // As the piece that cannot move do not contain a "TurnAvailableMoves" list, another piece is picked.
                 if (coordinates.Count >= 1)
                 {
-                    piece.TurnAvailableMoves.Add(coordinates);
+                    //piece.TurnAvailableMoves.Add(coordinates);
+                    piece.TurnAvailableMoves.Add()
                     PieceThatCanMove.Add(piece);
                 }
 
