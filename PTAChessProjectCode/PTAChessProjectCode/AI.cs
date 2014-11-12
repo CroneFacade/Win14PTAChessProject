@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class AI
+    public class AI
     {
         public List<ChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }
@@ -35,10 +35,7 @@ namespace PTAChessProjectCode
         //    piece.id = 1;
         //    PieceList.Add(piece);
         //}
-        public void CreateChessPiece(int x, int y, Rook rook)
-        {
 
-        }
         public void AddPieces(int teamdirection)
         {
             int gameBoardWidth = 8;

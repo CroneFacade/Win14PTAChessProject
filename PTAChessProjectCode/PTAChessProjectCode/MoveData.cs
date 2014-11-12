@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class MoveData
+    public class MoveData
     {
         private AI AIToMove { get; set; }
         private AI AINotToMove { get; set; }

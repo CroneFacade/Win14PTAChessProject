@@ -8,42 +8,35 @@ namespace PTAChessProjectCode
     public class Print
        
     {     //This class handles all the printing functions.
-        internal void PrintGameBoard()
+        public void PrintBoard()
         {
-            Console.Clear();
-
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            for (int y = 7; y >= 0; y--)
+            for (int i = 0; i < 8; i++)
             {
-                Console.Write(y + 1 + " ║        ");
+                Console.WriteLine("        " + '\u2502' + i);
 
-                Console.WriteLine();
             }
-            Console.WriteLine(@"  ╚════════
-—— abcdefgh");
-
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2500');
+            Console.Write('\u2518');
+            Console.WriteLine();
+            Console.WriteLine("01234567");
         }
 
-        internal void PrintPieces(List<ChessPiece> whitePieces, List<ChessPiece> blackPieces)
+        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
         {
-            Console.ForegroundColor = ConsoleColor.White;
 
-            foreach (var piece in whitePieces)
+            foreach (var piece in PieceList)
             {
-                System.Threading.Thread.Sleep(25);
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.Write(piece.Name);
             }
-            Console.ForegroundColor = ConsoleColor.Black;
-
-            foreach (var piece in blackPieces)
-            {
-
-                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-                Console.Write(piece.Name);
-            }
-            //  Console.ForegroundColor = ConsoleColor.White;
-
+            Console.SetCursorPosition(10, 10);
         }
     }
 }

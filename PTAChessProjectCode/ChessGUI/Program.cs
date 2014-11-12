@@ -10,6 +10,8 @@ namespace ChessGUI
     {
         static void Main(string[] args)
         {
+            //PTAChessProjectCode.GameEngine Engine = new PTAChessProjectCode.GameEngine();
+            //Engine.InitiateGame();
         }
     }
 }
