@@ -47,13 +47,15 @@ namespace PTAChessProjectCode
 
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
 
+            List<MovementOptions> PiecesICanKill = FindPiecesICanKill(AllMovesMyPiecesCanMake);
+
             var rnd = new Random();
 
             int random1 = rnd.Next(0,AllMovesMyPiecesCanMake.Count);
 
             int TempTest = AllMovesMyPiecesCanMake[random1].Count;
 
-            System.Threading.Thread.Sleep(700);
+            System.Threading.Thread.Sleep(100);
 
             int random2 = rnd.Next(0,TempTest);
 
@@ -64,6 +66,38 @@ namespace PTAChessProjectCode
             //string Coordinates = GetCoordinates(pieceToMove);
             List<ChessPiece> NewList = MovePiece(MoveTempTest, AIToMove.PieceList, EnemyPiecePositions);
             return NewList;
+        }
+
+        private List<MovementOptions> FindPiecesICanKill(List<List<MovementOptions>> AllMovesMyPiecesCanMake)
+        {
+            List<MovementOptions> PiecesICanKill = new List<MovementOptions>();
+
+            foreach (var movementList in AllMovesMyPiecesCanMake)
+            {
+                foreach (var movementOption in movementList)
+                {
+                    if (movementOption.CheckForEnemyResult == 1)
+                    {
+                       
+                        PiecesICanKill.Add(AddEnemyPieceToMovementOption(movementOption));
+                    }
+                }
+            }
+
+            return PiecesICanKill;
+        }
+
+        private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption)
+        {
+            foreach (var piece in EnemyPiecePositions)
+            {
+                if ((movementOption.PositionX == piece.PositionX) && (movementOption.PositionY == piece.PositionY))
+                {
+                    movementOption.EnemyPiece = piece;
+                    return movementOption;
+                }
+            }
+            return movementOption;
         }
 
         private List<ChessPiece> MovePiece(MovementOptions pieceToMove, List<ChessPiece> list, List<ChessPiece> EnemyPiecePositions)
@@ -114,6 +148,7 @@ namespace PTAChessProjectCode
 			{
                     var outOfBounds = false;
                     var friendlyAhead = false;
+                    var enemyAhead = false;
                     
                     int Walkinglength = i;
 
@@ -129,10 +164,19 @@ namespace PTAChessProjectCode
 
                     outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
                     friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
+                    enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
 
                     if (!outOfBounds && !friendlyAhead)
                         {
+
                             MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[z];
+
+                            MoveChoice.MyPiece = Piece;
+
+                            if (enemyAhead)
+                            {
+                                MoveChoice.CheckForEnemyResult = 1;
+                            }
                             
                             Piece.AllMoveOptionsForThisPiece[z].PositionX = FuturePositionX;
                             Piece.AllMoveOptionsForThisPiece[z].PositionY = FuturePositionY;
@@ -157,6 +201,18 @@ namespace PTAChessProjectCode
             
             
             return AllMoves;
+        }
+
+        private bool CheckIfEnemyAhead(int FuturePositionX, int FuturePositionY, List<ChessPiece> EnemyPiecePositions)
+        {
+            foreach (var piece in EnemyPiecePositions)
+            {
+                if (piece.PositionX == FuturePositionX && piece.PositionY == FuturePositionY)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         //De pjäser som inte kan rör sig tas bort ur listan PieceThatCanMove, har testkört och sett att det fungerar. 
@@ -237,7 +293,6 @@ namespace PTAChessProjectCode
         public MovementOptions PickPiece(List<ChessPiece> pieces)
         {
             int randomNumber = 0;
-            bool nullNumber = true;
             bool NotBlocked = false;
             MovementOptions ChosenMovementOption = null;
             while (!NotBlocked)
