@@ -117,12 +117,12 @@ namespace PTAChessProjectCode
                  
                  ******************** */
                 //var playerToMakeMove = CheckAITurn();
-                AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp);
+                AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
                 countMoves++;
                 Printer.PrintBoard();
                 Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
                 Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
-                AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp);
+                AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp, AIWhiteComp.PieceList);
                 countMoves++;
                 Printer.PrintBoard();
                 Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
