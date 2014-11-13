@@ -68,11 +68,11 @@ namespace PTAChessProjectCode
 
                 int random1 = rnd.Next(0, AllMovesMyPiecesCanMake.Count);
 
-                
+
 
                 int TempTest = AllMovesMyPiecesCanMake[random1].Count;
 
-                
+
 
                 int random2 = rnd.Next(0, TempTest);
 
@@ -80,7 +80,7 @@ namespace PTAChessProjectCode
             }
 
 
-System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(100);
 
 
 
@@ -155,79 +155,6 @@ System.Threading.Thread.Sleep(100);
             var AllMoves = new List<List<MovementOptions>>();
             CheckAllMyPieces(list, AllMoves);
 
-
-
-            //foreach (var Piece in list)
-            //{
-            //    Piece.ClearMovementoptions();
-            //    Piece.MoveOption(Piece.teamDirection);
-
-            //    var AllLegalMovesForThisPiece = new List<MovementOptions>();
-
-            //    for (int z = 0; z < Piece.AllMoveOptionsForThisPiece.Count; z++)
-            //    {
-
-            //        Piece.ClearMovementoptions();
-            //        Piece.MoveOption(Piece.teamDirection);
-
-            //        for (int i = 1; i <= Piece.AllMoveOptionsForThisPiece[z].WalkingLength; i++)
-            //        {
-            //            var outOfBounds = false;
-            //            var friendlyAhead = false;
-            //            var enemyAhead = false;
-
-            //            int Walkinglength = i;
-
-            //            Piece.ClearMovementoptions();
-            //            Piece.MoveOption(Piece.teamDirection);
-
-
-            //            int MovingPositionX = Piece.AllMoveOptionsForThisPiece[z].PositionX * Walkinglength;
-            //            int MovingPositionY = Piece.AllMoveOptionsForThisPiece[z].PositionY * Walkinglength;
-
-            //            int FuturePositionX = Piece.PositionX + MovingPositionX;
-            //            int FuturePositionY = Piece.PositionY + MovingPositionY;
-
-            //            outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
-            //            friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
-            //            enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
-
-            //            if (!outOfBounds && !friendlyAhead)
-            //            {
-
-            //                MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[z];
-
-            //                MoveChoice.MyPiece = Piece;
-
-            //                if (enemyAhead)
-            //                {
-            //                    MoveChoice.CheckForEnemyResult = 1;
-            //                    i = 100;
-            //                }
-
-            //                Piece.AllMoveOptionsForThisPiece[z].PositionX = FuturePositionX;
-            //                Piece.AllMoveOptionsForThisPiece[z].PositionY = FuturePositionY;
-            //                AllLegalMovesForThisPiece.Add(Piece.AllMoveOptionsForThisPiece[z]);
-            //                Piece.AllMoveOptionsForThisPiece[z] = MoveChoice;
-            //            }
-            //            else
-            //            {
-            //                i = 100;
-            //            }
-
-            //        }
-
-            //    }
-
-            //    if (AllLegalMovesForThisPiece.Count != 0)
-            //    {
-            //        AllMoves.Add(AllLegalMovesForThisPiece);
-            //    }
-            //}
-
-
-
-
             return AllMoves;
         }
 
@@ -269,12 +196,9 @@ System.Threading.Thread.Sleep(100);
                 var outOfBounds = false;
                 var friendlyAhead = false;
                 var enemyAhead = false;
-
                 int Walkinglength = i;
-
                 Piece.ClearMovementoptions();
                 Piece.MoveOption(Piece.teamDirection);
-
 
                 int MovingPositionX = Piece.AllMoveOptionsForThisPiece[z].PositionX * Walkinglength;
                 int MovingPositionY = Piece.AllMoveOptionsForThisPiece[z].PositionY * Walkinglength;
