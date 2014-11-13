@@ -80,7 +80,7 @@ namespace PTAChessProjectCode
             }
 
 
-System.Threading.Thread.Sleep(750);
+System.Threading.Thread.Sleep(100);
 
 
 

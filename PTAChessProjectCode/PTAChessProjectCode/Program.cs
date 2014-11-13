@@ -11,15 +11,11 @@ namespace PTAChessProjectCode                   //Andreas Push: https://ekwall@g
     {
         static void Main(string[] args)
         {
-            
-            GameEngine Engine = new GameEngine();
-            Engine.Start();
-           // Engine.InitiateGame();
-
-            Console.WriteLine("Tjena");
-            Console.ReadLine();
-
-            Engine.Start();
+            while (true)
+            {
+                GameEngine Engine = new GameEngine();
+                Engine.Start();
+            }
         }
     }
 }

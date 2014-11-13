@@ -25,6 +25,7 @@ namespace PTAChessProjectCode
         }
         public void Start()
         {
+            countMoves = 1;
             InitiateGame();
             StartGame();
         }
@@ -33,7 +34,7 @@ namespace PTAChessProjectCode
         public void InitiateGame()
         {
             CreateAIs();
-            Printer.PrintBoard();
+            Printer.PrintBoard(countMoves);
 
             Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
             Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
@@ -118,14 +119,15 @@ namespace PTAChessProjectCode
         private void WhiteMove()
         {
             AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
-            countMoves++;
+            //countMoves++;
             UpdateBoard();
+            Console.ForegroundColor = ConsoleColor.Yellow;
         }
 
         private void UpdateBoard()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Printer.PrintBoard();
+            Printer.PrintBoard(countMoves);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
             Console.ForegroundColor = ConsoleColor.Blue;
