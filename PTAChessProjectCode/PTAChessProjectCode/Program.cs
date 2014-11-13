@@ -16,6 +16,10 @@ namespace PTAChessProjectCode                   //Andreas Push: https://ekwall@g
             Engine.Start();
            // Engine.InitiateGame();
 
+            Console.WriteLine("Tjena");
+            Console.ReadLine();
+
+            Engine.Start();
         }
     }
 }

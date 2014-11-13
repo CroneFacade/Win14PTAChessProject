@@ -48,6 +48,12 @@ namespace PTAChessProjectCode
 
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
 
+            if (AllMovesMyPiecesCanMake.Count == 0)
+            {
+                AIToMove.PieceList.Clear();
+                return AIToMove.PieceList;
+            }
+
             List<MovementOptions> PiecesICanKill = FindPiecesICanKill(AllMovesMyPiecesCanMake);
 
             MovementOptions optimalMovementOption;
@@ -62,9 +68,11 @@ namespace PTAChessProjectCode
 
                 int random1 = rnd.Next(0, AllMovesMyPiecesCanMake.Count);
 
+                
+
                 int TempTest = AllMovesMyPiecesCanMake[random1].Count;
 
-                System.Threading.Thread.Sleep(1000);
+                
 
                 int random2 = rnd.Next(0, TempTest);
 
@@ -72,14 +80,14 @@ namespace PTAChessProjectCode
             }
 
 
-
+System.Threading.Thread.Sleep(750);
 
 
 
             //MovementOptions pieceToMove = PickPiece(AIToMove.PieceList);
             //string Coordinates = GetCoordinates(pieceToMove);
-            List<ChessPiece> NewList = MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
-            return NewList;
+            MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
+            return AIToMove.PieceList;
         }
 
         private MovementOptions FindHighestPieceValue(List<MovementOptions> PiecesICanKill)
@@ -129,29 +137,102 @@ namespace PTAChessProjectCode
             return movementOption;
         }
 
-        private List<ChessPiece> MovePiece(MovementOptions pieceToMove, List<ChessPiece> list, List<ChessPiece> EnemyPiecePositions)
+        private void MovePiece(MovementOptions pieceToMove, List<ChessPiece> list, List<ChessPiece> EnemyPiecePositions)
         {
-            foreach (var MyPiece in list)
-            {
-                if (pieceToMove.IDOfMyPiece == MyPiece.id)
-                {
-                    MyPiece.PositionX = pieceToMove.PositionX;
-                    MyPiece.PositionY = pieceToMove.PositionY;
-                    RemoveEnemyPiece(pieceToMove);
-                    return list;
-                }
-            }
-            return list;
+            pieceToMove.MyPiece.PositionX = pieceToMove.PositionX;
+            pieceToMove.MyPiece.PositionY = pieceToMove.PositionY;
+
+            RemoveEnemyPiece(pieceToMove.EnemyPiece);
         }
 
-        private void RemoveEnemyPiece(MovementOptions chosenMove)
+        private void RemoveEnemyPiece(ChessPiece pieceToRemove)
         {
-            EnemyPiecePositions.Remove(chosenMove.EnemyPiece);
+            EnemyPiecePositions.Remove(pieceToRemove);
         }
 
         private List<List<MovementOptions>> AnalyzeMyPieces(List<ChessPiece> list)
         {
             var AllMoves = new List<List<MovementOptions>>();
+            CheckAllMyPieces(list, AllMoves);
+
+
+
+            //foreach (var Piece in list)
+            //{
+            //    Piece.ClearMovementoptions();
+            //    Piece.MoveOption(Piece.teamDirection);
+
+            //    var AllLegalMovesForThisPiece = new List<MovementOptions>();
+
+            //    for (int z = 0; z < Piece.AllMoveOptionsForThisPiece.Count; z++)
+            //    {
+
+            //        Piece.ClearMovementoptions();
+            //        Piece.MoveOption(Piece.teamDirection);
+
+            //        for (int i = 1; i <= Piece.AllMoveOptionsForThisPiece[z].WalkingLength; i++)
+            //        {
+            //            var outOfBounds = false;
+            //            var friendlyAhead = false;
+            //            var enemyAhead = false;
+
+            //            int Walkinglength = i;
+
+            //            Piece.ClearMovementoptions();
+            //            Piece.MoveOption(Piece.teamDirection);
+
+
+            //            int MovingPositionX = Piece.AllMoveOptionsForThisPiece[z].PositionX * Walkinglength;
+            //            int MovingPositionY = Piece.AllMoveOptionsForThisPiece[z].PositionY * Walkinglength;
+
+            //            int FuturePositionX = Piece.PositionX + MovingPositionX;
+            //            int FuturePositionY = Piece.PositionY + MovingPositionY;
+
+            //            outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
+            //            friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
+            //            enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
+
+            //            if (!outOfBounds && !friendlyAhead)
+            //            {
+
+            //                MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[z];
+
+            //                MoveChoice.MyPiece = Piece;
+
+            //                if (enemyAhead)
+            //                {
+            //                    MoveChoice.CheckForEnemyResult = 1;
+            //                    i = 100;
+            //                }
+
+            //                Piece.AllMoveOptionsForThisPiece[z].PositionX = FuturePositionX;
+            //                Piece.AllMoveOptionsForThisPiece[z].PositionY = FuturePositionY;
+            //                AllLegalMovesForThisPiece.Add(Piece.AllMoveOptionsForThisPiece[z]);
+            //                Piece.AllMoveOptionsForThisPiece[z] = MoveChoice;
+            //            }
+            //            else
+            //            {
+            //                i = 100;
+            //            }
+
+            //        }
+
+            //    }
+
+            //    if (AllLegalMovesForThisPiece.Count != 0)
+            //    {
+            //        AllMoves.Add(AllLegalMovesForThisPiece);
+            //    }
+            //}
+
+
+
+
+            return AllMoves;
+        }
+
+        private void CheckAllMyPieces(List<ChessPiece> list, List<List<MovementOptions>> AllMoves)
+        {
             foreach (var Piece in list)
             {
                 Piece.ClearMovementoptions();
@@ -159,69 +240,87 @@ namespace PTAChessProjectCode
 
                 var AllLegalMovesForThisPiece = new List<MovementOptions>();
 
-                for (int z = 0; z < Piece.AllMoveOptionsForThisPiece.Count; z++)
-                {
-
-                    Piece.ClearMovementoptions();
-                    Piece.MoveOption(Piece.teamDirection);
-
-                    for (int i = 1; i <= Piece.AllMoveOptionsForThisPiece[z].WalkingLength; i++)
-                    {
-                        var outOfBounds = false;
-                        var friendlyAhead = false;
-                        var enemyAhead = false;
-
-                        int Walkinglength = i;
-
-                        Piece.ClearMovementoptions();
-                        Piece.MoveOption(Piece.teamDirection);
-
-
-                        int MovingPositionX = Piece.AllMoveOptionsForThisPiece[z].PositionX * Walkinglength;
-                        int MovingPositionY = Piece.AllMoveOptionsForThisPiece[z].PositionY * Walkinglength;
-
-                        int FuturePositionX = Piece.PositionX + MovingPositionX;
-                        int FuturePositionY = Piece.PositionY + MovingPositionY;
-
-                        outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
-                        friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
-                        enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
-
-                        if (!outOfBounds && !friendlyAhead)
-                        {
-
-                            MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[z];
-
-                            MoveChoice.MyPiece = Piece;
-
-                            if (enemyAhead)
-                            {
-                                MoveChoice.CheckForEnemyResult = 1;
-                            }
-
-                            Piece.AllMoveOptionsForThisPiece[z].PositionX = FuturePositionX;
-                            Piece.AllMoveOptionsForThisPiece[z].PositionY = FuturePositionY;
-                            AllLegalMovesForThisPiece.Add(Piece.AllMoveOptionsForThisPiece[z]);
-                            Piece.AllMoveOptionsForThisPiece[z] = MoveChoice;
-                        }
-                        else
-                        {
-                            i = 100;
-                        }
-
-                    }
-
-                }
+                CheckAllDirections(list, Piece, AllLegalMovesForThisPiece);
 
                 if (AllLegalMovesForThisPiece.Count != 0)
                 {
                     AllMoves.Add(AllLegalMovesForThisPiece);
                 }
             }
+        }
+
+        private void CheckAllDirections(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
+        {
+            for (int z = 0; z < Piece.AllMoveOptionsForThisPiece.Count; z++)
+            {
+
+                Piece.ClearMovementoptions();
+                Piece.MoveOption(Piece.teamDirection);
+
+                CheckLengthInDirection(list, Piece, AllLegalMovesForThisPiece, z);
+
+            }
+        }
+
+        private void CheckLengthInDirection(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int z)
+        {
+            for (int i = 1; i <= Piece.AllMoveOptionsForThisPiece[z].WalkingLength; i++)
+            {
+                var outOfBounds = false;
+                var friendlyAhead = false;
+                var enemyAhead = false;
+
+                int Walkinglength = i;
+
+                Piece.ClearMovementoptions();
+                Piece.MoveOption(Piece.teamDirection);
 
 
+                int MovingPositionX = Piece.AllMoveOptionsForThisPiece[z].PositionX * Walkinglength;
+                int MovingPositionY = Piece.AllMoveOptionsForThisPiece[z].PositionY * Walkinglength;
 
-            return AllMoves;
+                int FuturePositionX = Piece.PositionX + MovingPositionX;
+                int FuturePositionY = Piece.PositionY + MovingPositionY;
+
+                outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
+                friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
+                enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
+
+                i = CheckIfLegalMove(Piece, AllLegalMovesForThisPiece, z, i, outOfBounds, friendlyAhead, enemyAhead, FuturePositionX, FuturePositionY);
+
+            }
+        }
+
+        private static int CheckIfLegalMove(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int z, int i, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
+        {
+            if (!outOfBounds && !friendlyAhead)
+            {
+                i = CreateMovementOption(Piece, AllLegalMovesForThisPiece, z, i, enemyAhead, FuturePositionX, FuturePositionY);
+            }
+            else
+            {
+                i = 100;
+            }
+            return i;
+        }
+
+        private static int CreateMovementOption(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int z, int i, bool enemyAhead, int FuturePositionX, int FuturePositionY)
+        {
+            MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[z];
+
+            MoveChoice.MyPiece = Piece;
+
+            if (enemyAhead)
+            {
+                MoveChoice.CheckForEnemyResult = 1;
+                i = 100;
+            }
+
+            Piece.AllMoveOptionsForThisPiece[z].PositionX = FuturePositionX;
+            Piece.AllMoveOptionsForThisPiece[z].PositionY = FuturePositionY;
+            AllLegalMovesForThisPiece.Add(Piece.AllMoveOptionsForThisPiece[z]);
+            Piece.AllMoveOptionsForThisPiece[z] = MoveChoice;
+            return i;
         }
 
         private bool CheckIfEnemyAhead(int FuturePositionX, int FuturePositionY, List<ChessPiece> EnemyPiecePositions)

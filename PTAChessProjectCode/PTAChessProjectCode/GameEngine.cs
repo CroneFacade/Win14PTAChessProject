@@ -34,7 +34,7 @@ namespace PTAChessProjectCode
         {
             CreateAIs();
             Printer.PrintBoard();
-            
+
             Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
             Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
             SetAITurn();
@@ -92,44 +92,71 @@ namespace PTAChessProjectCode
 
         public void StartGame()
         {
-            while (true)
+
+            bool continuePlaying = true;
+
+            while (continuePlaying)
             {
-                /* ****************
-                 Future architecture for game turns
-                 
-                 ClearTempList(tempList);
-                 GetPlayerToMakeMove();
-                 
-                 FillTempListWithPieces(EmptyTempList, FriendlyPieceList);
-                 FillTempListWithPieces(EmptyTempList, EnemyPieceList);
-                  
-                 CheckPieceThatCanMove();
-                 
-                 CheckPieceThatCanStrike();
-                 
-                 PickPieceForAction();
-                 
-                 ExecutePieceAction();
-                 
-                 CheckGameOver();
-                 
-                 SwitchPlayerTurn();
-                 
-                 ******************** */
-                //var playerToMakeMove = CheckAITurn();
-                AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
-                countMoves++;
-                Printer.PrintBoard();
-                Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
-                Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
-                AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp, AIWhiteComp.PieceList);
-                countMoves++;
-                Printer.PrintBoard();
-                Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
-                Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
-                //SwitchAITurn(playerToMakeMove);
+
+                continuePlaying = CheckIfGameOver(continuePlaying);
+
+                WhiteMove();
+
+                continuePlaying = CheckIfGameOver(continuePlaying);
+
+                BlackMove();
             }
         }
+
+        private void BlackMove()
+        {
+            AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp, AIWhiteComp.PieceList);
+            countMoves++;
+            UpdateBoard();
+        }
+
+        private void WhiteMove()
+        {
+            AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
+            countMoves++;
+            UpdateBoard();
+        }
+
+        private void UpdateBoard()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Printer.PrintBoard();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
+        }
+
+        private bool CheckIfGameOver(bool continuePlaying)
+        {
+            if (AIWhiteComp.PieceList.Count == 0 || AIBlackComp.PieceList.Count == 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Game Over!!!!");
+                Console.WriteLine("Press any key to play again or q to quit.");
+                var pressedKey = Console.ReadKey();
+
+                if (pressedKey.KeyChar == 113)
+                {
+                    Environment.Exit(404);
+                }
+                else
+                {
+                    continuePlaying = false;
+
+                }
+
+
+            }
+            return continuePlaying;
+        }
+
+        
 
         public AI CheckAITurn()
         {
@@ -173,7 +200,7 @@ namespace PTAChessProjectCode
 
         /* ********** INITIATE GAME BELOW ********************** */
 
-        
+
 
 
         /* ################### INITATE GAME END ########################## */
