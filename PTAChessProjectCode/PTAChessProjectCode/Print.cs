@@ -29,7 +29,7 @@ namespace PTAChessProjectCode
             Console.WriteLine("01234567");
             Console.WriteLine("\n\nTurn: " + turnCounter);
             Console.WriteLine("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
-            Console.WriteLine("Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
+            Console.WriteLine("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
             Console.WriteLine(Logger.newestLog);
         }
 

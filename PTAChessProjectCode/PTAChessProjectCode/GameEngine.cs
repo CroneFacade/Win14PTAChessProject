@@ -101,9 +101,9 @@ namespace PTAChessProjectCode
             while (continuePlaying)
             {
                 continuePlaying = InitiateWhiteTurn(continuePlaying);
-                //Console.ReadLine();
+                Console.ReadLine();
                 continuePlaying = InitiateBlackTurn(continuePlaying);
-                //Console.ReadLine();
+                Console.ReadLine();
             }
         }
 
