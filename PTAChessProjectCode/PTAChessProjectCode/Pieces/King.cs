@@ -11,6 +11,7 @@ namespace PTAChessProjectCode
          
         public King()
         {
+            FullName = "King";
             Name = "K";
             Value = 10;
         }

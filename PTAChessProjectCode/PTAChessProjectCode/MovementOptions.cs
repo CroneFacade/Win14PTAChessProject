@@ -15,6 +15,7 @@ namespace PTAChessProjectCode
        public bool CanStrike { get; set; }
        public ChessPiece EnemyPiece { get; set; }
        public ChessPiece MyPiece { get; set; }
+       public string MyTeam { get; set; }
 
        public int CheckForEnemyResult = 0;
        

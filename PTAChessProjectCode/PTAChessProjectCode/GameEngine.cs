@@ -28,6 +28,8 @@ namespace PTAChessProjectCode
             countMoves = 1;
             InitiateGame();
             StartGame();
+            Logger.CreateCleanLog();
+
         }
 
         // This method controls the initiatiation of the game
@@ -98,15 +100,31 @@ namespace PTAChessProjectCode
 
             while (continuePlaying)
             {
+                continuePlaying = InitiateWhiteTurn(continuePlaying);
+                //Console.ReadLine();
+                continuePlaying = InitiateBlackTurn(continuePlaying);
+                //Console.ReadLine();
+            }
+        }
 
+        private bool InitiateBlackTurn(bool continuePlaying)
+        {
+            if (continuePlaying == true)
+            {
                 continuePlaying = CheckIfGameOver(continuePlaying);
-
-                WhiteMove();
-
-                continuePlaying = CheckIfGameOver(continuePlaying);
-
                 BlackMove();
             }
+            return continuePlaying;
+        }
+
+        private bool InitiateWhiteTurn(bool continuePlaying)
+        {
+            if (continuePlaying == true)
+            {
+                continuePlaying = CheckIfGameOver(continuePlaying);
+                WhiteMove();
+            }
+            return continuePlaying;
         }
 
         private void BlackMove()
@@ -136,29 +154,64 @@ namespace PTAChessProjectCode
 
         private bool CheckIfGameOver(bool continuePlaying)
         {
+
             if (AIWhiteComp.PieceList.Count == 0 || AIBlackComp.PieceList.Count == 0)
             {
-                Console.Clear();
-                Console.WriteLine("Game Over!!!!");
-                Console.WriteLine("Press any key to play again or q to quit.");
-                var pressedKey = Console.ReadKey();
+                continuePlaying = false;
 
-                if (pressedKey.KeyChar == 113)
-                {
-                    Environment.Exit(404);
-                }
-                else
-                {
-                    continuePlaying = false;
-
-                }
+                //This line makes us enter a Game Over Menu
+                EnterGameOverMenu();
 
 
             }
             return continuePlaying;
         }
 
-        
+        //Game Over Menu Method
+        private static void EnterGameOverMenu()
+        {
+            //We want to stay in the menu until we choose
+            //an menu option which is to exit the menu
+            bool leaveMenu = false;
+            while (!leaveMenu)
+            {
+                //This simply displays the Menu
+                Print.GameOverMenu();
+                //This collects your menu choice.
+                var pressedKey = Console.ReadKey();
+                //This method fetches a bool from the method and lets us know
+                //if we should exit the menu or not
+                leaveMenu = PerformChosenMenuOption(pressedKey, leaveMenu);
+            }
+            
+        }
+
+        //This method handles all of our Game Over Menu options
+        public static bool PerformChosenMenuOption(ConsoleKeyInfo pressedKey, bool leaveMenu)
+        {
+            //If the player chose Option 1
+            if (pressedKey.KeyChar == 49)
+            {
+                //we simply leave the manu, and the game will play again.
+                leaveMenu = true;
+            }
+                //If we choose Option 2
+            else if (pressedKey.KeyChar == 50)
+            {
+                //Call a method which prints out our complete move log.
+                Print.PrintCompleteLog();
+                //We wont leave the menu after this
+                leaveMenu = false;
+            }
+                //If we choose option 3
+            else if (pressedKey.KeyChar == 51)
+            {
+                //Quit the program
+                Environment.Exit(404);
+            }
+            //Return if we should leave the menu or not
+            return leaveMenu;
+        }
 
         public AI CheckAITurn()
         {

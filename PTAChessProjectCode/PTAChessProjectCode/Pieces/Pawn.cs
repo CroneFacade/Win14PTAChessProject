@@ -11,6 +11,7 @@ namespace PTAChessProjectCode
 
         public Pawn()
         {
+            FullName = "Pawn";
             Name = "P";
             Value = 1;
         }

@@ -43,10 +43,8 @@
   <ItemGroup>
     <Compile Include="AI.cs" />
     <Compile Include="ChessPiece.cs" />
-    <Compile Include="GameBoard.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameRules.cs" />
-    <Compile Include="IGame.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MoveData.cs" />

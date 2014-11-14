@@ -8,6 +8,7 @@ namespace PTAChessProjectCode
 {
     public abstract class ChessPiece
     {
+        public string FullName { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public string Name { get; set; }
@@ -28,13 +29,13 @@ AllMoveOptionsForThisPiece = possibleMoves;
 
         //public List<List<string>> PieceMovement { get; set; }
         // 
-        public List<string> Coordinates { get; set; }
+
 
         // Temporär lista vilken sparar samtliga coordinater en pjäs tillåts att flytta till.
         // Varje pjäs får en unik lista med detta innehåll.
 
         //public List<List<string>> TurnAvailableMoves { get; set; }
-        public List<MovementOptions> TurnAvailableMoves { get; set; }
+
 
 
 
@@ -42,6 +43,8 @@ AllMoveOptionsForThisPiece = possibleMoves;
         {
             AllMoveOptionsForThisPiece.Clear();
         }
+
+        
     }
 }
 

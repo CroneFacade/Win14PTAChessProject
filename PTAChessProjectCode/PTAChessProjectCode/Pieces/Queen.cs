@@ -10,6 +10,7 @@ namespace PTAChessProjectCode
     {
         public Queen()
         {
+            FullName = "Queen";
             Name = "Q";
             Value = 9;
         }

@@ -10,6 +10,7 @@ namespace PTAChessProjectCode
     {
         public Rook()
         {
+            FullName = "Rook";
             Name = "R";
             Value = 5;
         }

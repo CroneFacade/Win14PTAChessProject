@@ -13,6 +13,11 @@ namespace PTAChessProjectCode
         public bool MyTurn { get; set; }
         public AI(bool isWhite, bool myTurn)
         {
+            CheckTeamToMakePiecesFor(isWhite, myTurn);
+        }
+
+        private void CheckTeamToMakePiecesFor(bool isWhite, bool myTurn)
+        {
             this.IsWhite = isWhite;
             this.MyTurn = myTurn;
 
@@ -26,33 +31,32 @@ namespace PTAChessProjectCode
             {
                 AddPieces(1);
             }
-
         }
-        // Försök till att i en metod skapa nya pjäser.
-        //public void CreateChessPiece(int x, int y, ChessPiece piece)
-        //{
-        //    piece = new Pawn(x, y);
-        //    piece.id = 1;
-        //    PieceList.Add(piece);
-        //}
 
         public void AddPieces(int teamdirection)
         {
             int gameBoardWidth = 8;
 
+            GeneratePieces(teamdirection, gameBoardWidth);
+
+            GeneratePositionsForPieces(teamdirection, gameBoardWidth);
+        }
+
+        private void GeneratePieces(int teamdirection, int gameBoardWidth)
+        {
             Rook rook = new Rook();
 
             Knight knight = new Knight();
 
             Bishop bishop = new Bishop();
 
-           King king = new King();
+            King king = new King();
 
             Queen queen = new Queen();
 
             Bishop bishop2 = new Bishop();
 
-           Knight knight2 = new Knight();
+            Knight knight2 = new Knight();
 
             Rook rook2 = new Rook();
 
@@ -73,7 +77,10 @@ namespace PTAChessProjectCode
                 Pawn pawn = new Pawn();
                 PieceList.Add(pawn);
             }
+        }
 
+        private void GeneratePositionsForPieces(int teamdirection, int gameBoardWidth)
+        {
             int x = 0;
             int y = 0;
             int ID = 0;
@@ -98,9 +105,6 @@ namespace PTAChessProjectCode
                     y = y + teamdirection;
                 }
             }
-
-
-
         }
     }
 }
