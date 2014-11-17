@@ -113,7 +113,7 @@ namespace PTAChessProjectCode
         {
             if (continuePlaying == true)
             {
-                continuePlaying = CheckIfGameOver(continuePlaying);
+                continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
                 BlackMove();
             }
             return continuePlaying;
@@ -123,7 +123,7 @@ namespace PTAChessProjectCode
         {
             if (continuePlaying == true)
             {
-                continuePlaying = CheckIfGameOver(continuePlaying);
+                continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
                 WhiteMove();
             }
             return continuePlaying;
@@ -154,23 +154,10 @@ namespace PTAChessProjectCode
             Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
         }
 
-        private bool CheckIfGameOver(bool continuePlaying)
-        {
-
-            if (AIWhiteComp.PieceList.Count == 0 || AIBlackComp.PieceList.Count == 0)
-            {
-                continuePlaying = false;
-
-                //This line makes us enter a Game Over Menu
-                EnterGameOverMenu();
-
-
-            }
-            return continuePlaying;
-        }
+        
 
         //Game Over Menu Method
-        private static void EnterGameOverMenu()
+        public static void EnterGameOverMenu()
         {
             //We want to stay in the menu until we choose
             //a menu option which is to exit the menu

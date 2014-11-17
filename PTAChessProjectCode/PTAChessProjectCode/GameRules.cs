@@ -23,5 +23,19 @@ namespace PTAChessProjectCode
             }
             return walkingLength;
         }
+        public static bool CheckIfGameOver(bool continuePlaying, PlayerPieces AIWhiteComp, PlayerPieces AIBlackComp)
+        {
+
+            if (AIWhiteComp.PieceList.Count == 0 || AIBlackComp.PieceList.Count == 0)
+            {
+                continuePlaying = false;
+
+                //This line makes us enter a Game Over Menu
+                GameEngine.EnterGameOverMenu();
+
+
+            }
+            return continuePlaying;
+        }
     }
 }
