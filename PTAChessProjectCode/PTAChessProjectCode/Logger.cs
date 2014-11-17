@@ -59,7 +59,7 @@ namespace PTAChessProjectCode
         //This Method adds a new log entry
         internal static void AddMoveToLog(MovementOptions move)
         {
-            //_The New Log__My Team (White or Black)________The Full Name of the Piece we moved___Old PositionX__________Old PositionY_____________________NewX_____________________NewY
+            //_The New Log__My Team (White or Black)_The Full Name ____________________Old PositionX___________________Old PositionY_____________________NewX_____________________NewY
             string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX + "," + move.MyPiece.PositionY + " to " + move.PositionX + "," + move.PositionY;
             
             //Save the newest Log

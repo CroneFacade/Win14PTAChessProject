@@ -102,6 +102,7 @@ namespace PTAChessProjectCode
 
             while (continuePlaying)
             {
+                UpdateBoard();
                 Console.ReadLine();
                 continuePlaying = InitiateWhiteTurn(continuePlaying);
                 Console.ReadLine();
