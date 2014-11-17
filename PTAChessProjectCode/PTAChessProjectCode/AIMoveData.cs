@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    public class MoveData //This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
+    public class AIMoveData //This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
     {
-        private AI AIToMove { get; set; }
-        private AI AINotToMove { get; set; }
+        private PlayerPieces AIToMove { get; set; }
+        private PlayerPieces AINotToMove { get; set; }
         //private List<ChessPiece> EnemyAIPieces { get; set; }
         public List<ChessPiece> PieceThatCanMove { get; set; }
         public List<ChessPiece> PieceThatCanKill { get; set; }
@@ -17,7 +17,7 @@ namespace PTAChessProjectCode
         public List<ChessPiece> EnemyPiecePositions { get; set; }
         public List<string> AllMoves { get; set; }
 
-        public MoveData(AI playerToMove, AI playerNotToMove)
+        public AIMoveData(PlayerPieces playerToMove, PlayerPieces playerNotToMove)
         {
             this.AIToMove = playerToMove;
             this.AINotToMove = playerNotToMove;
@@ -27,7 +27,7 @@ namespace PTAChessProjectCode
             PieceThatCanKill = new List<ChessPiece>();
         }
 
-        public List<ChessPiece> MakeMove(AI playerToMove, List<ChessPiece> enemyList)
+        public List<ChessPiece> MakeMove(PlayerPieces playerToMove, List<ChessPiece> enemyList)
         {
             this.AIToMove = playerToMove;
             this.EnemyPiecePositions = enemyList;
@@ -36,12 +36,12 @@ namespace PTAChessProjectCode
             return AfterMoveList;
         }
 
-        private void SetNewAIToMakeMove(AI playerToMove)
+        private void SetNewAIToMakeMove(PlayerPieces playerToMove)
         {
             this.AIToMove = playerToMove;
         }
 
-        public List<ChessPiece> AIMakeMove(AI AIToMove)
+        public List<ChessPiece> AIMakeMove(PlayerPieces AIToMove)
         {
 
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
