@@ -6,15 +6,32 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class Knight:ChessPiece
+    class Knight : ChessPiece
     {
+        public string FullName { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        public string Name { get; set; }
+        public int Value { get; set; }
+        public int teamDirection { get; set; }
+        public bool canMove { get; set; }
+        public bool canStrike { get; set; }
+        public List<ChessPiece> PiecesICanKill { get; set; }
+        public int id { get; set; }
+        public void ClearMovementoptions()
+        {
+            AllMoveOptionsForThisPiece.Clear();
+        }
+
+        public List<MovementOptions> AllMoveOptionsForThisPiece { get; set; }
         public Knight()
         {
+            AllMoveOptionsForThisPiece = new List<MovementOptions>();
             FullName = "Knight";
             Name = "k";
-            Value=3;
+            Value = 3;
         }
-        public override void MoveOption(int teamDirection)
+        public void MoveOption(int teamDirection)
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
 
@@ -29,6 +46,8 @@ namespace PTAChessProjectCode
             possibleMoves.Add(new MovementOptions(-2, -1, 1, true, true, id));
             AllMoveOptionsForThisPiece = possibleMoves;
         }
+
+
 
     }
 }

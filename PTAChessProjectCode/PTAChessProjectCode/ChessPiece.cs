@@ -9,26 +9,21 @@ namespace PTAChessProjectCode
     /// <summary>
     /// Parent class that handles all chesspieces and their prperties
     /// </summary>
-    public abstract class ChessPiece
+    public interface ChessPiece
     {
-        public string FullName { get; set; }
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        public string Name { get; set; }
-        public int Value { get; set; }
-        public int teamDirection { get; set; }
-        public bool canMove = true;
-        public bool canStrike = true;
-        public List<ChessPiece> PiecesICanKill { get; set; }
+        string FullName { get; set; }
+        int PositionX { get; set; }
+        int PositionY { get; set; }
+        string Name { get; set; }
+        int Value { get; set; }
+        int teamDirection { get; set; }
+        bool canMove { get; set; }
+        bool canStrike { get; set; }
+        List<ChessPiece> PiecesICanKill { get; set; }
+        List<MovementOptions> AllMoveOptionsForThisPiece { get; set; }
+        void MoveOption(int teamDirection);
 
-        public List<MovementOptions> AllMoveOptionsForThisPiece = new List<MovementOptions>();
-        public virtual void MoveOption(int teamDirection)
-        {
-            List<MovementOptions> possibleMoves = new List<MovementOptions>();
-            AllMoveOptionsForThisPiece = possibleMoves;
-        }
-
-        public int id { get; set; }
+        int id { get; set; }
 
         //public List<List<string>> PieceMovement { get; set; }
         // 
@@ -42,10 +37,7 @@ namespace PTAChessProjectCode
 
 
 
-        internal void ClearMovementoptions()
-        {
-            AllMoveOptionsForThisPiece.Clear();
-        }
+        void ClearMovementoptions();
 
         
     }
