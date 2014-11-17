@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
-{7
+{
     /// <summary>
     /// Parent class that handles all chesspieces and their prperties
     /// </summary>
