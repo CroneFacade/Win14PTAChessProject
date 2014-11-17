@@ -30,6 +30,7 @@ namespace PTAChessProjectCode
             PieceThatCanKill = new List<ChessPiece>();
         }
 
+        // Vi har en metod MakeMove, en annan AIMakeMove....
         public List<ChessPiece> MakeMove(PlayerPieces playerToMove, List<ChessPiece> enemyList)
         {
             this.AIToMove = playerToMove;
@@ -81,13 +82,14 @@ namespace PTAChessProjectCode
         }
 
 
-
+        /* Förklara metoden, hur räknar vi ut högsta värde på ett drag */
         private MovementOptions FindHighestPieceValue(List<MovementOptions> PiecesICanKill)
         {
             var highestValueFound = 0;
             MovementOptions optimalMovementOption = null;
             foreach (var movementOption in PiecesICanKill)
             {
+                /* Förklaring till if satsen */
                 if ((highestValueFound < movementOption.EnemyPiece.Value) || ((highestValueFound == movementOption.EnemyPiece.Value) && (optimalMovementOption.MyPiece.Value > movementOption.MyPiece.Value)))
                 {
                     highestValueFound = movementOption.EnemyPiece.Value;
