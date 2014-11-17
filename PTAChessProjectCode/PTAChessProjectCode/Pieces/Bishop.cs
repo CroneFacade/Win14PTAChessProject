@@ -8,14 +8,30 @@ namespace PTAChessProjectCode
 {
     class Bishop:ChessPiece
     {
+        public string FullName { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        public string Name { get; set; }
+        public int Value { get; set; }
+        public int teamDirection { get; set; }
+        public bool canMove { get; set; }
+        public bool canStrike { get; set; }
+        public List<ChessPiece> PiecesICanKill { get; set; }
+        public int id { get; set; }
+        public void ClearMovementoptions()
+        {
+            AllMoveOptionsForThisPiece.Clear();
+        }
+
+        public List<MovementOptions> AllMoveOptionsForThisPiece { get; set; }
         public Bishop()
         {
-
+            AllMoveOptionsForThisPiece = new List<MovementOptions>();
             FullName = "Bishop";
             Name = "B";
             Value = 3;
         }
-        public override void MoveOption(int teamDirection)
+        public void MoveOption(int teamDirection)
         {
             List<MovementOptions> possibleMoves = new List<MovementOptions>();
 
