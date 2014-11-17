@@ -17,10 +17,5 @@ namespace ChessGUI
         {
             Console.Write(text);
         }
-
-        public static void WriteStuffPlease(string text)
-        {
-            Console.WriteLine(text);
-        }
     }
 }

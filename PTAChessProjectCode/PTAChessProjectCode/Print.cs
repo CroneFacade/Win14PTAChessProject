@@ -16,7 +16,7 @@ namespace PTAChessProjectCode
             Console.Clear();
             for (int i = 0; i < 8; i++)
             {
-                ChessGUI.GUI.WriteStuffPlease("        " + '\u2502' + i);
+                ChessGUI.GUI.WriteNewLineStuffPlease("        " + '\u2502' + i);
 
             }
             ChessGUI.GUI.WriteStuffPlease('\u2500');
@@ -42,7 +42,7 @@ namespace PTAChessProjectCode
             foreach (var piece in PieceList)
             {
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-                ChessGUI.GUI.WriteStuffPlease(piece.Name);
+                ChessGUI.GUI.WriteNewLineStuffPlease(piece.Name);
             }
             Console.SetCursorPosition(10, 10);
         }
