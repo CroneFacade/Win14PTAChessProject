@@ -171,7 +171,7 @@ namespace PTAChessProjectCode
         private static void EnterGameOverMenu()
         {
             //We want to stay in the menu until we choose
-            //an menu option which is to exit the menu
+            //a menu option which is to exit the menu
             bool leaveMenu = false;
             while (!leaveMenu)
             {
@@ -192,7 +192,7 @@ namespace PTAChessProjectCode
             //If the player chose Option 1
             if (pressedKey.KeyChar == 49)
             {
-                //we simply leave the manu, and the game will play again.
+                //we simply leave the menu, and the game will play again.
                 leaveMenu = true;
             }
                 //If we choose Option 2
