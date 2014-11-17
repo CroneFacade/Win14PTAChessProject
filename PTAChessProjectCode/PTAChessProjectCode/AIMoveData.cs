@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    public class AIMoveData //This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
+    /// <summary>
+    /// This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
+    /// </summary>
+    public class AIMoveData
     {
         private PlayerPieces AIToMove { get; set; }
         private PlayerPieces AINotToMove { get; set; }

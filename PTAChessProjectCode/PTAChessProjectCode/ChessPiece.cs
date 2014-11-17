@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
-{
+{7
+    /// <summary>
+    /// Parent class that handles all chesspieces and their prperties
+    /// </summary>
     public abstract class ChessPiece
     {
         public string FullName { get; set; }
@@ -21,8 +24,8 @@ namespace PTAChessProjectCode
         public List<MovementOptions> AllMoveOptionsForThisPiece = new List<MovementOptions>();
         public virtual void MoveOption(int teamDirection)
         {
-          List<MovementOptions> possibleMoves = new List<MovementOptions>();
-AllMoveOptionsForThisPiece = possibleMoves;
+            List<MovementOptions> possibleMoves = new List<MovementOptions>();
+            AllMoveOptionsForThisPiece = possibleMoves;
         }
 
         public int id { get; set; }
@@ -48,7 +51,7 @@ AllMoveOptionsForThisPiece = possibleMoves;
     }
 }
 
-//OLD
+        //OLD
         //public int PositionX { get; set; }
         //public int PositionY { get; set; }
         //public int Value { get; set; }

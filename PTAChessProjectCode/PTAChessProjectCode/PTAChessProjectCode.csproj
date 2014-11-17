@@ -41,21 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI.cs" />
+    <Compile Include="AIMoveData.cs" />
     <Compile Include="ChessPiece.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameRules.cs" />
-    <Compile Include="IPlayer.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="MoveData.cs" />
     <Compile Include="MovementOptions.cs" />
-    <Compile Include="MoveTempData.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\Pawn.cs" />
     <Compile Include="Pieces\Queen.cs" />
     <Compile Include="Pieces\Rook.cs" />
+    <Compile Include="PlayerPieces.cs" />
     <Compile Include="Print.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

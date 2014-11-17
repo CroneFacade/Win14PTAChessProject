@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// Class handles the logic of the game
+    /// </summary>
     public class GameEngine
     {
 
@@ -29,7 +32,6 @@ namespace PTAChessProjectCode
             InitiateGame();
             StartGame();
             Logger.CreateCleanLog();
-
         }
 
         // This method controls the initiatiation of the game

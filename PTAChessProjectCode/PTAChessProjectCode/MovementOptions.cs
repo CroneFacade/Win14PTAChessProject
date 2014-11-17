@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// Class that handles the rules of movement for each piec.
+    /// </summary>
     public class MovementOptions
     {
        public int PositionX = 0;

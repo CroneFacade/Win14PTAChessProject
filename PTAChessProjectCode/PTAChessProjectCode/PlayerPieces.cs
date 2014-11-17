@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    public class PlayerPieces //we should rename this class, this is not an AI, it has no logic in it, it only creates pieces. I would suggest calling this class "Piece_Generator" or something similar
+    /// <summary>
+    /// we should rename this class, this is not an AI, it has no logic in it, it only creates pieces. 
+    /// I would suggest calling this class "Piece_Generator" or something similar
+    /// </summary>
+    public class PlayerPieces 
     {
         public List<ChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }

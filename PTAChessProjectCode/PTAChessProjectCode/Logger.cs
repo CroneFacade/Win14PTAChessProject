@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// Class that log game data
+    /// </summary>
     public class Logger
     {
         //This is our complete log list of all movements

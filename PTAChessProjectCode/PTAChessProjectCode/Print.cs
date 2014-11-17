@@ -5,8 +5,11 @@ using System.Text;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// This class handles all the printing functions.
+    /// </summary>
     public class Print
-    {     //This class handles all the printing functions.
+    {     
         public void PrintBoard(int turnCounter)
         {
             //System.Threading.Thread.Sleep(1000);
