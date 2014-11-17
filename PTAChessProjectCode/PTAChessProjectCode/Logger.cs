@@ -59,5 +59,16 @@ namespace PTAChessProjectCode
 
 
 
+        //This method adds a log which explains which piece defeated which piece and where.
+        internal static void AddPieceStrikeToLog(MovementOptions pieceToMove)
+        {
+            string log = pieceToMove.MyTeam + " " + pieceToMove.MyPiece.FullName + " moved from " + pieceToMove.MyPiece.PositionX + "," + pieceToMove.MyPiece.PositionY + " and removed an enemy " + pieceToMove.EnemyPiece.FullName + " at position " + pieceToMove.PositionX + "," + pieceToMove.PositionY;
+            
+            //Save the newest Log
+            newestLog = log;
+
+            //Add the new log to the complete list
+            CompleteMoveLog.Add(log);
+        }
     }
 }

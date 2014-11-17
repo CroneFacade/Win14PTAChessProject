@@ -71,7 +71,7 @@ namespace PTAChessProjectCode
                 optimalMovementOption = AllMovesMyPiecesCanMake[randomNumber][randomMovementOption];
             }
 
-            Logger.AddMoveToLog(optimalMovementOption);
+            
             MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
             return AIToMove.PieceList;
         }
@@ -82,7 +82,7 @@ namespace PTAChessProjectCode
             MovementOptions optimalMovementOption = null;
             foreach (var movementOption in PiecesICanKill)
             {
-                if (highestValueFound < movementOption.EnemyPiece.Value)
+                if ((highestValueFound < movementOption.EnemyPiece.Value) || ((highestValueFound == movementOption.EnemyPiece.Value) && (optimalMovementOption.MyPiece.Value > movementOption.MyPiece.Value)))
                 {
                     highestValueFound = movementOption.EnemyPiece.Value;
                     optimalMovementOption = movementOption;
@@ -128,7 +128,16 @@ namespace PTAChessProjectCode
             pieceToMove.MyPiece.PositionX = pieceToMove.PositionX;
             pieceToMove.MyPiece.PositionY = pieceToMove.PositionY;
 
-            RemoveEnemyPiece(pieceToMove.EnemyPiece);
+            if (pieceToMove.CheckForEnemyResult == 1)
+            {
+                Logger.AddPieceStrikeToLog(pieceToMove);
+                RemoveEnemyPiece(pieceToMove.EnemyPiece);
+            }
+            else
+            {
+                Logger.AddMoveToLog(pieceToMove);
+            }
+            
         }
 
         private void RemoveEnemyPiece(ChessPiece pieceToRemove)
