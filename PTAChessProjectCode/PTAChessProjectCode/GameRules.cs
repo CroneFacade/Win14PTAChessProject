@@ -25,17 +25,51 @@ namespace PTAChessProjectCode
         }
         public static bool CheckIfGameOver(bool continuePlaying, PlayerPieces AIWhiteComp, PlayerPieces AIBlackComp)
         {
+            bool whiteKingAlive = true;
+            bool blackKingAlive = true;
 
-            if (AIWhiteComp.PieceList.Count == 0 || AIBlackComp.PieceList.Count == 0)
+            whiteKingAlive = CheckWhiteKing(AIWhiteComp, whiteKingAlive);
+            blackKingAlive = CheckBlackKing(AIBlackComp, blackKingAlive);
+
+            if (whiteKingAlive && blackKingAlive)
             {
-                continuePlaying = false;
-
-                //This line makes us enter a Game Over Menu
-                GameEngine.EnterGameOverMenu();
-
+                continuePlaying = true;
 
             }
+            else
+            {
+                continuePlaying = false;
+                //This line makes us enter a Game Over Menu
+                GameEngine.EnterGameOverMenu();
+            }
             return continuePlaying;
+        }
+
+        private static bool CheckBlackKing(PlayerPieces AIBlackComp, bool blackKingAlive)
+        {
+            blackKingAlive = false;
+            foreach (var piece in AIBlackComp.PieceList)
+            {
+                if (piece.FullName == "King")
+                {
+                    blackKingAlive = true;
+                }
+                
+            }
+            return blackKingAlive;
+        }
+
+        private static bool CheckWhiteKing(PlayerPieces AIWhiteComp, bool whiteKingAlive)
+        {
+            whiteKingAlive = false;
+            foreach (var piece in AIWhiteComp.PieceList)
+            {
+                if (piece.FullName == "King")
+                {
+                    whiteKingAlive = true;
+                }
+            }
+            return whiteKingAlive;
         }
     }
 }

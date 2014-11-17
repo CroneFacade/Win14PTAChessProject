@@ -102,10 +102,11 @@ namespace PTAChessProjectCode
 
             while (continuePlaying)
             {
+                Console.ReadLine();
                 continuePlaying = InitiateWhiteTurn(continuePlaying);
                 Console.ReadLine();
                 continuePlaying = InitiateBlackTurn(continuePlaying);
-                Console.ReadLine();
+
             }
         }
 
@@ -150,11 +151,11 @@ namespace PTAChessProjectCode
             Printer.PrintBoard(countMoves);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Red;
             Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
         }
 
-        
+
 
         //Game Over Menu Method
         public static void EnterGameOverMenu()
@@ -172,7 +173,7 @@ namespace PTAChessProjectCode
                 //if we should exit the menu or not
                 leaveMenu = PerformChosenMenuOption(pressedKey, leaveMenu);
             }
-            
+
         }
 
         //This method handles all of our Game Over Menu options
@@ -184,7 +185,7 @@ namespace PTAChessProjectCode
                 //we simply leave the menu, and the game will play again.
                 leaveMenu = true;
             }
-                //If we choose Option 2
+            //If we choose Option 2
             else if (pressedKey.KeyChar == 50)
             {
                 //Call a method which prints out our complete move log.
@@ -192,7 +193,7 @@ namespace PTAChessProjectCode
                 //We wont leave the menu after this
                 leaveMenu = false;
             }
-                //If we choose option 3
+            //If we choose option 3
             else if (pressedKey.KeyChar == 51)
             {
                 //Quit the program

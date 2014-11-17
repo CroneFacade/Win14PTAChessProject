@@ -16,24 +16,24 @@ namespace PTAChessProjectCode
             Console.Clear();
             for (int i = 0; i < 8; i++)
             {
-                Console.WriteLine("        " + '\u2502' + i);
+                ChessGUI.GUI.WriteStuffPlease("        " + '\u2502' + i);
 
             }
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2500');
-            Console.Write('\u2518');
-            Console.WriteLine();
-            Console.WriteLine("01234567");
-            Console.WriteLine("\n\nTurn: " + turnCounter);
-            Console.WriteLine("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
-            Console.WriteLine("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
-            Console.WriteLine(Logger.newestLog);
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2500');
+            ChessGUI.GUI.WriteStuffPlease('\u2518');
+            ChessGUI.GUI.WriteNewLineStuffPlease(" ");
+            ChessGUI.GUI.WriteNewLineStuffPlease("01234567");
+            ChessGUI.GUI.WriteNewLineStuffPlease("\n\nTurn: " + turnCounter);
+            ChessGUI.GUI.WriteNewLineStuffPlease("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
+            ChessGUI.GUI.WriteNewLineStuffPlease("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
+            ChessGUI.GUI.WriteNewLineStuffPlease(Logger.newestLog);
         }
 
         public void PrintPieceOnBoard(List<ChessPiece> PieceList)
@@ -42,7 +42,7 @@ namespace PTAChessProjectCode
             foreach (var piece in PieceList)
             {
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-                Console.Write(piece.Name);
+                ChessGUI.GUI.WriteStuffPlease(piece.Name);
             }
             Console.SetCursorPosition(10, 10);
         }
@@ -57,13 +57,13 @@ namespace PTAChessProjectCode
             foreach (var log in Logger.CompleteMoveLog)
             {
                 //Type out that individual log
-                Console.WriteLine(log);
+                ChessGUI.GUI.WriteNewLineStuffPlease(log);
                 //Add 1 to a counter
                 stopCounter++;
                 //If this counter reaches 10
                 if (stopCounter == 10)
                 {
-                    Console.WriteLine("Printing Paused, press any key to continue...");
+                    ChessGUI.GUI.WriteNewLineStuffPlease("Printing Paused, press any key to continue...");
                     //reset counter
                     stopCounter = 0;
                     //Pause until the user hits any key
@@ -71,7 +71,7 @@ namespace PTAChessProjectCode
 
                 }
             }
-            Console.WriteLine("\n\nEnd of Log, Press any key to return to Menu");
+            ChessGUI.GUI.WriteNewLineStuffPlease("\n\nEnd of Log, Press any key to return to Menu");
             Console.ReadKey();
         }
 
@@ -79,8 +79,8 @@ namespace PTAChessProjectCode
         public static void GameOverMenu()
         {
             Console.Clear();
-            Console.WriteLine("Game Over!!!!");
-            Console.WriteLine(@"
+            ChessGUI.GUI.WriteNewLineStuffPlease("Game Over!!!!");
+            ChessGUI.GUI.WriteNewLineStuffPlease(@"
 Menu:
 Press the number for the chosen action
 1. Play again
