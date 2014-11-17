@@ -207,28 +207,14 @@ namespace PTAChessProjectCode
                 friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
                 enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
 
-                walkingLength = CheckIfLegalMove(Piece, AllLegalMovesForThisPiece, direction, walkingLength, outOfBounds, friendlyAhead, enemyAhead, FuturePositionX, FuturePositionY);
+                walkingLength = GameRules.CheckIfLegalMove(Piece, AllLegalMovesForThisPiece, direction, walkingLength, outOfBounds, friendlyAhead, enemyAhead, FuturePositionX, FuturePositionY);
 
             }
         }
 
-        private static int CheckIfLegalMove(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
-        {
-            Logger.TotalMovesAnalyzed();
+        
 
-            //I added that if a piece wants to take another piece, then CanStrike has to be true, and if a piece wants to just move, then CanMove must be true. this enforces the CanMove & CanStrike bools in our pieces.
-            if ((!outOfBounds && !friendlyAhead) && ((enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanStrike) || (!enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanMove)))
-            {
-                walkingLength = CreateMovementOption(Piece, AllLegalMovesForThisPiece, direction, walkingLength, enemyAhead, FuturePositionX, FuturePositionY);
-            }
-            else
-            {
-                walkingLength = 100;
-            }
-            return walkingLength;
-        }
-
-        private static int CreateMovementOption(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool enemyAhead, int FuturePositionX, int FuturePositionY)
+        public static int CreateMovementOption(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool enemyAhead, int FuturePositionX, int FuturePositionY)
         {
             MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[direction];
 
