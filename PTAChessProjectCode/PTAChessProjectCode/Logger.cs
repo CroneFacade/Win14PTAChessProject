@@ -40,12 +40,24 @@ namespace PTAChessProjectCode
             TotalAmountOfLegalAnalyzedMoves += amountOfMoves;
         }
 
+        //This Method decides if we log an Move or an Strike
+        internal static void LogDecidedMove(MovementOptions move)
+        {
+            if (move.CheckForEnemyResult == 1)
+            {
+                Logger.AddPieceStrikeToLog(move);
+            }
+            else
+            {
+                Logger.AddMoveToLog(move);
+            }
+        }
 
         //This Method adds a new log entry
-        internal static void AddMoveToLog(MovementOptions optimalMovementOption)
+        internal static void AddMoveToLog(MovementOptions move)
         {
             //_The New Log__My Team (White or Black)________The Full Name of the Piece we moved_______________________Old PositionX___________________________________Old PositionY_______________________________NewX_______________________________NewY
-            string log = optimalMovementOption.MyTeam + " " + optimalMovementOption.MyPiece.FullName + " moved from " + optimalMovementOption.MyPiece.PositionX + "," + optimalMovementOption.MyPiece.PositionY + " to " + optimalMovementOption.PositionX + "," + optimalMovementOption.PositionY;
+            string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX + "," + move.MyPiece.PositionY + " to " + move.PositionX + "," + move.PositionY;
             
             //Save the newest Log
             newestLog = log;
@@ -54,15 +66,10 @@ namespace PTAChessProjectCode
             CompleteMoveLog.Add(log);
         }
 
-
-
-
-
-
         //This method adds a log which explains which piece defeated which piece and where.
-        internal static void AddPieceStrikeToLog(MovementOptions pieceToMove)
+        internal static void AddPieceStrikeToLog(MovementOptions move)
         {
-            string log = pieceToMove.MyTeam + " " + pieceToMove.MyPiece.FullName + " moved from " + pieceToMove.MyPiece.PositionX + "," + pieceToMove.MyPiece.PositionY + " and removed an enemy " + pieceToMove.EnemyPiece.FullName + " at position " + pieceToMove.PositionX + "," + pieceToMove.PositionY;
+            string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX + "," + move.MyPiece.PositionY + " and removed an enemy " + move.EnemyPiece.FullName + " at position " + move.PositionX + "," + move.PositionY;
             
             //Save the newest Log
             newestLog = log;

@@ -71,10 +71,13 @@ namespace PTAChessProjectCode
                 optimalMovementOption = AllMovesMyPiecesCanMake[randomNumber][randomMovementOption];
             }
 
-            
+            Logger.LogDecidedMove(optimalMovementOption);
+
             MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
             return AIToMove.PieceList;
         }
+
+
 
         private MovementOptions FindHighestPieceValue(List<MovementOptions> PiecesICanKill)
         {
@@ -130,14 +133,9 @@ namespace PTAChessProjectCode
 
             if (pieceToMove.CheckForEnemyResult == 1)
             {
-                Logger.AddPieceStrikeToLog(pieceToMove);
                 RemoveEnemyPiece(pieceToMove.EnemyPiece);
             }
-            else
-            {
-                Logger.AddMoveToLog(pieceToMove);
-            }
-            
+
         }
 
         private void RemoveEnemyPiece(ChessPiece pieceToRemove)
