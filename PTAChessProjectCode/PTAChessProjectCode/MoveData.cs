@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    public class MoveData
+    public class MoveData //This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
     {
         private AI AIToMove { get; set; }
         private AI AINotToMove { get; set; }
@@ -203,7 +203,9 @@ namespace PTAChessProjectCode
         private static int CheckIfLegalMove(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
         {
             Logger.TotalMovesAnalyzed();
-            if (!outOfBounds && !friendlyAhead)
+
+            //I added that if a piece wants to take another piece, then CanStrike has to be true, and if a piece wants to just move, then CanMove must be true. this enforces the CanMove & CanStrike bools in our pieces.
+            if ((!outOfBounds && !friendlyAhead) && ((enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanStrike) || (!enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanMove)))
             {
                 walkingLength = CreateMovementOption(Piece, AllLegalMovesForThisPiece, direction, walkingLength, enemyAhead, FuturePositionX, FuturePositionY);
             }
