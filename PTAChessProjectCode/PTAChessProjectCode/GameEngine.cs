@@ -12,9 +12,9 @@ namespace PTAChessProjectCode
 
         Print Printer;
         public int countMoves = 1;
-        public AI AIWhiteComp;
-        public AI AIBlackComp;
-        public MoveData moveData;
+        public PlayerPieces AIWhiteComp;
+        public PlayerPieces AIBlackComp;
+        public AIMoveData moveData;
 
         public GameEngine()
         {
@@ -47,13 +47,13 @@ namespace PTAChessProjectCode
 
         }
 
-        public void CreateMoveLogic(AI playerToBegin, AI playerNotMovin)
+        public void CreateMoveLogic(PlayerPieces playerToBegin, PlayerPieces playerNotMovin)
         {
-            moveData = new MoveData(playerToBegin, playerNotMovin);
+            moveData = new AIMoveData(playerToBegin, playerNotMovin);
 
         }
 
-        public AI FetchAIToBegin()
+        public PlayerPieces FetchAIToBegin()
         {
             if (AIWhiteComp.MyTurn == true)
             {
@@ -65,7 +65,7 @@ namespace PTAChessProjectCode
             }
         }
 
-        public AI FetchAINotMoving()
+        public PlayerPieces FetchAINotMoving()
         {
             if (AIWhiteComp.MyTurn == false)
             {
@@ -83,8 +83,8 @@ namespace PTAChessProjectCode
             bool playerBlack = false;
             bool myTurn = false;
 
-            AIWhiteComp = new AI(playerWhite, myTurn);
-            AIBlackComp = new AI(playerBlack, myTurn);
+            AIWhiteComp = new PlayerPieces(playerWhite, myTurn);
+            AIBlackComp = new PlayerPieces(playerBlack, myTurn);
 
         }
 
@@ -213,7 +213,7 @@ namespace PTAChessProjectCode
             return leaveMenu;
         }
 
-        public AI CheckAITurn()
+        public PlayerPieces CheckAITurn()
         {
             if (AIWhiteComp.MyTurn == true)
             {
@@ -225,7 +225,7 @@ namespace PTAChessProjectCode
             }
         }
 
-        public void SwitchAITurn(AI playerMadeMove)
+        public void SwitchAITurn(PlayerPieces playerMadeMove)
         {
             if (countMoves % 2 == 1)
             {

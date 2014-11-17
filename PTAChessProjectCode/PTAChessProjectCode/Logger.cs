@@ -56,7 +56,7 @@ namespace PTAChessProjectCode
         //This Method adds a new log entry
         internal static void AddMoveToLog(MovementOptions move)
         {
-            //_The New Log__My Team (White or Black)________The Full Name of the Piece we moved_______________________Old PositionX___________________________________Old PositionY_______________________________NewX_______________________________NewY
+            //_The New Log__My Team (White or Black)________The Full Name of the Piece we moved___Old PositionX__________Old PositionY_____________________NewX_____________________NewY
             string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX + "," + move.MyPiece.PositionY + " to " + move.PositionX + "," + move.PositionY;
             
             //Save the newest Log
@@ -69,7 +69,9 @@ namespace PTAChessProjectCode
         //This method adds a log which explains which piece defeated which piece and where.
         internal static void AddPieceStrikeToLog(MovementOptions move)
         {
-            string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX + "," + move.MyPiece.PositionY + " and removed an enemy " + move.EnemyPiece.FullName + " at position " + move.PositionX + "," + move.PositionY;
+            string log = move.MyTeam + " " + move.MyPiece.FullName + " moved from " + move.MyPiece.PositionX +
+                "," + move.MyPiece.PositionY + " and removed an enemy " + move.EnemyPiece.FullName + " at position " +
+                move.PositionX + "," + move.PositionY;
             
             //Save the newest Log
             newestLog = log;
