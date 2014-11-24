@@ -24,7 +24,7 @@ namespace PTAChessProjectCode
         public static string newestLog { get; set; }
         
         //This Method resets the logs for a new game
-        internal static void CreateCleanLog()
+        public static void CreateCleanLog()
         {
             CompleteMoveLog = new List<string>();
             TotalAnalyzedMoves = 0;

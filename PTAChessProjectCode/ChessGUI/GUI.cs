@@ -58,13 +58,13 @@ namespace ChessGUI
             foreach (var log in Logger.CompleteMoveLog)
             {
                 //Type out that individual log
-                Console.Write(log);
+                Console.WriteLine(log);
                 //Add 1 to a counter
                 stopCounter++;
                 //If this counter reaches 10
                 if (stopCounter == 10)
                 {
-                    Console.Write("Printing Paused, press any key to continue...");
+                    Console.WriteLine("Printing Paused, press any key to continue...");
                     //reset counter
                     stopCounter = 0;
                     //Pause until the user hits any key
@@ -72,7 +72,7 @@ namespace ChessGUI
 
                 }
             }
-            Console.Write("\n\nEnd of Log, Press any key to return to Menu");
+            Console.WriteLine("\n\nEnd of Log, Press any key to return to Menu");
             Console.ReadKey();
         }
 
@@ -80,8 +80,8 @@ namespace ChessGUI
         public static void GameOverMenu()
         {
             Console.Clear();
-            Console.Write("Game Over!!!!");
-            Console.Write(@"
+            Console.WriteLine("Game Over!!!!");
+            Console.WriteLine(@"
 Menu:
 Press the number for the chosen action
 1. Play again

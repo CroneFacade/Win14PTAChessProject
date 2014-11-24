@@ -16,13 +16,19 @@ namespace ChessGUI
 
         public void SetupNewGame()
         {
+            while (true)
+            {
+             
             InitiateNewGame();
             PrintGameBoard();
             newGame.StartGame();
+
+            }
         }
 
         private void InitiateNewGame()
         {
+            Logger.CreateCleanLog();
             engine = new GameEngine();
             Printer = new PrintGUI();
             newGame = new RunGame(Printer, engine);

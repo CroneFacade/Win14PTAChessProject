@@ -38,9 +38,10 @@ namespace PTAChessProjectCode
             }
             else
             {
+                
                 continuePlaying = false;
                 //This line makes us enter a Game Over Menu
-                GameEngine.EnterGameOverMenu();
+                //GameEngine.EnterGameOverMenu();
             }
             return continuePlaying;
         }

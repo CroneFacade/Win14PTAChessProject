@@ -13,17 +13,17 @@ namespace PTAChessProjectCode
     /// </summary>
     public class GameEngine
     {
-        
 
 
-        
+
+
         //Print Printer;
         public int countMoves = 1;
         public PlayerPieces AIWhiteComp;
         public PlayerPieces AIBlackComp;
         public AIMoveData moveData;
 
-        
+
 
         public GameEngine()
         {
@@ -37,7 +37,7 @@ namespace PTAChessProjectCode
         public void Start()
         {
             //countMoves = 1;
-            
+
             StartGame();
             Logger.CreateCleanLog();
         }
@@ -114,7 +114,7 @@ namespace PTAChessProjectCode
 
             while (continuePlaying)
             {
-               // UpdateBoard();
+                // UpdateBoard();
                 Console.ReadLine();
                 continuePlaying = InitiateWhiteTurn(continuePlaying);
                 Console.ReadLine();
@@ -125,9 +125,9 @@ namespace PTAChessProjectCode
 
         public bool InitiateBlackTurn(bool continuePlaying)
         {
+            continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
             if (continuePlaying == true)
             {
-                continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
                 BlackMove();
             }
             return continuePlaying;
@@ -135,9 +135,9 @@ namespace PTAChessProjectCode
 
         public bool InitiateWhiteTurn(bool continuePlaying)
         {
+            continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
             if (continuePlaying == true)
             {
-                continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
                 WhiteMove();
             }
             return continuePlaying;
@@ -147,14 +147,14 @@ namespace PTAChessProjectCode
         {
             AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp, AIWhiteComp.PieceList);
             countMoves++;
-          //  UpdateBoard();
+            //  UpdateBoard();
         }
 
         private void WhiteMove()
         {
             AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
             //countMoves++;
-         //   UpdateBoard();
+            //   UpdateBoard();
             Console.ForegroundColor = ConsoleColor.Yellow;
         }
 
@@ -171,50 +171,7 @@ namespace PTAChessProjectCode
 
 
         //Game Over Menu Method
-        public static void EnterGameOverMenu()
-        {
-            //We want to stay in the menu until we choose
-            //a menu option which is to exit the menu
-            bool leaveMenu = false;
-            while (!leaveMenu)
-            {
-                //This simply displays the Menu
-                //Print.GameOverMenu();
-                //This collects your menu choice.
-                var pressedKey = Console.ReadKey();
-                //This method fetches a bool from the method and lets us know
-                //if we should exit the menu or not
-                leaveMenu = PerformChosenMenuOption(pressedKey, leaveMenu);
-            }
 
-        }
-
-        //This method handles all of our Game Over Menu options
-        public static bool PerformChosenMenuOption(ConsoleKeyInfo pressedKey, bool leaveMenu)
-        {
-            //If the player chose Option 1
-            if (pressedKey.KeyChar == 49)
-            {
-                //we simply leave the menu, and the game will play again.
-                leaveMenu = true;
-            }
-            //If we choose Option 2
-            else if (pressedKey.KeyChar == 50)
-            {
-                //Call a method which prints out our complete move log.
-                //Print.PrintCompleteLog();
-                //We wont leave the menu after this
-                leaveMenu = false;
-            }
-            //If we choose option 3
-            else if (pressedKey.KeyChar == 51)
-            {
-                //Quit the program
-                Environment.Exit(404);
-            }
-            //Return if we should leave the menu or not
-            return leaveMenu;
-        }
 
         public PlayerPieces CheckAITurn()
         {
