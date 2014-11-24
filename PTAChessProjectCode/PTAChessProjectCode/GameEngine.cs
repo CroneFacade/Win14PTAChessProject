@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using ChessGUI;
 
 
 namespace PTAChessProjectCode
@@ -12,24 +13,31 @@ namespace PTAChessProjectCode
     /// </summary>
     public class GameEngine
     {
+        
 
-        Print Printer;
+
+        
+        //Print Printer;
         public int countMoves = 1;
         public PlayerPieces AIWhiteComp;
         public PlayerPieces AIBlackComp;
         public AIMoveData moveData;
 
+        
+
         public GameEngine()
         {
-            Printer = new Print();
+            //printGui.PrintBoard(8);
+            //printerGui = new PrintGUI();
+            //Printer = new Print();
             //AIWhiteComp = new AI();
             //gui = new GUI();
 
         }
         public void Start()
         {
-            countMoves = 1;
-            InitiateGame();
+            //countMoves = 1;
+            
             StartGame();
             Logger.CreateCleanLog();
         }
@@ -38,10 +46,14 @@ namespace PTAChessProjectCode
         public void InitiateGame()
         {
             CreateAIs();
-            Printer.PrintBoard(countMoves);
+            //Printer.PrintBoard(countMoves);
+            //printerGui.PrintBoard(countMoves);
 
-            Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
-            Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
+            //printerGui.PrintPieceOnBoard(AIWhiteComp.PieceList);
+            //printerGui.PrintPieceOnBoard(AIBlackComp.PieceList);
+
+            //Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
+            //Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
             SetAITurn();
             var playerToBegin = FetchAIToBegin();
             var playerNotMovin = FetchAINotMoving();
@@ -102,7 +114,7 @@ namespace PTAChessProjectCode
 
             while (continuePlaying)
             {
-                UpdateBoard();
+               // UpdateBoard();
                 Console.ReadLine();
                 continuePlaying = InitiateWhiteTurn(continuePlaying);
                 Console.ReadLine();
@@ -111,7 +123,7 @@ namespace PTAChessProjectCode
             }
         }
 
-        private bool InitiateBlackTurn(bool continuePlaying)
+        public bool InitiateBlackTurn(bool continuePlaying)
         {
             if (continuePlaying == true)
             {
@@ -121,7 +133,7 @@ namespace PTAChessProjectCode
             return continuePlaying;
         }
 
-        private bool InitiateWhiteTurn(bool continuePlaying)
+        public bool InitiateWhiteTurn(bool continuePlaying)
         {
             if (continuePlaying == true)
             {
@@ -135,18 +147,18 @@ namespace PTAChessProjectCode
         {
             AIBlackComp.PieceList = moveData.MakeMove(AIBlackComp, AIWhiteComp.PieceList);
             countMoves++;
-            UpdateBoard();
+          //  UpdateBoard();
         }
 
         private void WhiteMove()
         {
             AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
             //countMoves++;
-            UpdateBoard();
+         //   UpdateBoard();
             Console.ForegroundColor = ConsoleColor.Yellow;
         }
 
-        private void UpdateBoard()
+        /*private void UpdateBoard()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Printer.PrintBoard(countMoves);
@@ -154,7 +166,7 @@ namespace PTAChessProjectCode
             Printer.PrintPieceOnBoard(AIWhiteComp.PieceList);
             Console.ForegroundColor = ConsoleColor.Red;
             Printer.PrintPieceOnBoard(AIBlackComp.PieceList);
-        }
+        }*/
 
 
 
@@ -167,7 +179,7 @@ namespace PTAChessProjectCode
             while (!leaveMenu)
             {
                 //This simply displays the Menu
-                Print.GameOverMenu();
+                //Print.GameOverMenu();
                 //This collects your menu choice.
                 var pressedKey = Console.ReadKey();
                 //This method fetches a bool from the method and lets us know
@@ -190,7 +202,7 @@ namespace PTAChessProjectCode
             else if (pressedKey.KeyChar == 50)
             {
                 //Call a method which prints out our complete move log.
-                Print.PrintCompleteLog();
+                //Print.PrintCompleteLog();
                 //We wont leave the menu after this
                 leaveMenu = false;
             }

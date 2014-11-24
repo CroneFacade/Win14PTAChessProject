@@ -12,6 +12,7 @@ namespace PTAChessProjectCode
     /// </summary>
     public class PlayerPieces 
     {
+        
         public List<ChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }
         public bool MyTurn { get; set; }

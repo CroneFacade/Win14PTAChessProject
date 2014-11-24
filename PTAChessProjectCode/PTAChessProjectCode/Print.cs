@@ -2,90 +2,92 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//using ChessGUI;
 
 namespace PTAChessProjectCode
 {
     /// <summary>
     /// This class handles all the printing functions.
     /// </summary>
-    public class Print
-    {     
-        public void PrintBoard(int turnCounter)
-        {
-            //System.Threading.Thread.Sleep(1000);
-            Console.Clear();
-            for (int i = 0; i < 8; i++)
-            {
-                ChessGUI.GUI.WriteNewLineStuffPlease("        " + '\u2502' + i);
+//    public class Print
+//    {
+//        public void PrintBoard(int turnCounter)
+//        {
+//            //System.Threading.Thread.Sleep(1000);
+//            Console.Clear();
+//            for (int i = 0; i < 8; i++)
+//            {
 
-            }
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2500');
-            ChessGUI.GUI.WriteStuffPlease('\u2518');
-            ChessGUI.GUI.WriteNewLineStuffPlease(" ");
-            ChessGUI.GUI.WriteNewLineStuffPlease("01234567");
-            ChessGUI.GUI.WriteNewLineStuffPlease("\n\nTurn: " + turnCounter);
-            ChessGUI.GUI.WriteNewLineStuffPlease("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
-            ChessGUI.GUI.WriteNewLineStuffPlease("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
-            ChessGUI.GUI.WriteNewLineStuffPlease(Logger.newestLog);
-        }
+//                Console.WriteLine("        " + '\u2502' + i);
 
-        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
-        {
+//            }
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2500');
+//            Console.Write('\u2518');
+//            Console.WriteLine(" ");
+//            Console.Write("01234567");
+//            Console.Write("\n\nTurn: " + turnCounter);
+//            Console.Write("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
+//            Console.Write("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
+//            Console.Write(Logger.newestLog);
+//        }
 
-            foreach (var piece in PieceList)
-            {
-                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
-                ChessGUI.GUI.WriteNewLineStuffPlease(piece.Name);
-            }
-            Console.SetCursorPosition(10, 10);
-        }
+//        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
+//        {
 
-        //This Method prints out our complete saved log
-        public static void PrintCompleteLog()
-        {
-            Console.Clear();
-            int stopCounter = 0;
+//            foreach (var piece in PieceList)
+//            {
+//                Console.SetCursorPosition(piece.PositionX, piece.PositionY);
+//                Console.WriteLine(piece.Name);
+//            }
+//            Console.SetCursorPosition(10, 10);
+//        }
 
-            //For each individual log in our logger list
-            foreach (var log in Logger.CompleteMoveLog)
-            {
-                //Type out that individual log
-                ChessGUI.GUI.WriteNewLineStuffPlease(log);
-                //Add 1 to a counter
-                stopCounter++;
-                //If this counter reaches 10
-                if (stopCounter == 10)
-                {
-                    ChessGUI.GUI.WriteNewLineStuffPlease("Printing Paused, press any key to continue...");
-                    //reset counter
-                    stopCounter = 0;
-                    //Pause until the user hits any key
-                    Console.ReadKey();
+//        //This Method prints out our complete saved log
+//        public static void PrintCompleteLog()
+//        {
+//            Console.Clear();
+//            int stopCounter = 0;
 
-                }
-            }
-            ChessGUI.GUI.WriteNewLineStuffPlease("\n\nEnd of Log, Press any key to return to Menu");
-            Console.ReadKey();
-        }
+//            //For each individual log in our logger list
+//            foreach (var log in Logger.CompleteMoveLog)
+//            {
+//                //Type out that individual log
+//                Console.Write(log);
+//                //Add 1 to a counter
+//                stopCounter++;
+//                //If this counter reaches 10
+//                if (stopCounter == 10)
+//                {
+//                    Console.Write("Printing Paused, press any key to continue...");
+//                    //reset counter
+//                    stopCounter = 0;
+//                    //Pause until the user hits any key
+//                    Console.ReadKey();
 
-        //This Method prints out the Game Over Menu
-        public static void GameOverMenu()
-        {
-            Console.Clear();
-            ChessGUI.GUI.WriteNewLineStuffPlease("Game Over!!!!");
-            ChessGUI.GUI.WriteNewLineStuffPlease(@"
-Menu:
-Press the number for the chosen action
-1. Play again
-2. View the complete log
-3. Quit game");
-        }
-    }
+//                }
+//            }
+//            Console.Write("\n\nEnd of Log, Press any key to return to Menu");
+//            Console.ReadKey();
+//        }
+
+//        //This Method prints out the Game Over Menu
+//        public static void GameOverMenu()
+//        {
+//            Console.Clear();
+//            Console.Write("Game Over!!!!");
+//            Console.Write(@"
+//Menu:
+//Press the number for the chosen action
+//1. Play again
+//2. View the complete log
+//3. Quit game");
+//        }
+//    }
 }
