@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
+    /// <summary>
+    /// Handles the rules of the chessgame.
+    /// </summary>
     class GameRules
     {
         public static int CheckIfLegalMove(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
