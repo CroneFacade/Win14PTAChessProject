@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 namespace PTAChessProjectCode
 {
     /// <summary>
-    /// This class actually contains all of our AI logic and nothing else, This class should be named AI, or AI logic, or AI_Move_logic/data or something similar.
+    /// This class contains the AI logic regaring moves.  
     /// </summary>
     public class AIMoveData
     {
         private PlayerPieces AIToMove { get; set; }
         private PlayerPieces AINotToMove { get; set; }
-        //private List<ChessPiece> EnemyAIPieces { get; set; }
         public List<ChessPiece> PieceThatCanMove { get; set; }
         public List<ChessPiece> PieceThatCanKill { get; set; }
-
         public List<ChessPiece> EnemyPiecePositions { get; set; }
         public List<string> AllMoves { get; set; }
 
@@ -28,9 +26,9 @@ namespace PTAChessProjectCode
             AllMoves = new List<string>();
             PieceThatCanMove = new List<ChessPiece>();
             PieceThatCanKill = new List<ChessPiece>();
+            
         }
 
-        // Vi har en metod MakeMove, en annan AIMakeMove....
         public List<ChessPiece> MakeMove(PlayerPieces playerToMove, List<ChessPiece> enemyList)
         {
             this.AIToMove = playerToMove;
@@ -40,14 +38,8 @@ namespace PTAChessProjectCode
             return AfterMoveList;
         }
 
-        private void SetNewAIToMakeMove(PlayerPieces playerToMove)
-        {
-            this.AIToMove = playerToMove;
-        }
-
         public List<ChessPiece> AIMakeMove(PlayerPieces AIToMove)
         {
-
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
 
             Logger.AmountOfLegalAnalyzedMoves(AllMovesMyPiecesCanMake.Count);
@@ -74,13 +66,11 @@ namespace PTAChessProjectCode
 
                 optimalMovementOption = AllMovesMyPiecesCanMake[randomNumber][randomMovementOption];
             }
-
             Logger.LogDecidedMove(optimalMovementOption);
 
             MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
             return AIToMove.PieceList;
         }
-
 
         /* Förklara metoden, hur räknar vi ut högsta värde på ett drag */
         private MovementOptions FindHighestPieceValue(List<MovementOptions> PiecesICanKill)
@@ -114,7 +104,6 @@ namespace PTAChessProjectCode
                     }
                 }
             }
-
             return PiecesICanKill;
         }
 
@@ -140,7 +129,6 @@ namespace PTAChessProjectCode
             {
                 RemoveEnemyPiece(pieceToMove.EnemyPiece);
             }
-
         }
 
         private void RemoveEnemyPiece(ChessPiece pieceToRemove)
@@ -152,7 +140,6 @@ namespace PTAChessProjectCode
         {
             var AllMoves = new List<List<MovementOptions>>();
             CheckAllMyPieces(list, AllMoves);
-
             return AllMoves;
         }
 
@@ -178,12 +165,10 @@ namespace PTAChessProjectCode
         {
             for (int direction = 0; direction < Piece.AllMoveOptionsForThisPiece.Count; direction++)
             {
-
                 Piece.ClearMovementoptions();
                 Piece.MoveOption(Piece.teamDirection);
 
                 CheckLengthInDirection(list, Piece, AllLegalMovesForThisPiece, direction);
-
             }
         }
 
@@ -208,24 +193,18 @@ namespace PTAChessProjectCode
                 enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
 
                 walkingLength = GameRules.CheckIfLegalMove(Piece, AllLegalMovesForThisPiece, direction, walkingLength, outOfBounds, friendlyAhead, enemyAhead, FuturePositionX, FuturePositionY);
-
             }
         }
-
-        
 
         public static int CreateMovementOption(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool enemyAhead, int FuturePositionX, int FuturePositionY)
         {
             MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[direction];
-
             MoveChoice.MyPiece = Piece;
-
             if (enemyAhead)
             {
                 MoveChoice.CheckForEnemyResult = 1;
                 walkingLength = 100;
             }
-
             if (Piece.teamDirection == -1)
             {
                 Piece.AllMoveOptionsForThisPiece[direction].MyTeam = "White";
@@ -253,6 +232,7 @@ namespace PTAChessProjectCode
             }
             return false;
         }
+
         public bool CheckIfOutOfBounds(int futureX, int futureY)
         {
             if (((futureX > -1) && (futureX < 8)) && ((futureY > -1) && (futureY < 8)))
@@ -264,10 +244,8 @@ namespace PTAChessProjectCode
 
         public bool CheckIfFriendlyAhead(int futureX, int futureY, List<ChessPiece> friendyPieces)
         {
-
             foreach (var piece in friendyPieces)
             {
-
                 if ((futureX == piece.PositionX) && (futureY == piece.PositionY))
                 {
                     return true;
@@ -276,58 +254,11 @@ namespace PTAChessProjectCode
             return false;
         }
 
-        public MovementOptions PickPiece(List<ChessPiece> pieces)
-        {
-            int randomNumber = 0;
-            bool NotBlocked = false;
-            MovementOptions ChosenMovementOption = null;
-            while (!NotBlocked)
-            {
-
-                randomNumber = GetRandomNumber(pieces);
-
-
-                List<MovementOptions> CurrentPieceMoveOptions = pieces[randomNumber].AllMoveOptionsForThisPiece;
-
-
-                foreach (var MoveOption in CurrentPieceMoveOptions)
-                {
-                    foreach (var Piece in pieces)
-                    {
-                        if ((MoveOption.PositionY > -1 && MoveOption.PositionY < 8) && (MoveOption.PositionX > -1 && MoveOption.PositionX < 8))
-                        {
-                            if ((pieces[randomNumber].PositionX + MoveOption.PositionX == Piece.PositionX) && (pieces[randomNumber].PositionY + MoveOption.PositionY == Piece.PositionY))
-                            {
-                                NotBlocked = false;
-                            }
-                            else
-                            {
-                                NotBlocked = true;
-                                ChosenMovementOption = MoveOption;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            return ChosenMovementOption;
-        }
-
         public int GetRandomNumber(int min, int max)
         {
             Random rnd = new Random();
             int randomNumber = rnd.Next(min, max);
             return randomNumber;
-        }
-
-
-        public int GetRandomNumber(List<ChessPiece> pieces)
-        {
-            Random rnd = new Random();
-            int max = pieces.Count + 1;
-            int min = 1;
-            int randomNumber = rnd.Next(min, max);
-            return randomNumber - 1;
         }
     }
 }

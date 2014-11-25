@@ -34,14 +34,10 @@ namespace PTAChessProjectCode
             if (whiteKingAlive && blackKingAlive)
             {
                 continuePlaying = true;
-
             }
             else
             {
-                
                 continuePlaying = false;
-                //This line makes us enter a Game Over Menu
-                //GameEngine.EnterGameOverMenu();
             }
             return continuePlaying;
         }
@@ -55,7 +51,6 @@ namespace PTAChessProjectCode
                 {
                     blackKingAlive = true;
                 }
-                
             }
             return blackKingAlive;
         }
