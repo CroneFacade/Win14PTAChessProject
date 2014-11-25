@@ -73,7 +73,7 @@ namespace PTAChessProjectCode
         private void WhiteMove()
         {
             AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private bool MatchCoordinate(int x, int y, int newX, int newY)

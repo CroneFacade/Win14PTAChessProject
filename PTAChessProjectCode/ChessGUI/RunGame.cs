@@ -24,10 +24,11 @@ namespace ChessGUI
         {
             Console.ForegroundColor = ConsoleColor.White;
             Printer.PrintBoard(engine.countMoves);
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
             Printer.PrintPieceOnBoard(engine.AIWhiteComp.PieceList);
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Black;
             Printer.PrintPieceOnBoard(engine.AIBlackComp.PieceList);
+            Console.ResetColor();
         }
 
         public void StartGame()

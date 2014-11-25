@@ -10,14 +10,41 @@ namespace ChessGUI
 
     public class PrintGUI
     {
-        
+
+        public int colorChoice;
         public void PrintBoard(int turnCounter)
         {
-            //System.Threading.Thread.Sleep(1000);
             Console.Clear();
+
+            colorChoice = 0;
+
             for (int i = 0; i < 8; i++)
             {
-                Console.WriteLine("        " + '\u2502' + i);
+                for (int x = 0; x < 8; x++)
+                {
+                    if (colorChoice == 0)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                        colorChoice = 1;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        colorChoice = 0;
+                    }
+                    Console.Write(" ");
+                }
+                Console.ResetColor();
+                Console.WriteLine("" + '\u2502' + i);
+
+                if (colorChoice == 0)
+                {
+                    colorChoice = 1;
+                }
+                else
+                {
+                    colorChoice = 0;
+                }
             }
 
             Console.Write('\u2500');
@@ -42,9 +69,14 @@ namespace ChessGUI
 
             foreach (var piece in PieceList)
             {
+
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+
+
                 Console.SetCursorPosition(piece.PositionX, piece.PositionY);
                 Console.WriteLine(piece.Name);
             }
+            Console.ResetColor();
             Console.SetCursorPosition(10, 10);
         }
 
@@ -91,5 +123,5 @@ Press the number for the chosen action
     }
 
 
-    
+
 }

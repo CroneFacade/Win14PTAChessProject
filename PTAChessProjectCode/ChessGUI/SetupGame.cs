@@ -38,8 +38,11 @@ namespace ChessGUI
         private void PrintGameBoard()
         {
             Printer.PrintBoard(engine.countMoves);
+            Console.ForegroundColor = ConsoleColor.White;
             Printer.PrintPieceOnBoard(engine.AIWhiteComp.PieceList);
+            Console.ForegroundColor = ConsoleColor.Black;
             Printer.PrintPieceOnBoard(engine.AIBlackComp.PieceList);
+            Console.ResetColor();
         }
 
         
