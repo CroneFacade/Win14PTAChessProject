@@ -7,24 +7,21 @@ using System.Threading.Tasks;
 namespace PTAChessProjectCode
 {
     /// <summary>
-    /// we should rename this class, this is not an AI, it has no logic in it, it only creates pieces. 
-    /// I would suggest calling this class "Piece_Generator" or something similar
+    /// Class to generate our Players Pieces
     /// </summary>
     public class PlayerPieces 
     {
         
         public List<ChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }
-        public bool MyTurn { get; set; }
         public PlayerPieces(bool isWhite, bool myTurn)
         {
-            CheckTeamToMakePiecesFor(isWhite, myTurn);
+            CheckTeamToMakePiecesFor(isWhite);
         }
 
-        private void CheckTeamToMakePiecesFor(bool isWhite, bool myTurn)
+        private void CheckTeamToMakePiecesFor(bool isWhite)
         {
             this.IsWhite = isWhite;
-            this.MyTurn = myTurn;
 
             PieceList = new List<ChessPiece>();
 
@@ -88,7 +85,6 @@ namespace PTAChessProjectCode
         {
             int x = 0;
             int y = 0;
-            int ID = 0;
 
             if (teamdirection == -1)
             {
@@ -100,10 +96,8 @@ namespace PTAChessProjectCode
             {
                 piece.PositionX = x;
                 piece.PositionY = y;
-                piece.id = ID;
                 piece.teamDirection = teamdirection;
                 x++;
-                ID++;
                 if (x == gameBoardWidth)
                 {
                     x = 0;

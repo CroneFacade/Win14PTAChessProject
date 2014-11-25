@@ -22,11 +22,10 @@ namespace PTAChessProjectCode
 
        public int CheckForEnemyResult = 0;
        
-       public MovementOptions(int x, int y, int length, bool canMove, bool canStrike, int ID)
+       public MovementOptions(int x, int y, int length, bool canMove, bool canStrike)
        {
            PositionX = x;
            PositionY = y;
-           IDOfMyPiece = ID;
            this.WalkingLength = length;
            this.CanMove = canMove;
            this.CanStrike = canStrike;
