@@ -18,6 +18,7 @@ namespace PTAChessProjectCode
         public List<ChessPiece> EnemyPiecePositions { get; set; }
         public List<string> AllMoves { get; set; }
 
+        //Constructor generating white and black pieces, also instantiates list of all possible moves, all allowed moves and all pieces that can kill an opponent. 
         public AIMoveData(PlayerPieces MyPieces, PlayerPieces EnemyPieces)
         {
             this.AIToMove = MyPieces;
@@ -29,6 +30,7 @@ namespace PTAChessProjectCode
             
         }
 
+        //Sets up the move of the current player. 
         public List<ChessPiece> MakeMove(PlayerPieces playerToMove, List<ChessPiece> enemyList)
         {
             this.AIToMove = playerToMove;
@@ -38,6 +40,7 @@ namespace PTAChessProjectCode
             return AfterMoveList;
         }
 
+        //Logic deciding which move to make for current player. 
         public List<ChessPiece> AIMakeMove(PlayerPieces AIToMove)
         {
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
@@ -72,14 +75,13 @@ namespace PTAChessProjectCode
             return AIToMove.PieceList;
         }
 
-        /* Förklara metoden, hur räknar vi ut högsta värde på ett drag */
+        //The enemy piece with the highest value can be killed by my piece, which has a lower value than the enemy piece. 
         private MovementOptions FindHighestPieceValue(List<MovementOptions> PiecesICanKill)
         {
             var highestValueFound = 0;
             MovementOptions optimalMovementOption = null;
             foreach (var movementOption in PiecesICanKill)
             {
-                /* Förklaring till if satsen */
                 if ((highestValueFound < movementOption.EnemyPiece.Value) || ((highestValueFound == movementOption.EnemyPiece.Value) && (optimalMovementOption.MyPiece.Value > movementOption.MyPiece.Value)))
                 {
                     highestValueFound = movementOption.EnemyPiece.Value;
@@ -88,7 +90,7 @@ namespace PTAChessProjectCode
             }
             return optimalMovementOption;
         }
-
+        //Finds all the possible enemy pieces that the current players piece can kill and adds them to a list. 
         private List<MovementOptions> FindPiecesICanKill(List<List<MovementOptions>> AllMovesMyPiecesCanMake)
         {
             List<MovementOptions> PiecesICanKill = new List<MovementOptions>();
@@ -106,7 +108,7 @@ namespace PTAChessProjectCode
             }
             return PiecesICanKill;
         }
-
+        //Checks where the enemy piece can go. 
         private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption)
         {
             foreach (var piece in EnemyPiecePositions)
@@ -160,7 +162,7 @@ namespace PTAChessProjectCode
                 }
             }
         }
-
+        //Checks whichs directions the current piece can move in.
         private void CheckAllDirections(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
         {
             for (int direction = 0; direction < Piece.AllMoveOptionsForThisPiece.Count; direction++)
@@ -171,7 +173,7 @@ namespace PTAChessProjectCode
                 CheckLengthInDirection(list, Piece, AllLegalMovesForThisPiece, direction);
             }
         }
-
+        //Chechs how far the current piece is allowed to move in the allowed directions. 
         private void CheckLengthInDirection(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction)
         {
             for (int walkingLength = 1; walkingLength <= Piece.AllMoveOptionsForThisPiece[direction].WalkingLength; walkingLength++)
