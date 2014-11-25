@@ -21,10 +21,7 @@ namespace PTAChessProjectCode
         public void InitiateGame()
         {
             CreateAIs();
-            SetAITurn();
-            var playerToBegin = FetchAIToBegin();
-            var playerNotMovin = FetchAINotMoving();
-            CreateMoveLogic(playerToBegin, playerNotMovin);
+            CreateMoveLogic(AIWhiteComp, AIBlackComp);
         }
 
         /* ***** Initiate new game ******* */
@@ -39,39 +36,9 @@ namespace PTAChessProjectCode
             AIBlackComp = new PlayerPieces(playerBlack, myTurn);
         }
 
-        public void SetAITurn()
+        public void CreateMoveLogic(PlayerPieces AIWhiteComp, PlayerPieces AIBlackComp)
         {
-            AIWhiteComp.MyTurn = true;
-        }
-
-
-        public PlayerPieces FetchAIToBegin()
-        {
-            if (AIWhiteComp.MyTurn == true)
-            {
-                return AIWhiteComp;
-            }
-            else
-            {
-                return AIBlackComp;
-            }
-        }
-
-        public PlayerPieces FetchAINotMoving()
-        {
-            if (AIWhiteComp.MyTurn == false)
-            {
-                return AIWhiteComp;
-            }
-            else
-            {
-                return AIBlackComp;
-            }
-        }
-
-        public void CreateMoveLogic(PlayerPieces playerToBegin, PlayerPieces playerNotMovin)
-        {
-            moveData = new AIMoveData(playerToBegin, playerNotMovin);
+            moveData = new AIMoveData(AIWhiteComp, AIBlackComp);
 
         }
 

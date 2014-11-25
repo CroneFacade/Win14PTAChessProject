@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PTAChessProjectCode
 {
     /// <summary>
-    /// This class contains the AI logic regaring moves.  
+    /// This class contains the AI logic regarding moves.  
     /// </summary>
     public class AIMoveData
     {
@@ -18,11 +18,11 @@ namespace PTAChessProjectCode
         public List<ChessPiece> EnemyPiecePositions { get; set; }
         public List<string> AllMoves { get; set; }
 
-        public AIMoveData(PlayerPieces playerToMove, PlayerPieces playerNotToMove)
+        public AIMoveData(PlayerPieces MyPieces, PlayerPieces EnemyPieces)
         {
-            this.AIToMove = playerToMove;
-            this.AINotToMove = playerNotToMove;
-            this.EnemyPiecePositions = playerNotToMove.PieceList;
+            this.AIToMove = MyPieces;
+            this.AINotToMove = EnemyPieces;
+            this.EnemyPiecePositions = EnemyPieces.PieceList;
             AllMoves = new List<string>();
             PieceThatCanMove = new List<ChessPiece>();
             PieceThatCanKill = new List<ChessPiece>();
