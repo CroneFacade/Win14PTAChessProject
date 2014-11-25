@@ -29,5 +29,9 @@ namespace PTAChessProjectCode
            this.CanMove = canMove;
            this.CanStrike = canStrike;
        }
+
+       public int OldPositionX { get; set; }
+
+       public int OldPositionY { get; set; }
     }
 }

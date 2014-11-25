@@ -82,5 +82,10 @@ namespace PTAChessProjectCode
             //Add the new log to the complete list
             CompleteMoveLog.Add(log);
         }
+
+        internal static void AddMessageToLog(string newLog)
+        {
+            CompleteMoveLog.Add(newLog);
+        }
     }
 }

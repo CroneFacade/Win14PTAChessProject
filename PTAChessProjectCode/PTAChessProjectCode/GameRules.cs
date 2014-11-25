@@ -16,7 +16,7 @@ namespace PTAChessProjectCode
             Logger.TotalMovesAnalyzed();
 
             //I added that if a piece wants to take another piece, then CanStrike has to be true, and if a piece wants to just move, then CanMove must be true. this enforces the CanMove & CanStrike bools in our pieces.
-            if ((!outOfBounds && !friendlyAhead) && ((enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanStrike) || (!enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanMove)))
+            if ((friendlyAhead && enemyAhead)|| ((!outOfBounds && !friendlyAhead) && ((enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanStrike) || (!enemyAhead && Piece.AllMoveOptionsForThisPiece[direction].CanMove))))
             {
                 walkingLength = AIMoveData.CreateMovementOption(Piece, AllLegalMovesForThisPiece, direction, walkingLength, enemyAhead, FuturePositionX, FuturePositionY);
             }
@@ -42,6 +42,13 @@ namespace PTAChessProjectCode
             {
                 continuePlaying = false;
             }
+
+            if ((AIWhiteComp.PieceList.Count == 1) && (AIBlackComp.PieceList.Count == 1))
+            {
+                Logger.AddMessageToLog("Only Kings remaining, its a draw!");
+                continuePlaying = false;
+            }
+
             return continuePlaying;
         }
 

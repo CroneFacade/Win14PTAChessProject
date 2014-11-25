@@ -43,17 +43,20 @@ namespace PTAChessProjectCode
         //Logic deciding which move to make for current player. 
         public List<ChessPiece> AIMakeMove(PlayerPieces AIToMove)
         {
-            List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList);
+            List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList, EnemyPiecePositions);
+
+            List<MovementOptions> FilteredMovesToKeepKingSafe = RemoveOptionsThatThreatenKing(AllMovesMyPiecesCanMake);
 
             Logger.AmountOfLegalAnalyzedMoves(AllMovesMyPiecesCanMake.Count);
 
-            if (AllMovesMyPiecesCanMake.Count == 0)
+            if (FilteredMovesToKeepKingSafe.Count == 0)
             {
+                Logger.AddMessageToLog(AIToMove.ToString()+" Has lost the game.");
                 AIToMove.PieceList.Clear();
                 return AIToMove.PieceList;
             }
 
-            List<MovementOptions> PiecesICanKill = FindPiecesICanKill(AllMovesMyPiecesCanMake);
+            List<MovementOptions> PiecesICanKill = FindPiecesICanKill(FilteredMovesToKeepKingSafe);
 
             MovementOptions optimalMovementOption;
 
@@ -63,16 +66,77 @@ namespace PTAChessProjectCode
             }
             else
             {
-                int randomNumber = GetRandomNumber(0, AllMovesMyPiecesCanMake.Count);
-                int randomPiece = AllMovesMyPiecesCanMake[randomNumber].Count;
-                int randomMovementOption = GetRandomNumber(0, randomPiece);
+                int MaxIndex = FilteredMovesToKeepKingSafe.Count;
+                int randomMovementOption = GetRandomNumber(0, MaxIndex);
 
-                optimalMovementOption = AllMovesMyPiecesCanMake[randomNumber][randomMovementOption];
+                optimalMovementOption = FilteredMovesToKeepKingSafe[randomMovementOption];
             }
             Logger.LogDecidedMove(optimalMovementOption);
 
             MovePiece(optimalMovementOption, AIToMove.PieceList, EnemyPiecePositions);
             return AIToMove.PieceList;
+        }
+
+        private List<MovementOptions> RemoveOptionsThatThreatenKing(List<List<MovementOptions>> AllMovesMyPiecesCanMake)
+        {
+            List<ChessPiece> EnemyPieces = EnemyPiecePositions;
+            List<MovementOptions> FilteredMoves = new List<MovementOptions>();
+
+            foreach (var PieceMoveList in AllMovesMyPiecesCanMake)
+            {
+                foreach (var move in PieceMoveList)
+                {
+                    //Save old Position
+                    move.OldPositionX = move.MyPiece.PositionX;
+                    move.OldPositionY = move.MyPiece.PositionY;
+
+                    //Perform Hypothetical Move
+                    move.MyPiece.PositionX = move.PositionX;
+                    move.MyPiece.PositionY = move.PositionY;
+
+                    //Check enemy move options for hypothetical new board
+                    List<List<MovementOptions>>EnemyMoveOptions = AnalyzeMyPieces(EnemyPieces, AIToMove.PieceList);
+
+                    int KingX = 0;
+                    int KingY = 0;
+
+                    foreach (var piece in AIToMove.PieceList)
+                    {
+                        if (piece.FullName == "King")
+                        {
+                            KingX = piece.PositionX;
+                            KingY = piece.PositionY;
+                        }
+                    }
+
+                    bool AllowMove = true;
+
+                    foreach (var EnemyMoveList in EnemyMoveOptions)
+                    {
+                        foreach (var EnemyMove in EnemyMoveList)
+                        {
+                            Logger.TotalMovesAnalyzed();
+                            if ((EnemyMove.PositionX == KingX) && (EnemyMove.PositionY == KingY))
+                            {
+                                AllowMove = false;
+                            }
+                           
+                        }
+                    }
+
+                    //Undo Hypothetical Move
+                    move.MyPiece.PositionX = move.OldPositionX;
+                    move.MyPiece.PositionY = move.OldPositionY;
+
+                    if (AllowMove)
+                    {
+                        FilteredMoves.Add(move);
+                    }
+
+                }
+            }
+
+            return FilteredMoves;
         }
 
         //The enemy piece with the highest value can be killed by my piece, which has a lower value than the enemy piece. 
@@ -91,27 +155,25 @@ namespace PTAChessProjectCode
             return optimalMovementOption;
         }
         //Finds all the possible enemy pieces that the current players piece can kill and adds them to a list. 
-        private List<MovementOptions> FindPiecesICanKill(List<List<MovementOptions>> AllMovesMyPiecesCanMake)
+        private List<MovementOptions> FindPiecesICanKill(List<MovementOptions> AllMovesMyPiecesCanMake)
         {
             List<MovementOptions> PiecesICanKill = new List<MovementOptions>();
 
-            foreach (var movementList in AllMovesMyPiecesCanMake)
-            {
-                foreach (var movementOption in movementList)
+
+                foreach (var movementOption in AllMovesMyPiecesCanMake)
                 {
                     if (movementOption.CheckForEnemyResult == 1)
                     {
 
-                        PiecesICanKill.Add(AddEnemyPieceToMovementOption(movementOption));
+                        PiecesICanKill.Add(AddEnemyPieceToMovementOption(movementOption, EnemyPiecePositions));
                     }
                 }
-            }
             return PiecesICanKill;
         }
         //Checks where the enemy piece can go. 
-        private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption)
+        private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption, List<ChessPiece> EnemyPieces)
         {
-            foreach (var piece in EnemyPiecePositions)
+            foreach (var piece in EnemyPieces)
             {
                 if ((movementOption.PositionX == piece.PositionX) && (movementOption.PositionY == piece.PositionY))
                 {
@@ -138,23 +200,23 @@ namespace PTAChessProjectCode
             EnemyPiecePositions.Remove(pieceToRemove);
         }
 
-        private List<List<MovementOptions>> AnalyzeMyPieces(List<ChessPiece> list)
+        private List<List<MovementOptions>> AnalyzeMyPieces(List<ChessPiece> MyPieceList, List<ChessPiece> EnemyList)
         {
             var AllMoves = new List<List<MovementOptions>>();
-            CheckAllMyPieces(list, AllMoves);
+            CheckAllMyPieces(MyPieceList, EnemyList, AllMoves);
             return AllMoves;
         }
 
-        private void CheckAllMyPieces(List<ChessPiece> list, List<List<MovementOptions>> AllMoves)
+        private void CheckAllMyPieces(List<ChessPiece> MyList, List<ChessPiece> EnemyList, List<List<MovementOptions>> AllMoves)
         {
-            foreach (var Piece in list)
+            foreach (var Piece in MyList)
             {
                 Piece.ClearMovementoptions();
                 Piece.MoveOption(Piece.teamDirection);
 
                 var AllLegalMovesForThisPiece = new List<MovementOptions>();
 
-                CheckAllDirections(list, Piece, AllLegalMovesForThisPiece);
+                CheckAllDirections(MyList, EnemyList, Piece, AllLegalMovesForThisPiece);
 
                 if (AllLegalMovesForThisPiece.Count != 0)
                 {
@@ -163,18 +225,18 @@ namespace PTAChessProjectCode
             }
         }
         //Checks whichs directions the current piece can move in.
-        private void CheckAllDirections(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
+        private void CheckAllDirections(List<ChessPiece> MyList, List<ChessPiece> EnemyList, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
         {
             for (int direction = 0; direction < Piece.AllMoveOptionsForThisPiece.Count; direction++)
             {
                 Piece.ClearMovementoptions();
                 Piece.MoveOption(Piece.teamDirection);
 
-                CheckLengthInDirection(list, Piece, AllLegalMovesForThisPiece, direction);
+                CheckLengthInDirection(MyList, EnemyList, Piece, AllLegalMovesForThisPiece, direction);
             }
         }
         //Chechs how far the current piece is allowed to move in the allowed directions. 
-        private void CheckLengthInDirection(List<ChessPiece> list, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction)
+        private void CheckLengthInDirection(List<ChessPiece> MyList, List<ChessPiece> EnemyList, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction)
         {
             for (int walkingLength = 1; walkingLength <= Piece.AllMoveOptionsForThisPiece[direction].WalkingLength; walkingLength++)
             {
@@ -191,8 +253,8 @@ namespace PTAChessProjectCode
                 int FuturePositionY = Piece.PositionY + MovingPositionY;
 
                 outOfBounds = CheckIfOutOfBounds(FuturePositionX, FuturePositionY);
-                friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, list);
-                enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyPiecePositions);
+                friendlyAhead = CheckIfFriendlyAhead(FuturePositionX, FuturePositionY, MyList);
+                enemyAhead = CheckIfEnemyAhead(FuturePositionX, FuturePositionY, EnemyList);
 
                 walkingLength = GameRules.CheckIfLegalMove(Piece, AllLegalMovesForThisPiece, direction, walkingLength, outOfBounds, friendlyAhead, enemyAhead, FuturePositionX, FuturePositionY);
             }
