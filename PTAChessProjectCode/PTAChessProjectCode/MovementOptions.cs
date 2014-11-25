@@ -13,7 +13,6 @@ namespace PTAChessProjectCode
        public int PositionX = 0;
        public int PositionY = 0;
        public int WalkingLength = 0;
-       public int IDOfMyPiece = -1;
        public bool CanMove { get; set; }
        public bool CanStrike { get; set; }
        public ChessPiece EnemyPiece { get; set; }
