@@ -18,12 +18,6 @@ namespace PTAChessProjectCode
         public PlayerPieces AIBlackComp;
         public AIMoveData moveData;
 
-        public void Start()
-        {
-            StartGame();
-            Logger.CreateCleanLog();
-        }
-
         public void InitiateGame()
         {
             CreateAIs();
@@ -83,19 +77,6 @@ namespace PTAChessProjectCode
 
         /* ####### iniate new game end ####### */
 
-        public void StartGame()
-        {
-            bool continuePlaying = true;
-
-            while (continuePlaying)
-            {
-                Console.ReadLine();
-                continuePlaying = InitiateWhiteTurn(continuePlaying);
-                Console.ReadLine();
-                continuePlaying = InitiateBlackTurn(continuePlaying);
-            }
-        }
-
         public bool InitiateBlackTurn(bool continuePlaying)
         {
             continuePlaying = GameRules.CheckIfGameOver(continuePlaying, AIWhiteComp, AIBlackComp);
@@ -126,32 +107,6 @@ namespace PTAChessProjectCode
         {
             AIWhiteComp.PieceList = moveData.MakeMove(AIWhiteComp, AIBlackComp.PieceList);
             Console.ForegroundColor = ConsoleColor.Yellow;
-        }
-
-        public PlayerPieces CheckAITurn()
-        {
-            if (AIWhiteComp.MyTurn == true)
-            {
-                return AIWhiteComp;
-            }
-            else
-            {
-                return AIBlackComp;
-            }
-        }
-
-        public void SwitchAITurn(PlayerPieces playerMadeMove)
-        {
-            if (countMoves % 2 == 1)
-            {
-                AIWhiteComp.MyTurn = true;
-                AIBlackComp.MyTurn = false;
-            }
-            else
-            {
-                AIBlackComp.MyTurn = true;
-                AIWhiteComp.MyTurn = false;
-            }
         }
 
         private bool MatchCoordinate(int x, int y, int newX, int newY)
