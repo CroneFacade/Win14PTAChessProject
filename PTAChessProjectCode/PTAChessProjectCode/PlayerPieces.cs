@@ -105,5 +105,16 @@ namespace PTAChessProjectCode
                 }
             }
         }
+
+        internal void ReplacePawnWithQueen(ChessPiece Piece, List<ChessPiece> MyList)
+        {
+            Queen queen = new Queen();
+            queen.PositionX = Piece.PositionX;
+            queen.PositionY = Piece.PositionY;
+            queen.teamDirection = Piece.teamDirection;
+
+            MyList.Remove(Piece);
+            MyList.Add(queen);
+        }
     }
 }
