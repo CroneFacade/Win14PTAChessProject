@@ -9,7 +9,7 @@ namespace PTAChessProjectCode
     /// <summary>
     /// Class that log game data
     /// </summary>
-    public class Logger
+    public static class Logger
     {
         //This is our complete log list of all movements
         public static List<string> CompleteMoveLog = new List<string>();
