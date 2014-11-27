@@ -13,6 +13,7 @@ namespace PTAChessProjectCode
     {
         public List<ChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }
+        public string TeamName;
 
         public PlayerPieces(bool isWhite, bool myTurn)
         {
@@ -28,10 +29,12 @@ namespace PTAChessProjectCode
             if (IsWhite)
             {
                 AddPieces(-1);
+                TeamName = "White";
             }
             else
             {
                 AddPieces(1);
+                TeamName = "Black";
             }
         }
 

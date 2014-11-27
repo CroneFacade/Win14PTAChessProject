@@ -38,10 +38,13 @@ namespace ChessGUI
 
             while (continuePlaying)
             {
-                Console.ReadLine();
+                int sleeptime = 200;
+                System.Threading.Thread.Sleep(sleeptime);
+                //Console.ReadLine();
                 continuePlaying = engine.InitiateWhiteTurn(continuePlaying);
                 UpdateBoard();
-                Console.ReadLine();
+                //Console.ReadLine();
+                System.Threading.Thread.Sleep(sleeptime);
                 continuePlaying = engine.InitiateBlackTurn(continuePlaying);
                 UpdateBoard();
                 

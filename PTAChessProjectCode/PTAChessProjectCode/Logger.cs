@@ -22,6 +22,12 @@ namespace PTAChessProjectCode
 
         //The currently newest log
         public static string newestLog { get; set; }
+
+        //White Points
+        public static int WhitePoints { get; set; }
+
+        //Black Points
+        public static int BlackPoints { get; set; }
         
         //This Method resets the logs for a new game
         public static void CreateCleanLog()
@@ -29,6 +35,8 @@ namespace PTAChessProjectCode
             CompleteMoveLog = new List<string>();
             TotalAnalyzedMoves = 0;
             TotalAmountOfLegalAnalyzedMoves = 0;
+            WhitePoints = 0;
+            BlackPoints = 0;
         }
 
         //This method adds to the TotalAnalyzedMoves counter

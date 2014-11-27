@@ -55,11 +55,12 @@ namespace ChessGUI
             Console.Write('\u2500');
             Console.Write('\u2500');
             Console.Write('\u2500');
-            Console.Write('\u2518');
-            Console.WriteLine(" ");
+            Console.WriteLine('\u2518');
             Console.Write("01234567");
             Console.WriteLine("\n\nTurn: " + turnCounter);
-            Console.WriteLine("Total Moves Analyzed:.... " + Logger.TotalAnalyzedMoves);
+            Console.WriteLine("White Points: " + Logger.WhitePoints);
+            Console.WriteLine("Black Points: " + Logger.BlackPoints);
+            Console.WriteLine("Total Moves Analyzed:.......... " + Logger.TotalAnalyzedMoves);
             Console.WriteLine("Total Legal Moves Found:....... " + Logger.TotalAmountOfLegalAnalyzedMoves);
             Console.WriteLine(Logger.newestLog);
         }

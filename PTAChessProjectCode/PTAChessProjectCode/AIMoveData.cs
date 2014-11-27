@@ -13,10 +13,7 @@ namespace PTAChessProjectCode
     {
         private PlayerPieces AIToMove { get; set; }
         private PlayerPieces AINotToMove { get; set; }
-        public List<ChessPiece> PieceThatCanMove { get; set; }
-        public List<ChessPiece> PieceThatCanKill { get; set; }
         public List<ChessPiece> EnemyPiecePositions { get; set; }
-        public List<string> AllMoves { get; set; }
 
         //Constructor generating white and black pieces, also instantiates list of all possible moves, all allowed moves and all pieces that can kill an opponent. 
         public AIMoveData(PlayerPieces MyPieces, PlayerPieces EnemyPieces)
@@ -24,9 +21,6 @@ namespace PTAChessProjectCode
             this.AIToMove = MyPieces;
             this.AINotToMove = EnemyPieces;
             this.EnemyPiecePositions = EnemyPieces.PieceList;
-            AllMoves = new List<string>();
-            PieceThatCanMove = new List<ChessPiece>();
-            PieceThatCanKill = new List<ChessPiece>();
 
         }
 
@@ -51,7 +45,7 @@ namespace PTAChessProjectCode
 
             if (FilteredMovesToKeepKingSafe.Count == 0)
             {
-                Logger.AddMessageToLog(AIToMove.ToString() + " Has lost the game.");
+                Logger.AddMessageToLog(AIToMove.TeamName + " Has lost the game.");
                 AIToMove.PieceList.Clear();
                 return AIToMove.PieceList;
             }
@@ -108,7 +102,7 @@ namespace PTAChessProjectCode
 
 
 
-                if (HypotheticalMovesThatCanKill.Count > 0)
+                if (HypotheticalMovesThatCanKill.Count > 0 && !(Move.MyPiece.FullName == "King"))
                 {
                     Move.EnemyPiece = HypotheticalMovesThatCanKill[0].EnemyPiece;
                     OptimalMoves.Add(Move);
@@ -266,6 +260,14 @@ namespace PTAChessProjectCode
 
             if (pieceToMove.CheckForEnemyResult == 1)
             {
+                if (pieceToMove.MyTeam == "White")
+                {
+                    Logger.WhitePoints += pieceToMove.EnemyPiece.Value;
+                }
+                else
+                {
+                    Logger.BlackPoints += pieceToMove.EnemyPiece.Value;
+                }
                 RemoveEnemyPiece(pieceToMove.EnemyPiece);
             }
         }
