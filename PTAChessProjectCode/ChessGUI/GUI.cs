@@ -65,7 +65,7 @@ namespace ChessGUI
             Console.WriteLine(Logger.newestLog);
         }
 
-        public void PrintPieceOnBoard(List<ChessPiece> PieceList)
+        public void PrintPieceOnBoard(List<IChessPiece> PieceList)
         {
 
             foreach (var piece in PieceList)

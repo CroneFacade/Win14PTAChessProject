@@ -9,7 +9,7 @@ namespace PTAChessProjectCode
     /// <summary>
     /// Parent class that handles all chesspieces and their prperties
     /// </summary>
-    public interface ChessPiece
+    public interface IChessPiece
     {
         string FullName { get; set; }
         int PositionX { get; set; }

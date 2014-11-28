@@ -39,13 +39,16 @@ namespace ChessGUI
             while (continuePlaying)
             {
                 int sleeptime = 1000;
-                System.Threading.Thread.Sleep(sleeptime);
+                
                 //Console.ReadLine();
                 continuePlaying = engine.InitiateWhiteTurn(continuePlaying);
-                UpdateBoard();
-                //Console.ReadLine();
                 System.Threading.Thread.Sleep(sleeptime);
+                UpdateBoard();
+
+                //Console.ReadLine();
+                
                 continuePlaying = engine.InitiateBlackTurn(continuePlaying);
+                System.Threading.Thread.Sleep(sleeptime);
                 UpdateBoard();
                 
             }

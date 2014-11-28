@@ -11,7 +11,7 @@ namespace PTAChessProjectCode
     /// </summary>
     public class PlayerPieces 
     {
-        public List<ChessPiece> PieceList { get; set; }
+        public List<IChessPiece> PieceList { get; set; }
         public bool IsWhite { get; set; }
         public string TeamName;
 
@@ -24,7 +24,7 @@ namespace PTAChessProjectCode
         {
             this.IsWhite = isWhite;
 
-            PieceList = new List<ChessPiece>();
+            PieceList = new List<IChessPiece>();
 
             if (IsWhite)
             {
@@ -109,7 +109,7 @@ namespace PTAChessProjectCode
             }
         }
 
-        internal void ReplacePawnWithQueen(ChessPiece Piece, List<ChessPiece> MyList)
+        internal void ReplacePawnWithQueen(IChessPiece Piece, List<IChessPiece> MyList)
         {
             Queen queen = new Queen();
             queen.PositionX = Piece.PositionX;

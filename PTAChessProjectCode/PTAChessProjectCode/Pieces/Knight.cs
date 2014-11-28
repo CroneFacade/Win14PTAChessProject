@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTAChessProjectCode
 {
-    class Knight : ChessPiece
+    class Knight : IChessPiece
     {
         public string FullName { get; set; }
         public int PositionX { get; set; }

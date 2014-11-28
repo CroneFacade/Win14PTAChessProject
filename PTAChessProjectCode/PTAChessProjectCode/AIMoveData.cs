@@ -13,7 +13,7 @@ namespace PTAChessProjectCode
     {
         private PlayerPieces AIToMove { get; set; }
         private PlayerPieces AINotToMove { get; set; }
-        public List<ChessPiece> EnemyPiecePositions { get; set; }
+        public List<IChessPiece> EnemyPiecePositions { get; set; }
 
         //Constructor generating white and black pieces, also instantiates list of all possible moves, all allowed moves and all pieces that can kill an opponent. 
         public AIMoveData(PlayerPieces MyPieces, PlayerPieces EnemyPieces)
@@ -25,17 +25,17 @@ namespace PTAChessProjectCode
         }
 
         //Sets up the move of the current player. 
-        public List<ChessPiece> MakeMove(PlayerPieces playerToMove, List<ChessPiece> enemyList)
+        public List<IChessPiece> MakeMove(PlayerPieces playerToMove, List<IChessPiece> enemyList)
         {
             this.AIToMove = playerToMove;
             this.EnemyPiecePositions = enemyList;
 
-            List<ChessPiece> AfterMoveList = AIMakeMove(AIToMove);
+            List<IChessPiece> AfterMoveList = AIMakeMove(AIToMove);
             return AfterMoveList;
         }
 
         //Logic deciding which move to make for current player. 
-        public List<ChessPiece> AIMakeMove(PlayerPieces AIToMove)
+        public List<IChessPiece> AIMakeMove(PlayerPieces AIToMove)
         {
             List<List<MovementOptions>> AllMovesMyPiecesCanMake = AnalyzeMyPieces(AIToMove.PieceList, EnemyPiecePositions);
 
@@ -112,7 +112,7 @@ namespace PTAChessProjectCode
             return OptimalMoves;
         }
 
-        private void CheckIfPawnIsAtEndOfBoard(List<ChessPiece> MyList)
+        private void CheckIfPawnIsAtEndOfBoard(List<IChessPiece> MyList)
         {
             foreach (var Piece in MyList)
             {
@@ -126,7 +126,7 @@ namespace PTAChessProjectCode
 
         private List<MovementOptions> RemoveOptionsThatThreatenKing(List<List<MovementOptions>> AllMovesMyPiecesCanMake)
         {
-            List<ChessPiece> EnemyPieces = EnemyPiecePositions;
+            List<IChessPiece> EnemyPieces = EnemyPiecePositions;
             List<MovementOptions> FilteredMoves = new List<MovementOptions>();
 
             foreach (var PieceMoveList in AllMovesMyPiecesCanMake)
@@ -144,7 +144,7 @@ namespace PTAChessProjectCode
 
 
 
-                    ChessPiece King = FindMyKing();
+                    IChessPiece King = FindMyKing();
 
                     int KingX = King.PositionX;
                     int KingY = King.PositionY;
@@ -184,7 +184,7 @@ namespace PTAChessProjectCode
             move.MyPiece.PositionY = move.OldPositionY;
         }
 
-        private ChessPiece FindMyKing()
+        private IChessPiece FindMyKing()
         {
             foreach (var piece in AIToMove.PieceList)
             {
@@ -240,7 +240,7 @@ namespace PTAChessProjectCode
             return PiecesICanKill;
         }
         //Checks where the enemy piece can go. 
-        private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption, List<ChessPiece> EnemyPieces)
+        private MovementOptions AddEnemyPieceToMovementOption(MovementOptions movementOption, List<IChessPiece> EnemyPieces)
         {
             foreach (var piece in EnemyPieces)
             {
@@ -253,7 +253,7 @@ namespace PTAChessProjectCode
             return movementOption;
         }
 
-        private void MovePiece(MovementOptions pieceToMove, List<ChessPiece> list, List<ChessPiece> EnemyPiecePositions)
+        private void MovePiece(MovementOptions pieceToMove, List<IChessPiece> list, List<IChessPiece> EnemyPiecePositions)
         {
             pieceToMove.MyPiece.PositionX = pieceToMove.PositionX;
             pieceToMove.MyPiece.PositionY = pieceToMove.PositionY;
@@ -272,19 +272,19 @@ namespace PTAChessProjectCode
             }
         }
 
-        private void RemoveEnemyPiece(ChessPiece pieceToRemove)
+        private void RemoveEnemyPiece(IChessPiece pieceToRemove)
         {
             EnemyPiecePositions.Remove(pieceToRemove);
         }
 
-        private List<List<MovementOptions>> AnalyzeMyPieces(List<ChessPiece> MyPieceList, List<ChessPiece> EnemyList)
+        private List<List<MovementOptions>> AnalyzeMyPieces(List<IChessPiece> MyPieceList, List<IChessPiece> EnemyList)
         {
             var AllMoves = new List<List<MovementOptions>>();
             CheckAllMyPieces(MyPieceList, EnemyList, AllMoves);
             return AllMoves;
         }
 
-        private void CheckAllMyPieces(List<ChessPiece> MyList, List<ChessPiece> EnemyList, List<List<MovementOptions>> AllMoves)
+        private void CheckAllMyPieces(List<IChessPiece> MyList, List<IChessPiece> EnemyList, List<List<MovementOptions>> AllMoves)
         {
             foreach (var Piece in MyList)
             {
@@ -302,7 +302,7 @@ namespace PTAChessProjectCode
             }
         }
         //Checks whichs directions the current piece can move in.
-        private void CheckAllDirections(List<ChessPiece> MyList, List<ChessPiece> EnemyList, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
+        private void CheckAllDirections(List<IChessPiece> MyList, List<IChessPiece> EnemyList, IChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece)
         {
             for (int direction = 0; direction < Piece.AllMoveOptionsForThisPiece.Count; direction++)
             {
@@ -313,7 +313,7 @@ namespace PTAChessProjectCode
             }
         }
         //Chechs how far the current piece is allowed to move in the allowed directions. 
-        private void CheckLengthInDirection(List<ChessPiece> MyList, List<ChessPiece> EnemyList, ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction)
+        private void CheckLengthInDirection(List<IChessPiece> MyList, List<IChessPiece> EnemyList, IChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction)
         {
             for (int walkingLength = 1; walkingLength <= Piece.AllMoveOptionsForThisPiece[direction].WalkingLength; walkingLength++)
             {
@@ -337,7 +337,7 @@ namespace PTAChessProjectCode
             }
         }
 
-        public static int CreateMovementOption(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool enemyAhead, int FuturePositionX, int FuturePositionY)
+        public static int CreateMovementOption(IChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool enemyAhead, int FuturePositionX, int FuturePositionY)
         {
             MovementOptions MoveChoice = Piece.AllMoveOptionsForThisPiece[direction];
             MoveChoice.MyPiece = Piece;
@@ -362,7 +362,7 @@ namespace PTAChessProjectCode
             return walkingLength;
         }
 
-        private bool CheckIfEnemyAhead(int FuturePositionX, int FuturePositionY, List<ChessPiece> EnemyPiecePositions)
+        private bool CheckIfEnemyAhead(int FuturePositionX, int FuturePositionY, List<IChessPiece> EnemyPiecePositions)
         {
             foreach (var piece in EnemyPiecePositions)
             {
@@ -383,7 +383,7 @@ namespace PTAChessProjectCode
             return true;
         }
 
-        public bool CheckIfFriendlyAhead(int futureX, int futureY, List<ChessPiece> friendyPieces)
+        public bool CheckIfFriendlyAhead(int futureX, int futureY, List<IChessPiece> friendyPieces)
         {
             foreach (var piece in friendyPieces)
             {

@@ -11,7 +11,7 @@ namespace PTAChessProjectCode
     /// </summary>
     class GameRules
     {
-        public static int CheckIfLegalMove(ChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
+        public static int CheckIfLegalMove(IChessPiece Piece, List<MovementOptions> AllLegalMovesForThisPiece, int direction, int walkingLength, bool outOfBounds, bool friendlyAhead, bool enemyAhead, int FuturePositionX, int FuturePositionY)
         {
             Logger.TotalMovesAnalyzed();
 

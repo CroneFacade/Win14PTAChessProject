@@ -15,8 +15,8 @@ namespace PTAChessProjectCode
        public int WalkingLength = 0;
        public bool CanMove { get; set; }
        public bool CanStrike { get; set; }
-       public ChessPiece EnemyPiece { get; set; }
-       public ChessPiece MyPiece { get; set; }
+       public IChessPiece EnemyPiece { get; set; }
+       public IChessPiece MyPiece { get; set; }
        public string MyTeam { get; set; }
 
        public int CheckForEnemyResult = 0;
