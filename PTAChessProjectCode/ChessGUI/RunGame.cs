@@ -38,7 +38,7 @@ namespace ChessGUI
 
             while (continuePlaying)
             {
-                int sleeptime = 200;
+                int sleeptime = 1000;
                 System.Threading.Thread.Sleep(sleeptime);
                 //Console.ReadLine();
                 continuePlaying = engine.InitiateWhiteTurn(continuePlaying);
